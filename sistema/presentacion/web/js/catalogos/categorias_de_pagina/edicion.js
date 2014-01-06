@@ -1,109 +1,11 @@
-﻿var EdicionMenus = function(){
+﻿var EdicionCategorias_de_pagina = function(){
 	this.editado=false;
-	this.tituloNuevo='Nuevo Menu';
+	this.tituloNuevo='Nueva Categoria de Pagina';
 	this.saveAndClose=false;
 	
-	this.configurarComboFk_parent=function(){
-		var me=this;
-		
-		$('select[name="fk_parent"]').wijcombobox({			
-			showTrigger: true,
-			width:300,
-			minLength:1,
-			autoFilter:false,	
-			forceSelectionText:true,
-			select : function (e, data) {						
-			},
-			search: function (e, obj) { 						
-			}
-		 });
-		 
-		 $('.contenedor_fk_parent input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_parentEnAjax) return true;			
-			me.setDSFk_parent();
-			me.Fk_parentEnAjax=true;
-		 });
-	};
-		
-		
-	this.setDSFk_parent = function(){		
-		
-		var filtering=new Array();
-		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/menus/buscarMenu',
-			dataType: "json", 
-			type:"POST",
-			data: {
-				style: "full",
-				 filtering:filtering						
-			},
-			key: 'datos'
-		}); 
-
-		var myReader = new wijarrayreader([
-		{name:'label', mapping:'texto' }, 
-		{name:'value', mapping:'id' }]); 
-
-		var datasource = new wijdatasource({ 
-			reader: myReader, 
-			proxy: proxy 
-		}); 
-	
-		$('select[name="fk_parent"]').wijcombobox('option','data',datasource);
-	};
-		
-	this.configurarComboFk_app=function(){
-		var me=this;
-		
-		$('select[name="fk_app"]').wijcombobox({			
-			showTrigger: true,
-			width:300,
-			minLength:1,
-			autoFilter:false,	
-			forceSelectionText:true,
-			select : function (e, data) {						
-			},
-			search: function (e, obj) { 						
-			}
-		 });
-		 
-		 $('.contenedor_fk_app input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_appEnAjax) return true;			
-			me.setDSFk_app();
-			me.Fk_appEnAjax=true;
-		 });
-	};
-		
-		
-	this.setDSFk_app = function(){		
-		
-		var filtering=new Array();
-		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/menus/buscarApp',
-			dataType: "json", 
-			type:"POST",
-			data: {
-				style: "full",
-				 filtering:filtering						
-			},
-			key: 'datos'
-		}); 
-
-		var myReader = new wijarrayreader([
-		{name:'label', mapping:'nombre' }, 
-		{name:'value', mapping:'id' }]); 
-
-		var datasource = new wijdatasource({ 
-			reader: myReader, 
-			proxy: proxy 
-		}); 
-	
-		$('select[name="fk_app"]').wijcombobox('option','data',datasource);
-	};
-		
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("¿Eliminar Menu?");
+		var r=confirm("¿Eliminar Categoria de Pagina?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -212,7 +114,7 @@
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
 		if (id>0){						
-			$(tabId +' #titulo h1').html('Menu: ' + getValorCampo('texto') + ''); 
+			$(tabId +' #titulo h1').html('Categoria de Pagina: ' + getValorCampo('nombre') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
@@ -243,36 +145,6 @@
 			paramObj[kv.name] = kv.value;
 		  }
 		});
-		//-----------------------------------
-		
-
-		//-----------------------------------		
-		var selectedIndex = $('[name="fk_parent"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_parent"]').wijcombobox("option","data");		
-		if (selectedIndex == -1){
-			paramObj['fk_parent'] =0;
-		}else{
-			if (selectedItem.data == undefined ){
-				paramObj['fk_parent'] =selectedItem[selectedIndex]['value'];
-			}else{
-				paramObj['fk_parent'] =selectedItem.data[selectedIndex]['id'];
-			}
-		}
-		//-----------------------------------
-		
-
-		//-----------------------------------		
-		var selectedIndex = $('[name="fk_app"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_app"]').wijcombobox("option","data");		
-		if (selectedIndex == -1){
-			paramObj['fk_app'] =0;
-		}else{
-			if (selectedItem.data == undefined ){
-				paramObj['fk_app'] =selectedItem[selectedIndex]['value'];
-			}else{
-				paramObj['fk_app'] =selectedItem.data[selectedIndex]['id'];
-			}
-		}
 		//-----------------------------------
 		
 		//-----------------------------------
@@ -431,8 +303,6 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_parent();
-this.configurarComboFk_app();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -453,7 +323,7 @@ this.configurarComboFk_app();
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("¿Eliminar Menu?");
+			var r=confirm("¿Eliminar Categoria de Pagina?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

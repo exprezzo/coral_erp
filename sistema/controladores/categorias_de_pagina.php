@@ -1,28 +1,12 @@
 <?php
 
-require_once $_PETICION->basePath.'/modelos/menu.php';
-require_once $_PETICION->basePath.'/presentacion/html.php/menus/menu_pdf.php';
+require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
+require_once $_PETICION->basePath.'/presentacion/html.php/categorias_de_pagina/categoria_de_pagina_pdf.php';
 
-require_once $_PETICION->basePath.'/modelos/menu.php';
-
-require_once $_PETICION->basePath.'/modelos/app.php';
-
-class menus extends Controlador{
-	var $modelo="menu";	
+class categorias_de_pagina extends Controlador{
+	var $modelo="categoria_de_pagina";	
 	
 	
-		function buscarMenu(){
-			$menuMod= new menuModelo();
-			$res = $menuMod->buscar( array() );
-			echo json_encode( $res );
-		}
-		
-		function buscarApp(){
-			$appMod= new appModelo();
-			$res = $appMod->buscar( array() );
-			echo json_encode( $res );
-		}
-		
 	
 	function bajarPdf(){
 		//-------
@@ -31,7 +15,7 @@ class menus extends Controlador{
 		$id=$_PETICION->params[0];
 		$datos= $mod->obtener( $id );
 		//-------
-		$objPdf = new MenuPdf('P','mm','letter');
+		$objPdf = new Categoria_de_paginaPdf('P','mm','letter');
 		$objPdf->datos=$datos;
 		$objPdf->AddPage();
 		$objPdf->imprimir(  );

@@ -221,7 +221,7 @@
             }
 		});
 				
-		dataSource.reader.read= function (datasource) {						
+		dataSource.reader.read= function (datasource) {
 			var totalRows=datasource.data.totalRows;						
 			datasource.data = datasource.data.rows;
 			datasource.data.totalRows = totalRows;
@@ -230,7 +230,7 @@
 		this.dataSource=dataSource;
 		var gridBusqueda=$(this.tabId+" .grid_busqueda");
 
-		var me=this;		 
+		var me=this;
 		gridBusqueda.wijgrid({
 			dynamic: true,
 			allowColSizing:true,			
@@ -253,21 +253,30 @@
 		
 		var me=this;
 		
-		gridBusqueda.wijgrid({ selectionChanged: function (e, args) { 					
+		gridBusqueda.wijgrid({ selectionChanged: function (e, args) {
 			var item=args.addedCells.item(0);
 			var row=item.row();
 			var data=row.data;			
 			me.selected=data;			
 		} });
 		
-		gridBusqueda.wijgrid({ loaded: function (e) { 
-			$(me.tabId + ' .grid_busqueda tr').bind('dblclick', function (e) { 							
+		gridBusqueda.wijgrid({ loaded: function (e) {
+			$(me.tabId + ' .grid_busqueda tr').bind('dblclick', function (e) {
 				var pedidoId=me.selected[me.configuracion.pk];
 				//          TabManager.add(kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar','Editar '+me.catalogo.nombre,pedidoId);				
-				window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar/'+pedidoId;
+				window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar/'+pedidoId;				
 			});		
+			
+			
+			 
+			 $(".grid_busqueda th").removeClass('wijgridth ui-widget wijmo-c1basefield ui-state-default wijmo-c1field');
 			$(".wijmo-wijgrid-footer").addClass('dataTables_paginate paging_bootstrap pagination');
+			$(".wijmo-wijgrid-footer").removeClass('wijmo-wijsuperpanel-footer ui-state-default ui-corner-bottom ui-widget wijmo-wijpager ui-helper-clearfix');
+			
+			$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility  wijmo-wijgrid-table');
+			$(".grid_busqueda").parent().removeClass('ui-widget wijmo-wijgrid ui-widget-content ui-corner-all');
 		} });
-		$(this.tabId+" .grid_busqueda").addClass('table table-striped table-bordered table-hover');
+		$(this.tabId+" .grid_busqueda").addClass('table table-striped table-bordered table-hover');		
+		$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility ');
 	};
 };

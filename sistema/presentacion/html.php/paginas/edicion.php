@@ -6,7 +6,7 @@
 if ( !empty( $this->datos['id'] ) ){
 			
 			$autor_listado=array();
-			$autor_listado[]=array('id'=>$this->datos['autor'],'name'=>$this->datos['name_autor'] );
+			$autor_listado[]=array('id'=>$this->datos['autor'],'nombre'=>$this->datos['nombre_autor'] );
 			$this->autor_listado = $autor_listado;
 		}else{
 			$mod=new UsuarioModelo();
@@ -19,7 +19,7 @@ if ( !empty( $this->datos['id'] ) ){
 			$fk_categoria_pagina_listado[]=array('id'=>$this->datos['fk_categoria_pagina'],'nombre'=>$this->datos['nombre_fk_categoria_pagina'] );
 			$this->fk_categoria_pagina_listado = $fk_categoria_pagina_listado;
 		}else{
-			$mod=new UsuarioModelo();
+			$mod=new categoria_de_paginaModelo();
 			$objs=$mod->buscar( array() );		
 			$this->fk_categoria_pagina_listado = $objs['datos'];
 		}
@@ -99,11 +99,11 @@ if ( !empty( $this->datos['id'] ) ){
 					<input title="" type="text" name="titulo" class="entradaDatos" value="<?php echo $this->datos['titulo']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_autor" style=""  >
-					<label style="">Autor:</label>
+					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/usuarios/nuevo'; ?>"><label style="">Autor:</label></a>
 					<select name="autor" class="entradaDatos" style="width:250px;">
 						<?php
 							foreach($this->autor_listado as $Usuario){
-								echo '<option value="'.$Usuario['id'].' " >'.$Usuario['name'].'</option>';
+								echo '<option value="'.$Usuario['id'].' " >'.$Usuario['nombre'].'</option>';
 							}
 						?>
 					</select>
@@ -113,11 +113,11 @@ if ( !empty( $this->datos['id'] ) ){
 					<input title="" type="text" name="contenido" class="entradaDatos" value="<?php echo $this->datos['contenido']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_fk_categoria_pagina" style=""  >
-					<label style="">Fk_categoria_pagina:</label>
+					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/categorias_de_pagina/nuevo'; ?>"><label style="">Categoria:</label></a>
 					<select name="fk_categoria_pagina" class="entradaDatos" style="width:250px;">
 						<?php
-							foreach($this->fk_categoria_pagina_listado as $Usuario){
-								echo '<option value="'.$Usuario['id'].' " >'.$Usuario['nombre'].'</option>';
+							foreach($this->fk_categoria_pagina_listado as $categoria_de_pagina){
+								echo '<option value="'.$categoria_de_pagina['id'].' " >'.$categoria_de_pagina['nombre'].'</option>';
 							}
 						?>
 					</select>

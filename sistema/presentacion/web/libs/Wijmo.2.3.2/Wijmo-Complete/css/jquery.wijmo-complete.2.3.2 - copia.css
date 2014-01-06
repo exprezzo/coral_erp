@@ -538,7 +538,7 @@
 
 .wijmo-wijgrid .wijmo-wijgrid-table .wijmo-wijgrid-rowheader .wijmo-wijgrid-innercell
 {
-    /* padding: 1px 2px; */
+    padding: 1px 2px;
 }
 
 .wijmo-wijgrid .wijmo-wijgrid-header, .wijmo-wijgrid .wijmo-wijgrid-footer
@@ -554,20 +554,20 @@
 
 .wijmo-wijgrid tr.wijmo-wijgrid-row
 {
-    /* border-bottom: none; */
+    border-bottom: none;
 }
 
 .wijmo-wijgrid tr.wijmo-wijgrid-row td,
 .wijmo-wijgrid tr.wijmo-wijgrid-row th
 {
-     border: none;
+    border: none;
     border-right-color: inherit;
     border-right-style: solid;
     border-right-width: 1px;
     border-top-color: inherit;
     border-top-style: solid;
     border-top-width: 1px;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .wijmo-wijgrid .wijgridtd
@@ -578,7 +578,7 @@
 
 .wijmo-wijgrid .wijgridth
 {
-    /* padding: 0px; */
+    padding: 0px;
 }
 
 .wijmo-wijgrid .wijmo-wijgrid-headerrow .wijmo-c1basefield
@@ -593,10 +593,10 @@
 
 .wijmo-wijgrid .wijmo-wijgrid-headerrow .wijmo-wijgrid-headertext
 {
-    /*padding: 0.5em 1em;
+    padding: 0.5em 1em;
     display: block;
-    text-align: center;
-    position: relative;*/
+    /*text-align: center;*/
+    position: relative;
 }
 .wijmo-wijgrid .wijmo-wijgrid-headerrow .ui-icon
 {
@@ -778,7 +778,7 @@
 
 .wijmo-wijgrid .wijmo-wijgrid-innercell
 {
-    /* padding: 1px 2px; */
+    padding: 1px 2px;
 }
 
 .wijmo-wijgrid .wijmo-wijcombobox-wrapper

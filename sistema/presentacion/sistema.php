@@ -72,7 +72,7 @@
 		<link href="<?php echo $_PETICION->url_web; ?>libs/Gritter-master/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
 		<script src="<?php echo $_PETICION->url_web; ?>libs/Gritter-master/js/jquery.gritter.min.js" type="text/javascript"></script>
 		<style type="text/css">
-			
+			.ui-page.ui-corner-all.ui-state-active{border:none; }
 			
 		</style>
 		<link href="<?php echo $_PETICION->url_web; ?>css/estilos.css" rel="stylesheet" type="text/css" />

@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Usuario?");
+			var r=confirm("�Eliminar Usuario?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Usuario?");
+						var r=confirm("�Eliminar Usuario?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -178,7 +178,7 @@
 			dynamic:true,
 			reader:new wijarrayreader(campos),
 			loading : function(data){				
-				var value = $( ' input[name="query"]').val();				
+				var value = $('#nav-search-input').val();				
 				
 				data.proxy.options.data.filtering.push({
 					dataKey: "username",
@@ -186,7 +186,11 @@
 					filterValue: value
 				});
 		
-				
+				data.proxy.options.data.filtering.push({
+					dataKey: "pass",
+					filterOperator: "Contains",
+					filterValue: value
+				});
 		
 				data.proxy.options.data.filtering.push({
 					dataKey: "email",
@@ -251,7 +255,7 @@
 			columns: [ 
 				{ dataKey: "id", visible:false, headerText: "Id" },
 { dataKey: "username", visible:true, headerText: "Username" },
-{ dataKey: "pass", visible:false, headerText: "Pass" },
+{ dataKey: "pass", visible:true, headerText: "Pass" },
 { dataKey: "email", visible:true, headerText: "Email" },
 { dataKey: "nombre", visible:true, headerText: "Nombre" },
 { dataKey: "ultima_conexion", visible:true, headerText: "Ultima_conexion" },
@@ -275,7 +279,15 @@
 				var pedidoId=me.selected[me.configuracion.pk];
 				//          TabManager.add(kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar','Editar '+me.catalogo.nombre,pedidoId);				
 				window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar/'+pedidoId;
-			});			
+			});		
+			$(".grid_busqueda th").removeClass('wijgridth ui-widget wijmo-c1basefield ui-state-default wijmo-c1field');
+			$(".wijmo-wijgrid-footer").addClass('dataTables_paginate paging_bootstrap pagination');
+			$(".wijmo-wijgrid-footer").removeClass('wijmo-wijsuperpanel-footer ui-state-default ui-corner-bottom ui-widget wijmo-wijpager ui-helper-clearfix');
+			
+			$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility  wijmo-wijgrid-table');
+			$(".grid_busqueda").parent().removeClass('ui-widget wijmo-wijgrid ui-widget-content ui-corner-all');
 		} });
+		$(this.tabId+" .grid_busqueda").addClass('table table-striped table-bordered table-hover');		
+		$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility ');
 	};
 };

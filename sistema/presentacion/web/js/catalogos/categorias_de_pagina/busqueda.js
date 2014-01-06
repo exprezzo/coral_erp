@@ -1,4 +1,4 @@
-﻿var BusquedaMenus=function(){
+﻿var BusquedaCategorias_de_pagina=function(){
 	
 	this.buscar=function(){
 		var gridBusqueda=$(this.tabId+" .grid_busqueda");				
@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Menu?");
+			var r=confirm("¿Eliminar Categoria de Pagina?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Menu?");
+						var r=confirm("¿Eliminar Categoria de Pagina?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -181,37 +181,7 @@
 				var value = $('#nav-search-input').val();				
 				
 				data.proxy.options.data.filtering.push({
-					dataKey: "texto",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "target",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "icon",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "tipo",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "texto_menu",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "nombre_app",
+					dataKey: "nombre",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -242,14 +212,7 @@
 			showFilter:false,
 			columns: [ 
 				{ dataKey: "id", visible:false, headerText: "Id" },
-{ dataKey: "texto", visible:true, headerText: "Texto" },
-{ dataKey: "target", visible:true, headerText: "Target" },
-{ dataKey: "icon", visible:true, headerText: "Icon" },
-{ dataKey: "tipo", visible:true, headerText: "Tipo" },
-{ dataKey: "texto_fk_parent", visible:true, headerText: "Menu Padre" },
-{ dataKey: "fk_parent", visible:false, headerText: "Menu Padre" },
-{ dataKey: "nombre_fk_app", visible:true, headerText: "App" },
-{ dataKey: "fk_app", visible:false, headerText: "App" },
+{ dataKey: "nombre", visible:true, headerText: "Nombre" },
 			]
 		});
 		
@@ -268,8 +231,14 @@
 				//          TabManager.add(kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar','Editar '+me.catalogo.nombre,pedidoId);				
 				window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar/'+pedidoId;
 			});		
-			// $(".wijmo-wijgrid-footer").addClass('dataTables_paginate paging_bootstrap pagination');
+			$(".grid_busqueda th").removeClass('wijgridth ui-widget wijmo-c1basefield ui-state-default wijmo-c1field');
+			$(".wijmo-wijgrid-footer").addClass('dataTables_paginate paging_bootstrap pagination');
+			$(".wijmo-wijgrid-footer").removeClass('wijmo-wijsuperpanel-footer ui-state-default ui-corner-bottom ui-widget wijmo-wijpager ui-helper-clearfix');
+			
+			$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility  wijmo-wijgrid-table');
+			$(".grid_busqueda").parent().removeClass('ui-widget wijmo-wijgrid ui-widget-content ui-corner-all');
 		} });
-		// $(this.tabId+" .grid_busqueda").addClass('table table-striped table-bordered table-hover');
+		$(this.tabId+" .grid_busqueda").addClass('table table-striped table-bordered table-hover');		
+		$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility ');
 	};
 };

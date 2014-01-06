@@ -2,7 +2,7 @@
 class paginaModelo extends Modelo{	
 	var $tabla='system_pagina';
 	var $pk='id';
-	var $campos= array('id', 'titulo', 'autor', 'name_Usuario', 'contenido', 'fk_categoria_pagina', 'nombre_Usuario', 'fecha_creacion', 'ultima_edicion');
+	var $campos= array('id', 'titulo', 'autor', 'nombre_Usuario', 'contenido', 'fk_categoria_pagina', 'nombre_categoria_de_pagina', 'fecha_creacion', 'ultima_edicion');
 	
 	function buscar($params){
 		
@@ -20,8 +20,8 @@ class paginaModelo extends Modelo{
 				if ( $filtro['dataKey']=='autor' ) {
 					$filtros .= ' pagina.autor like :autor OR ';
 				} 
-				if ( $filtro['dataKey']=='name_Usuario' ) {
-					$filtros .= ' Usuario0.name like :name_Usuario OR ';
+				if ( $filtro['dataKey']=='nombre_Usuario' ) {
+					$filtros .= ' Usuario0.nombre like :nombre_Usuario OR ';
 				} 
 				if ( $filtro['dataKey']=='contenido' ) {
 					$filtros .= ' pagina.contenido like :contenido OR ';
@@ -29,8 +29,8 @@ class paginaModelo extends Modelo{
 				if ( $filtro['dataKey']=='fk_categoria_pagina' ) {
 					$filtros .= ' pagina.fk_categoria_pagina like :fk_categoria_pagina OR ';
 				} 
-				if ( $filtro['dataKey']=='nombre_Usuario' ) {
-					$filtros .= ' Usuario1.nombre like :nombre_Usuario OR ';
+				if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
+					$filtros .= ' categoria_de_pagina1.nombre like :nombre_categoria_de_pagina OR ';
 				} 
 				if ( $filtro['dataKey']=='fecha_creacion' ) {
 					$filtros .= ' pagina.fecha_creacion like :fecha_creacion OR ';
@@ -48,7 +48,7 @@ class paginaModelo extends Modelo{
 		
 		$joins='
  LEFT JOIN system_usuarios AS Usuario0 ON Usuario0.id = pagina.autor
- LEFT JOIN system_usuarios AS Usuario1 ON Usuario1.id = pagina.fk_categoria_pagina';
+ LEFT JOIN system_categoria_pagina AS categoria_de_pagina1 ON categoria_de_pagina1.id = pagina.fk_categoria_pagina';
 						
 		$sql = 'SELECT COUNT(*) as total FROM '.$this->tabla.' pagina '.$joins.$filtros;				
 		$sth = $pdo->prepare($sql);		
@@ -64,8 +64,8 @@ class paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='autor' ) {
 				$sth->bindValue(':autor','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='name_Usuario' ) {
-				$sth->bindValue(':name_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='nombre_Usuario' ) {
+				$sth->bindValue(':nombre_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='contenido' ) {
 				$sth->bindValue(':contenido','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -73,8 +73,8 @@ class paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='fk_categoria_pagina' ) {
 				$sth->bindValue(':fk_categoria_pagina','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='nombre_Usuario' ) {
-				$sth->bindValue(':nombre_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
+				$sth->bindValue(':nombre_categoria_de_pagina', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='fecha_creacion' ) {
 				$sth->bindValue(':fecha_creacion','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -101,9 +101,9 @@ class paginaModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT pagina.id, pagina.titulo, pagina.autor, Usuario0.name AS name_autor, pagina.contenido, pagina.fk_categoria_pagina, Usuario1.nombre AS nombre_fk_categoria_pagina, pagina.fecha_creacion, pagina.ultima_edicion FROM '.$this->tabla.' pagina '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT pagina.id, pagina.titulo, pagina.autor, Usuario0.nombre AS nombre_autor, pagina.contenido, pagina.fk_categoria_pagina, categoria_de_pagina1.nombre AS nombre_fk_categoria_pagina, pagina.fecha_creacion, pagina.ultima_edicion FROM '.$this->tabla.' pagina '.$joins.$filtros.' limit :start,:limit';
 		}else{
-			$sql = 'SELECT pagina.id, pagina.titulo, pagina.autor, Usuario0.name AS name_autor, pagina.contenido, pagina.fk_categoria_pagina, Usuario1.nombre AS nombre_fk_categoria_pagina, pagina.fecha_creacion, pagina.ultima_edicion FROM '.$this->tabla.' pagina '.$joins.$filtros;
+			$sql = 'SELECT pagina.id, pagina.titulo, pagina.autor, Usuario0.nombre AS nombre_autor, pagina.contenido, pagina.fk_categoria_pagina, categoria_de_pagina1.nombre AS nombre_fk_categoria_pagina, pagina.fecha_creacion, pagina.ultima_edicion FROM '.$this->tabla.' pagina '.$joins.$filtros;
 		}
 				
 		$sth = $pdo->prepare($sql);
@@ -124,8 +124,8 @@ class paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='autor' ) {
 				$sth->bindValue(':autor','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='name_Usuario' ) {
-				$sth->bindValue(':name_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='nombre_Usuario' ) {
+				$sth->bindValue(':nombre_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='contenido' ) {
 				$sth->bindValue(':contenido','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -133,8 +133,8 @@ class paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='fk_categoria_pagina' ) {
 				$sth->bindValue(':fk_categoria_pagina','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='nombre_Usuario' ) {
-				$sth->bindValue(':nombre_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
+				$sth->bindValue(':nombre_categoria_de_pagina', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='fecha_creacion' ) {
 				$sth->bindValue(':fecha_creacion','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -167,19 +167,19 @@ class paginaModelo extends Modelo{
 			$obj['id']='';
 			$obj['titulo']='';
 			$obj['autor']='';
-			$obj['name_Usuario']='';
+			$obj['nombre_Usuario']='';
 			$obj['contenido']='';
 			$obj['fk_categoria_pagina']='';
-			$obj['nombre_Usuario']='';
+			$obj['nombre_categoria_de_pagina']='';
 			$obj['fecha_creacion']='';
 			$obj['ultima_edicion']='';
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT pagina.id, pagina.titulo, pagina.autor, Usuario0.name AS name_autor, pagina.contenido, pagina.fk_categoria_pagina, Usuario1.nombre AS nombre_fk_categoria_pagina, pagina.fecha_creacion, pagina.ultima_edicion
+		$sql = 'SELECT pagina.id, pagina.titulo, pagina.autor, Usuario0.nombre AS nombre_autor, pagina.contenido, pagina.fk_categoria_pagina, categoria_de_pagina1.nombre AS nombre_fk_categoria_pagina, pagina.fecha_creacion, pagina.ultima_edicion
  FROM system_pagina AS pagina
  LEFT JOIN system_usuarios AS Usuario0 ON Usuario0.id = pagina.autor
- LEFT JOIN system_usuarios AS Usuario1 ON Usuario1.id = pagina.fk_categoria_pagina
+ LEFT JOIN system_categoria_pagina AS categoria_de_pagina1 ON categoria_de_pagina1.id = pagina.fk_categoria_pagina
   WHERE pagina.id=:id';
 		$pdo = $this->getConexion();
 		$sth = $pdo->prepare($sql);

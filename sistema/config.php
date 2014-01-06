@@ -1,7 +1,7 @@
 <?php
 $DB_CONFIG=array(
 	'DB_SERVER'	=>'localhost',
-	'DB_NAME'	=>'constructor',
+	'DB_NAME'	=>'coral_erp',
 	'DB_USER'	=>'root',
 	'DB_PASS'	=>'',
 	'PASS_AES'	=>'9as43s'

@@ -178,7 +178,7 @@
 			dynamic:true,
 			reader:new wijarrayreader(campos),
 			loading : function(data){				
-				var value = $( ' input[name="query"]').val();				
+				var value = $('#nav-search-input').val();				
 				
 				data.proxy.options.data.filtering.push({
 					dataKey: "titulo",
@@ -187,7 +187,7 @@
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "name_Usuario",
+					dataKey: "nombre_Usuario",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -199,7 +199,7 @@
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "nombre_Usuario",
+					dataKey: "nombre_categoria_de_pagina",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -243,11 +243,11 @@
 			columns: [ 
 				{ dataKey: "id", visible:false, headerText: "Id" },
 { dataKey: "titulo", visible:false, headerText: "Titulo" },
-{ dataKey: "name_autor", visible:true, headerText: "Autor" },
+{ dataKey: "nombre_autor", visible:true, headerText: "Autor" },
 { dataKey: "autor", visible:false, headerText: "Autor" },
 { dataKey: "contenido", visible:true, headerText: "Contenido" },
-{ dataKey: "nombre_fk_categoria_pagina", visible:true, headerText: "Fk_categoria_pagina" },
-{ dataKey: "fk_categoria_pagina", visible:false, headerText: "Fk_categoria_pagina" },
+{ dataKey: "nombre_fk_categoria_pagina", visible:true, headerText: "Categoria" },
+{ dataKey: "fk_categoria_pagina", visible:false, headerText: "Categoria" },
 { dataKey: "fecha_creacion", visible:false, headerText: "Fecha Creacion" },
 { dataKey: "ultima_edicion", visible:true, headerText: "" },
 			]
@@ -267,7 +267,15 @@
 				var pedidoId=me.selected[me.configuracion.pk];
 				//          TabManager.add(kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar','Editar '+me.catalogo.nombre,pedidoId);				
 				window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar/'+pedidoId;
-			});			
+			});		
+			$(".grid_busqueda th").removeClass('wijgridth ui-widget wijmo-c1basefield ui-state-default wijmo-c1field');
+			$(".wijmo-wijgrid-footer").addClass('dataTables_paginate paging_bootstrap pagination');
+			$(".wijmo-wijgrid-footer").removeClass('wijmo-wijsuperpanel-footer ui-state-default ui-corner-bottom ui-widget wijmo-wijpager ui-helper-clearfix');
+			
+			$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility  wijmo-wijgrid-table');
+			$(".grid_busqueda").parent().removeClass('ui-widget wijmo-wijgrid ui-widget-content ui-corner-all');
 		} });
+		$(this.tabId+" .grid_busqueda").addClass('table table-striped table-bordered table-hover');		
+		$(".grid_busqueda").removeClass('wijmo-wijgrid-root wijmo-wijobserver-visibility ');
 	};
 };
