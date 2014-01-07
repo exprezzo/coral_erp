@@ -73,7 +73,7 @@
 		<script src="<?php echo $_PETICION->url_web; ?>libs/Gritter-master/js/jquery.gritter.min.js" type="text/javascript"></script>
 		<style type="text/css">
 			.ui-page.ui-corner-all.ui-state-active{border:none; }
-			
+			.icon-gen{ width: 24px; height: 24px; background-size: 24px; background-repeat: no-repeat; }
 		</style>
 		<link href="<?php echo $_PETICION->url_web; ?>css/estilos.css" rel="stylesheet" type="text/css" />
 		<script src="<?php echo $_PETICION->url_web; ?>js/kore.js" type="text/javascript"></script>

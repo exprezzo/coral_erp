@@ -1,3 +1,25 @@
+<?php 
+require_once $_PETICION->basePath.'/modelos/aplicacion_usuario.php';
+require_once $_PETICION->basePath.'/modelos/app.php';
+require_once $_PETICION->basePath.'/modelos/conexion.php';
+
+$modApps=new aplicacion_usuarioModelo();
+
+$user = sessionGet('user');
+$params=array(
+	'filtros'=>array(
+		array(
+			'dataKey'=>'fk_usuario',
+			'filterValue'=>$user['id'],
+			'filterOperator'=>'equals'
+			
+		)
+	)
+);
+$apps = $modApps->buscar( $params );
+$appMod= new appModelo();
+
+?>
 <ul class="nav nav-list">
 	<li>
 		<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paginas/buscar" class="dropdown-toggle">
@@ -5,139 +27,42 @@
 			<span class="menu-text">General</span>
 			<b class="arrow icon-angle-down"></b>
 		</a>
-		<ul class="submenu">
+		<ul class="submenu">		
 			<li>
 				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/apps/buscar">
 					<i class="icon-double-angle-right"></i>
 					Aplicaciones
 				</a>
 			</li>
-		</ul>
-	</li>
-
-	<li>
-		<a href="calendar.html" class="dropdown-toggle">
-			<i class="icon-calendar"></i>
-
-			<span class="menu-text">
-				Nominas
-				<span class="badge badge-transparent tooltip-error" title="2&nbsp;Important&nbsp;Events">
-					<i class="icon-warning-sign red bigger-130"></i>
-				</span>
-			</span>
-		</a>
-		<ul class="submenu">
-							<li>
-								<a href="elements.html">
-									<i class="icon-double-angle-right"></i>
-									Elements
-								</a>
-							</li>
-
-							<li>
-								<a href="buttons.html">
-									<i class="icon-double-angle-right"></i>
-									Buttons &amp; Icons
-								</a>
-							</li>
-
-							<li>
-								<a href="treeview.html">
-									<i class="icon-double-angle-right"></i>
-									Treeview
-								</a>
-							</li>
-
-							<li>
-								<a href="#" class="dropdown-toggle">
-									<i class="icon-double-angle-right"></i>
-
-									Three Level Menu
-									<b class="arrow icon-angle-down"></b>
-								</a>
-
-								<ul class="submenu">
-									<li>
-										<a href="#">
-											<i class="icon-leaf"></i>
-											Item #1
-										</a>
-									</li>
-
-									<li>
-										<a href="#" class="dropdown-toggle">
-											<i class="icon-pencil"></i>
-
-											4th level
-											<b class="arrow icon-angle-down"></b>
-										</a>
-
-										<ul class="submenu">
-											<li>
-												<a href="#">
-													<i class="icon-plus"></i>
-													Add Product
-												</a>
-											</li>
-
-											<li>
-												<a href="#">
-													<i class="icon-eye-open"></i>
-													View Products
-												</a>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-	</li>
-
-	<li>
-		<a href="gallery.html">
-			<i class="icon-picture"></i>
-			<span class="menu-text"> Facturacion </span>
-		</a>
-	</li>
-
-	<!--li>
-		<a href="#" class="dropdown-toggle">
-			<i class="icon-tag"></i>
-			<span class="menu-text"> More Pages </span>
-
-			<b class="arrow icon-angle-down"></b>
-		</a>
-
-		<ul class="submenu">
 			<li>
-				<a href="profile.html">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/menus/buscar">
 					<i class="icon-double-angle-right"></i>
-					User Profile
+					Menus
 				</a>
 			</li>
-
 			<li>
-				<a href="pricing.html">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/aplicaciones_del_usuario/buscar">
 					<i class="icon-double-angle-right"></i>
-					Pricing Tables
-				</a>
-			</li>
-
-			<li>
-				<a href="invoice.html">
-					<i class="icon-double-angle-right"></i>
-					Invoice
-				</a>
-			</li>
-
-			<li>
-				<a href="login.html">
-					<i class="icon-double-angle-right"></i>
-					Login &amp; Register
+					Aplicaciones De Usuarios
 				</a>
 			</li>
 		</ul>
-	</li-->
+	</li>
+	<?php
+		foreach($apps['datos'] as $app){
+			$app = $appMod->obtener($app['fk_app']);
+			// print_r( $app );
+			echo '
+			<li>
+				<a href="gallery.html">
+					<i class="icon-gen" style="background-image:url('.$_PETICION->url_web.'apps/'.$app['favicon'].')" ></i>
+					<span class="menu-text">'.$app['nombre'].'</span>
+				</a>
+			</li>
+			';			
+		}
+	?>
+	
 
 	<li class="active open">
 		<a href="#" class="dropdown-toggle">
