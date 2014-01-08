@@ -3,10 +3,18 @@
 require_once $_PETICION->basePath.'/modelos/conexion.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/conexiones/conexion_pdf.php';
 
+require_once $_PETICION->basePath.'/modelos/Usuario.php';
+
 class conexiones extends Controlador{
 	var $modelo="conexion";	
 	
 	
+		function buscarUsuario(){
+			$UsuarioMod= new UsuarioModelo();
+			$res = $UsuarioMod->buscar( array() );
+			echo json_encode( $res );
+		}
+		
 	
 	function bajarPdf(){
 		//-------

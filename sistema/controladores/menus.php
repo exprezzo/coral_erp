@@ -3,7 +3,7 @@
 require_once $_PETICION->basePath.'/modelos/menu.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/menus/menu_pdf.php';
 
-require_once $_PETICION->basePath.'/modelos/menu.php';
+// require_once $_PETICION->basePath.'/modelos/menu.php';
 
 require_once $_PETICION->basePath.'/modelos/app.php';
 

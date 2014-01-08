@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-01-2014 a las 01:56:58
+-- Tiempo de generación: 08-01-2014 a las 01:53:28
 -- Versión del servidor: 5.6.11
 -- Versión de PHP: 5.5.3
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `constructor_app` (
   `descripcion` char(255) DEFAULT NULL,
   `tags` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `constructor_app`
@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS `constructor_app` (
 
 INSERT INTO `constructor_app` (`id`, `nombre`, `ubicacion`, `logo`, `favicon`, `descripcion`, `tags`) VALUES
 (8, 'Ventas', '', '', 'ventas_ico.png', '', ''),
-(9, 'Nomina', '', '', 'nomina_ico.png', '', '');
+(9, 'Nomina', '', '', 'nomina_ico.png', '', ''),
+(10, 'Erp', '/erp', '', 'erp_ico.png', '', '');
 
 -- --------------------------------------------------------
 
@@ -60,22 +61,24 @@ CREATE TABLE IF NOT EXISTS `constructor_db_config` (
   `user` char(255) DEFAULT NULL,
   `pass` char(255) DEFAULT NULL,
   `fk_app` int(11) DEFAULT NULL,
+  `fk_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `constructor_db_config`
 --
 
-INSERT INTO `constructor_db_config` (`id`, `host`, `db_name`, `user`, `pass`, `fk_app`) VALUES
-(1, 'localhost', 'nominas', 'root', '', NULL),
-(2, 'localhost', 'transportes', 'root', '', 5),
-(3, 'localhost', 'maquinas', 'root', '', 6),
-(4, 'localhot', 'nominas', 'root', '', 7),
-(5, 'localhost', 'soporte', 'root', '', 4),
-(6, 'localhot', 'constructor', 'root', '', 2),
-(7, '', '', '', '', 8),
-(8, '', '', '', '', 9);
+INSERT INTO `constructor_db_config` (`id`, `host`, `db_name`, `user`, `pass`, `fk_app`, `fk_usuario`) VALUES
+(1, 'localhost', 'nominas', 'root', '', 0, 144),
+(2, 'localhost', 'transportes', 'root', '', 5, 1),
+(3, 'localhost', 'maquinas', 'root', '', 6, 2),
+(4, 'localhot', 'nominas', 'root', '', 7, 3),
+(5, 'localhost', 'soporte', 'root', '', 4, 4),
+(6, 'localhot', 'constructor', 'root', '', 2, 5),
+(7, '', '', '', '', 8, 6),
+(8, '', '', '', '', 9, 7),
+(9, 'localhost', 'octopus_erp_app_cesar', 'root', '', 10, 8);
 
 -- --------------------------------------------------------
 
@@ -96,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `constructor_elemento_catalogo` (
   `fk_catalogo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_catalogo` (`fk_catalogo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1096 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1097 ;
 
 --
 -- Volcado de datos para la tabla `constructor_elemento_catalogo`
@@ -168,7 +171,7 @@ INSERT INTO `constructor_elemento_catalogo` (`id`, `esDefault`, `extras`, `campo
 (993, '', '', 'db_name', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"DB Name","ayuda":"Nombre de la base de datos","requerido":"0","oculto":"0","editable":"1"}', 95),
 (994, '', '', 'user', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"User","requerido":"0","editable":"1","oculto":"0","ayuda":"User" }', 95),
 (995, '', '', 'pass', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Pass","requerido":"0","editable":"1","oculto":"0","ayuda":"Pass" }', 95),
-(997, '', '', 'conexiones', '', '', '', 'Tabla', '{"titulo":"Conexiones","ayuda":"Conexiones","editable":"1","target":"95","llave_foranea":"fk_app","config_tabla":"[{\\"id\\":\\"991\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"auto_increment\\",\\"campo\\":\\"id\\",\\"llave\\":\\"PRI\\",\\"esNulo\\":\\"NO\\",\\"tipo\\":\\"int(11)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Id\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Id\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"1\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\"}\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"992\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"host\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Host\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Host\\\\\\" }\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"993\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"db_name\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"DB Name\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Nombre de la base de datos\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\"}\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"994\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"user\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"User\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"User\\\\\\" }\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"995\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"pass\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Pass\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Pass\\\\\\" }\\",\\"fk_catalogo\\":\\"95\\"}]"}', 94),
+(997, '', '', 'conexiones', '', '', '', 'Tabla', '{"titulo":"Conexiones","ayuda":"Conexiones","editable":"1","target":"95","llave_foranea":"fk_app","config_tabla":"[{\\"id\\":\\"991\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"auto_increment\\",\\"campo\\":\\"id\\",\\"llave\\":\\"PRI\\",\\"esNulo\\":\\"NO\\",\\"tipo\\":\\"int(11)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Id\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Id\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"1\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\"}\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"992\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"host\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Host\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Host\\\\\\" }\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"993\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"db_name\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"DB Name\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Nombre de la base de datos\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\"}\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"994\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"user\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"User\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"User\\\\\\" }\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"995\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"pass\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Pass\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Pass\\\\\\" }\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"998\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"fk_app\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"\\",\\"tipo\\":\\"\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"App\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"1\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\"}\\",\\"fk_catalogo\\":\\"95\\"},{\\"id\\":\\"1096\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"fk_user\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"\\",\\"tipo\\":\\"\\",\\"componente\\":\\"Combo Box\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Usuario\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"user\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"target\\\\\\":\\\\\\"18\\\\\\",\\\\\\"campo_a_mostrar\\\\\\":\\\\\\"nombre\\\\\\"}\\",\\"fk_catalogo\\":\\"95\\"}]"}', 94),
 (998, '', '', 'fk_app', '', '', '', 'Text Input', '{"etiqueta":"App","ayuda":"","requerido":"1","oculto":"1","editable":"1"}', 95),
 (999, '', 'auto_increment', 'id', 'PRI', 'NO', 'int(11)', 'Text Input', '{"etiqueta":"Id","ayuda":"Id","requerido":"0","oculto":"1","editable":"1"}', 96),
 (1000, '', '', 'nombre', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Nombre","requerido":"0","editable":"1","oculto":"0","ayuda":"Nombre" }', 96),
@@ -188,7 +191,8 @@ INSERT INTO `constructor_elemento_catalogo` (`id`, `esDefault`, `extras`, `campo
 (1092, '', '', 'fk_app', '', 'YES', 'int(11)', 'Combo Box', '{"etiqueta":"Aplicacion","ayuda":"Aplicacion","requerido":"0","oculto":"0","editable":"1","target":"94","campo_a_mostrar":"nombre"}', 109),
 (1093, '', 'auto_increment', 'id', 'PRI', 'NO', 'int(11)', 'Text Input', '{"etiqueta":"Id","ayuda":"Id","requerido":"0","oculto":"1","editable":"1"}', 110),
 (1094, '', '', 'fk_usuario', '', 'NO', 'int(11)', 'Combo Box', '{"etiqueta":"Usuario","ayuda":"Usuario","requerido":"0","oculto":"0","editable":"1","target":"18","campo_a_mostrar":"nombre"}', 110),
-(1095, '', '', 'fk_app', '', 'NO', 'int(11)', 'Combo Box', '{"etiqueta":"Aplicacion","ayuda":"Aplicacion","requerido":"0","oculto":"0","editable":"1","target":"94","campo_a_mostrar":"nombre"}', 110);
+(1095, '', '', 'fk_app', '', 'NO', 'int(11)', 'Combo Box', '{"etiqueta":"Aplicacion","ayuda":"Aplicacion","requerido":"0","oculto":"0","editable":"1","target":"94","campo_a_mostrar":"nombre"}', 110),
+(1096, '', '', 'fk_usuario', '', '', '', 'Combo Box', '{"etiqueta":"Usuario","ayuda":"Usuario","requerido":"1","oculto":"0","editable":"1","target":"18","campo_a_mostrar":"nombre"}', 95);
 
 -- --------------------------------------------------------
 
@@ -205,6 +209,34 @@ CREATE TABLE IF NOT EXISTS `constructor_tabla` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `erp_empresa`
+--
+
+CREATE TABLE IF NOT EXISTS `erp_empresa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` char(255) NOT NULL,
+  `telefonos` char(255) NOT NULL,
+  `logo` char(255) NOT NULL,
+  `sitios_web` char(255) NOT NULL,
+  `actividad` char(255) NOT NULL,
+  `RFC` char(1) NOT NULL,
+  `fk_pais` int(11) NOT NULL,
+  `fk_estado` int(11) NOT NULL,
+  `fk_municipio` int(11) NOT NULL,
+  `localidad` char(255) NOT NULL,
+  `referencia` char(255) NOT NULL,
+  `calle` char(255) NOT NULL,
+  `numero_exterior` char(50) NOT NULL,
+  `numero_interior` char(50) NOT NULL,
+  `colonia` char(255) NOT NULL,
+  `codigo_postal` char(50) NOT NULL,
+  `fk_usuario` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `erp_usuario_aplicacion`
 --
 
@@ -213,16 +245,7 @@ CREATE TABLE IF NOT EXISTS `erp_usuario_aplicacion` (
   `fk_usuario` int(11) NOT NULL,
   `fk_app` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `erp_usuario_aplicacion`
---
-
-INSERT INTO `erp_usuario_aplicacion` (`id`, `fk_usuario`, `fk_app`) VALUES
-(1, 102, 8),
-(2, 102, 9),
-(3, 145, 8);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -291,8 +314,8 @@ INSERT INTO `system_catalogos` (`id`, `fk_modulo`, `nombre`, `controlador`, `mod
 (46, 2, 'Conceptos', 'conceptos', 'concepto', 'exp_concepto', 'id', '', 'Nuevo Concepto', '''Concepto: '' + getValorCampo(''nombre'')', 'Conceptos', 'Concepto Creado', 'Concepto Actualizado', 'Â¿Eliminar Concepto?', 'Concepto Eliminado', 'Â¿Guardar antes de salir?', 'nombre'),
 (47, 2, 'Cotizacion', 'cotizaciones', 'cotizacion', 'exp_cotizacion', 'id', '', 'Nueva Cotizacion', '''Cotizacion: ''+getValorCampo(''serie'')+''  ''+getValorCampo(''folio'')', 'Cotizaciones', 'Cotizacion Creada', 'Cotizacion Actualizada', 'Â¿Eliminar Cotizacion?', 'Cotizacion Eliminada', '', ''),
 (48, 2, 'concepto_cotizacion', 'conceptos_cotizacion', 'concepto_cotizacion', 'exp_conceptos_cotizacion', 'id', '', 'Nuevo Concepto de Cotizacion', '''Concepto: ''+getValorCampo(''fk_concepto'')', 'Conceptos de Cotizacion', 'Concepto Creado', 'Concepto Actualizado', 'Â¿Eliminar Concepto?', 'Concepto Eliminado', '', ''),
-(94, 2, 'App', 'apps', 'app', 'constructor_app', 'id', '', 'Nueva App', 'Aplicacion: {nombre}', 'Aplicaciones', 'Aplicacion Creada', 'Aplicacion Actualizada', 'Â¿Eliminar Aplicacion?', 'Aplicacion Eliminada', '', ''),
-(95, 2, 'Conexion', 'conexiones', 'conexion', 'constructor_db_config', 'id', '', 'Nueva Conexion', 'Conexion: {db_host} - {db_name}', 'Conexiones', 'Conexion Creada', 'Conexion Actualizada', 'Â¿Eliminar?', 'Conexion Eliminada', '', ''),
+(94, 8, 'Aplicaciones', 'apps', 'app', 'constructor_app', 'id', '', 'Nueva App', 'Aplicacion: {nombre}', 'Aplicaciones', 'Aplicacion Creada', 'Aplicacion Actualizada', 'Â¿Eliminar Aplicacion?', 'Aplicacion Eliminada', '', ''),
+(95, 8, 'Conexion', 'conexiones', 'conexion', 'constructor_db_config', 'id', '', 'Nueva Conexion', 'Conexion: {db_host} - {db_name}', 'Conexiones', 'Conexion Creada', 'Conexion Actualizada', '¿Eliminar?', 'Conexion Eliminada', '', ''),
 (96, 2, 'Temas', 'temas', 'tema', 'system_tema', 'id', '', 'Nuevo Tema', 'Tema: {nombre}', 'Temas', 'Tema Creado', 'Tema Actualizado', 'Â¿Eliminar Tema?', 'Tema Eliminado', '', ''),
 (108, 8, 'Categoria de Pagina', 'categorias_de_pagina', 'categoria_de_pagina', 'system_categoria_pagina', 'id', '', 'Nueva Categoria de Pagina', 'Categoria de Pagina: {nombre}', 'Buscar Categorias de Pagina', 'Categoria de Pagina Creada', 'Categoria de Pagina Actualizada', 'Â¿Eliminar Categoria de Pagina?', 'Categoria de Pagina Eliminada', '', ''),
 (109, 8, 'Menu', 'menus', 'menu', 'system_menu', 'id', '', 'Nuevo Menu', 'Menu: {titulo}', 'Menus', 'Menu Creado', 'Menu Actualizado', '¿Eliminar Menu?', 'Menu Eliminado', '', ''),
@@ -354,16 +377,18 @@ CREATE TABLE IF NOT EXISTS `system_menu` (
   `fk_menu` int(11) DEFAULT NULL,
   `fk_app` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `system_menu`
 --
 
 INSERT INTO `system_menu` (`id`, `titulo`, `target`, `es_menu_externo`, `icon`, `fk_menu`, `fk_app`) VALUES
-(1, 'Ventas', '/ventas/ventas/buscar', 0, '', 0, 8),
-(2, 'Conceptos', '/ventas/conceptos/buscar', 0, '', 0, 8),
-(3, 'Clientes', '/ventas/clientes/buscar', 0, '', 0, 8);
+(1, 'Ventas', 'ventas/ventas/buscar', 0, '', 0, 8),
+(2, 'Conceptos', 'ventas/conceptos/buscar', 0, '', 0, 8),
+(3, 'Clientes', 'ventas/clientes/buscar', 0, '', 0, 8),
+(4, 'Recibos', 'nomina/recibos/buscar', 0, '', 1, 9),
+(5, 'Empresas', 'erp/empresas/buscar', 0, '', 0, 10);
 
 -- --------------------------------------------------------
 
@@ -406,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `system_modulos` (
   `ruta_base` char(255) DEFAULT NULL,
   `orden` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `system_modulos`
@@ -414,7 +439,8 @@ CREATE TABLE IF NOT EXISTS `system_modulos` (
 
 INSERT INTO `system_modulos` (`id`, `nombre`, `icono`, `nombre_interno`, `ruta_base`, `orden`) VALUES
 (2, 'Constructor', 'http://png-1.findicons.com/files/icons/2003/business/64/shopping_full.png', 'constructor', '/', 0),
-(8, 'Coral Erp', '', 'sistema', '/', 0);
+(8, 'Octopus Framework', '', 'sistema', '/', 0),
+(9, 'Erp', '', 'erp', '/', 0);
 
 -- --------------------------------------------------------
 
@@ -520,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `system_usuarios` (
 
 INSERT INTO `system_usuarios` (`id`, `username`, `pass`, `email`, `nombre`, `apellidoss`, `ultima_conexion`, `creado`, `fk_rol`, `ip`) VALUES
 (16, 'admin', '098f6bcd4621d373cade4e832627b4f6', 'email@webmaster.com', 'Administrador del sistema', NULL, '2013-12-13 17:43:45', '0000-00-00 00:00:00', 1, ''),
-(102, 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', NULL, '2014-01-06 17:38:39', '0000-00-00 00:00:00', 2, ''),
+(102, 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', NULL, '2014-01-07 11:52:37', '0000-00-00 00:00:00', 2, ''),
 (138, '', '912ec803b2ce49e4a541068d495ab570', '', 'asdf', NULL, '2014-01-05 17:44:04', NULL, 2, ''),
 (141, 'asdf', '912ec803b2ce49e4a541068d495ab570', 'asdf', '', NULL, '2014-01-05 17:44:48', NULL, 2, ''),
 (144, 'cesar', '202cb962ac59075b964b07152d234b70', 'cesar', 'cesar', NULL, '2014-01-05 17:49:45', NULL, 2, ''),

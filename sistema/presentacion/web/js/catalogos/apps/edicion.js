@@ -5,7 +5,7 @@
 	
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("¿Eliminar Aplicacion?");
+		var r=confirm("Â¿Eliminar Aplicacion?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -151,7 +151,7 @@
 		var datos=paramObj;
 		$(tabId+' .tabla_conexiones').wijgrid('endEdit');
 				var conexiones=$(tabId+' .tabla_conexiones').wijgrid('data');
-				datos.conexionesDeApp = conexiones;
+				datos.conexionesDeAplicaciones = conexiones;
 				
 		//Envia los datos al servidor, el servidor responde success true o false.
 		$("#contenedorDatos2").block({ 
@@ -213,7 +213,7 @@
 				
 				
 				//--------------------
-				var elementos=resp.datos.conexionesDeApp;	
+				var elementos=resp.datos.conexionesDeAplicaciones;	
 
 				var grid=$(me.tabId+" .tabla_conexiones");
 				var data=grid.wijgrid('data');				
@@ -338,7 +338,7 @@
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("¿Eliminar Aplicacion?");
+			var r=confirm("Â¿Eliminar Aplicacion?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

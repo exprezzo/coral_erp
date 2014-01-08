@@ -3,6 +3,16 @@
 	$_REQUEST['tabId'] =$id;
 	
 	
+if ( !empty( $this->datos['id'] ) ){
+			
+			$fk_usuario_listado=array();
+			$fk_usuario_listado[]=array('id'=>$this->datos['fk_usuario'],'nombre'=>$this->datos['nombre_fk_usuario'] );
+			$this->fk_usuario_listado = $fk_usuario_listado;
+		}else{
+			$mod=new UsuarioModelo();
+			$objs=$mod->buscar( array() );		
+			$this->fk_usuario_listado = $objs['datos'];
+		}
 ?>
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/edicion.js"></script>
 
@@ -93,6 +103,16 @@
 				<div class="inputBox contenedor_fk_app oculto" style=""  >
 					<label style="">App:</label>
 					<input title="" type="text" name="fk_app" class="entradaDatos" value="<?php echo $this->datos['fk_app']; ?>" style="width:500px;" />
+				</div>
+				<div class="inputBox contenedor_fk_usuario" style=""  >
+					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/usuarios/nuevo'; ?>"><label style="">Usuario:</label></a>
+					<select name="fk_usuario" class="entradaDatos" style="width:250px;">
+						<?php
+							foreach($this->fk_usuario_listado as $Usuario){
+								echo '<option value="'.$Usuario['id'].' " >'.$Usuario['nombre'].'</option>';
+							}
+						?>
+					</select>
 				</div>
 			</form>
 			<div id="contenedorMenu2" class="toolbarEdicion">

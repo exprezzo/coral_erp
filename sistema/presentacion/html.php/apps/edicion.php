@@ -6,7 +6,7 @@
 ?>
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/edicion.js"></script>
 
-<script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/conexiones_de_app.js"></script>
+<script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/conexiones_de_aplicaciones.js"></script>
 <script>			
 	$( function(){	
 		
@@ -62,13 +62,13 @@
 		configDet={
 			padre:editor,
 			tabId:'#<?php echo $_REQUEST['tabId']; ?>',
-			elementos: <?php echo json_encode($this->datos['conexionesDeApp']); ?>,
+			elementos: <?php echo json_encode($this->datos['conexionesDeAplicaciones']); ?>,
 			target:'.tabla_conexiones',
 			contenedor:'.contenedor_tabla_conexiones',
 		};
 
-		var conexionesDeApp = new ConexionesDeApp();		
-		conexionesDeApp.init(configDet);
+		var conexionesDeAplicaciones = new ConexionesDeAplicaciones();		
+		conexionesDeAplicaciones.init(configDet);
 				
 	});
 </script>

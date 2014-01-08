@@ -1,5 +1,64 @@
-var ConexionesDeApp=function (){	
+var ConexionesDeAplicaciones=function (){	
 	
+	this.configurarComboFk_user=function(target){		
+		var tabId=this.tabId;
+		var me=this;
+		var fields=[										
+			
+			{name:'value',mapping: 'id' }, 
+			{name: 'username' }, 
+			{name: 'pass' }, 
+			{name: 'email' }, 
+			{name:'label',mapping: 'nombre' }, 
+			{name: 'ultima_conexion' }, 
+			{name: 'creado' }, 
+			{name: 'fk_rol' }, 
+			{name: 'ip' }
+		];
+		
+		var myReader = new wijarrayreader(fields);
+		
+		var proxy = new wijhttpproxy({
+			url: kore.url_base+kore.modulo+'/usuarios/buscar',
+			dataType:"json",
+			type:'POST'
+		});
+		
+		var datasource = new wijdatasource({
+			reader:  new wijarrayreader(fields),
+			proxy: proxy,
+			loaded: function (data) {},
+			loading: function (dataSource, userData) {                            								
+				dataSource.proxy.options.data=dataSource.proxy.options.data || {};				 
+				dataSource.proxy.options.data.nombre = (userData) ?  userData.value : '';				 
+            }
+		});
+		
+		datasource.reader.read= function (datasource) {			
+			var totalRows=datasource.data.totalRows;			
+			datasource.data = datasource.data.rows;
+			datasource.data.totalRows = totalRows;
+			myReader.read(datasource);
+		};			
+		
+		datasource.load();	
+		
+		var combo=target.wijcombobox({
+			data: datasource,
+			showTrigger: true,
+			minLength: 1,
+			forceSelectionText: false,
+			autoFilter: true,			
+			search: function (e, obj) {},
+			select: function (e, item) 
+			{						
+				me.Usuario=item;
+				
+				return true;
+			}
+		});
+		combo.focus().select();			
+	};
 	this.init=function(config){
 		var tabId=config.tabId, 
 			padre = config.padre, 			
@@ -67,7 +126,9 @@ var ConexionesDeApp=function (){
 				{ name: "host"},
 				{ name: "db_name"},
 				{ name: "user"},
-				{ name: "pass"}
+				{ name: "pass"},
+				{ name: "fk_app"},
+				{ name: "fk_user"}
 		];
 		
 		this.fields=fields;	
@@ -106,7 +167,10 @@ var ConexionesDeApp=function (){
 				{ dataKey: "host", visible:true, headerText: "Host" },
 				{ dataKey: "db_name", visible:true, headerText: "DB Name" },
 				{ dataKey: "user", visible:true, headerText: "User" },
-				{ dataKey: "pass", visible:true, headerText: "Pass" }
+				{ dataKey: "pass", visible:true, headerText: "Pass" },
+				{ dataKey: "fk_app", visible:false, headerText: "App" },
+				{ dataKey: "nombre_fk_user", visible:true, headerText: "Usuario" },
+				{ dataKey: "fk_user", visible:false, headerText: "Usuario" }
 			]
 		});
 		var me=this;
@@ -170,6 +234,24 @@ var ConexionesDeApp=function (){
 		gridElementos.wijgrid({ beforeCellEdit: function(e, args) {
 			switch (args.cell.column().dataKey) {
 				
+			case "nombre_fk_user":
+				var w,h;
+				var domCel = args.cell.tableCell();
+				w = $(domCel).width() ;
+				h = $(domCel).height() ;
+				
+				var combo=
+				$("<input />")
+					.val(args.cell.value())
+					.appendTo(args.cell.container().empty());
+					
+				combo.css('width',	w-5 );
+				combo.css('height',	h-7 );
+				
+				args.handled = true;
+				
+				me.configurarComboFk_user(combo);						
+			break;
 				default:						
 					var domCel = args.cell.tableCell();						
 					var w,h;
@@ -192,6 +274,15 @@ var ConexionesDeApp=function (){
 		gridElementos.wijgrid({beforeCellUpdate:function(e, args) {
 				switch (args.cell.column().dataKey) {
 					
+			case "nombre_fk_user":
+				args.value = args.cell.container().find("input").val();
+
+				if (me.Usuario!=undefined){
+					var row=args.cell.row();					
+					row.data.fk_user = me.Usuario.value;					
+					gridElementos.wijgrid('ensureControl',true);					
+				}
+				break;
 					default:						
 						args.value = args.cell.container().find("input").val();	
 						var row=args.cell.row();						

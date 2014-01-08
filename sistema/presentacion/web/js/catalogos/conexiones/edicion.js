@@ -3,6 +3,55 @@
 	this.tituloNuevo='Nueva Conexion';
 	this.saveAndClose=false;
 	
+	this.configurarComboFk_usuario=function(){
+		var me=this;
+		
+		$('select[name="fk_usuario"]').wijcombobox({			
+			showTrigger: true,
+			width:300,
+			minLength:1,
+			autoFilter:false,	
+			forceSelectionText:true,
+			select : function (e, data) {						
+			},
+			search: function (e, obj) { 						
+			}
+		 });
+		 
+		 $('.contenedor_fk_usuario input[role="textbox"]').bind('keypress', function(){			
+			if (me.Fk_usuarioEnAjax) return true;			
+			me.setDSFk_usuario();
+			me.Fk_usuarioEnAjax=true;
+		 });
+	};
+		
+		
+	this.setDSFk_usuario = function(){		
+		
+		var filtering=new Array();
+		var proxy = new wijhttpproxy({
+			url: kore.url_base+kore.modulo+'/conexiones/buscarUsuario',
+			dataType: "json", 
+			type:"POST",
+			data: {
+				style: "full",
+				 filtering:filtering						
+			},
+			key: 'datos'
+		}); 
+
+		var myReader = new wijarrayreader([
+		{name:'label', mapping:'nombre' }, 
+		{name:'value', mapping:'id' }]); 
+
+		var datasource = new wijdatasource({ 
+			reader: myReader, 
+			proxy: proxy 
+		}); 
+	
+		$('select[name="fk_usuario"]').wijcombobox('option','data',datasource);
+	};
+		
 	var me=this;
 	this.borrar=function(){		
 		var r=confirm("¿Eliminar?");
@@ -145,6 +194,21 @@
 			paramObj[kv.name] = kv.value;
 		  }
 		});
+		//-----------------------------------
+		
+
+		//-----------------------------------		
+		var selectedIndex = $('[name="fk_usuario"]').wijcombobox('option','selectedIndex');  
+		var selectedItem = $('[name="fk_usuario"]').wijcombobox("option","data");		
+		if (selectedIndex == -1){
+			paramObj['fk_usuario'] =0;
+		}else{
+			if (selectedItem.data == undefined ){
+				paramObj['fk_usuario'] =selectedItem[selectedIndex]['value'];
+			}else{
+				paramObj['fk_usuario'] =selectedItem.data[selectedIndex]['id'];
+			}
+		}
 		//-----------------------------------
 		
 		//-----------------------------------
@@ -303,6 +367,7 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
+this.configurarComboFk_usuario();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			

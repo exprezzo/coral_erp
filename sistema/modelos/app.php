@@ -151,7 +151,7 @@ class appModelo extends Modelo{
 			$obj['favicon']='';
 			$obj['descripcion']='';
 			$obj['tags']='';
-			$obj['conexionesDeApp']=array();
+			$obj['conexionesDeAplicaciones']=array();
 			
 		return $obj;
 	}
@@ -189,8 +189,8 @@ class appModelo extends Modelo{
 						)
 					)
 				);
-				$conexionesDeApp=$conceptosMod->buscar($params);				
-				$modelos[0]['conexionesDeApp'] =$conexionesDeApp['datos'];
+				$conexionesDeAplicaciones=$conceptosMod->buscar($params);				
+				$modelos[0]['conexionesDeAplicaciones'] =$conexionesDeAplicaciones['datos'];
 				//---------------------------
 				
 		return $modelos[0];			
@@ -278,7 +278,7 @@ class appModelo extends Modelo{
 		
 		
 		$conexionMod = new conexionModelo();
-		foreach( $datos['conexionesDeApp'] as $el ){
+		foreach( $datos['conexionesDeAplicaciones'] as $el ){
 			if ( !empty($el['eliminado']) ){
 				if ( !empty($el['id']) ){
 					$res = $conexionMod->eliminar( array('id'=>$el['id']) );

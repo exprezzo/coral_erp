@@ -2,7 +2,7 @@
 class conexionModelo extends Modelo{	
 	var $tabla='constructor_db_config';
 	var $pk='id';
-	var $campos= array('id', 'host', 'db_name', 'user', 'pass', 'fk_app');
+	var $campos= array('id', 'host', 'db_name', 'user', 'pass', 'fk_app', 'fk_usuario', 'nombre_Usuario');
 	
 	function buscar($params){
 		
@@ -28,6 +28,12 @@ class conexionModelo extends Modelo{
 				} 
 				if ( $filtro['dataKey']=='fk_app' ) {
 					$filtros .= ' conexion.fk_app like :fk_app OR ';
+				} 
+				if ( $filtro['dataKey']=='fk_usuario' ) {
+					$filtros .= ' conexion.fk_usuario like :fk_usuario OR ';
+				} 
+				if ( $filtro['dataKey']=='nombre_Usuario' ) {
+					$filtros .= ' Usuario0.nombre like :nombre_Usuario OR ';
 				}			
 			}
 			$filtros=substr( $filtros,0,  strlen($filtros)-3 );
@@ -37,7 +43,8 @@ class conexionModelo extends Modelo{
 		}
 		
 		
-		$joins='';
+		$joins='
+ LEFT JOIN system_usuarios AS Usuario0 ON Usuario0.id = conexion.fk_usuario';
 						
 		$sql = 'SELECT COUNT(*) as total FROM '.$this->tabla.' conexion '.$joins.$filtros;				
 		$sth = $pdo->prepare($sql);		
@@ -61,6 +68,12 @@ class conexionModelo extends Modelo{
 			}
 			if ( $filtro['dataKey']=='fk_app' ) {
 				$sth->bindValue(':fk_app','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='fk_usuario' ) {
+				$sth->bindValue(':fk_usuario','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='nombre_Usuario' ) {
+				$sth->bindValue(':nombre_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}		
 			}
 		}
@@ -81,9 +94,9 @@ class conexionModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT conexion.id, conexion.host, conexion.db_name, conexion.user, conexion.pass, conexion.fk_app FROM '.$this->tabla.' conexion '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT conexion.id, conexion.host, conexion.db_name, conexion.user, conexion.pass, conexion.fk_app, conexion.fk_usuario, Usuario0.nombre AS nombre_fk_usuario FROM '.$this->tabla.' conexion '.$joins.$filtros.' limit :start,:limit';
 		}else{
-			$sql = 'SELECT conexion.id, conexion.host, conexion.db_name, conexion.user, conexion.pass, conexion.fk_app FROM '.$this->tabla.' conexion '.$joins.$filtros;
+			$sql = 'SELECT conexion.id, conexion.host, conexion.db_name, conexion.user, conexion.pass, conexion.fk_app, conexion.fk_usuario, Usuario0.nombre AS nombre_fk_usuario FROM '.$this->tabla.' conexion '.$joins.$filtros;
 		}
 				
 		$sth = $pdo->prepare($sql);
@@ -112,6 +125,12 @@ class conexionModelo extends Modelo{
 			}
 			if ( $filtro['dataKey']=='fk_app' ) {
 				$sth->bindValue(':fk_app','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='fk_usuario' ) {
+				$sth->bindValue(':fk_usuario','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='nombre_Usuario' ) {
+				$sth->bindValue(':nombre_Usuario', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}	
 			}
 		}
@@ -141,11 +160,14 @@ class conexionModelo extends Modelo{
 			$obj['user']='';
 			$obj['pass']='';
 			$obj['fk_app']='';
+			$obj['fk_usuario']='';
+			$obj['nombre_Usuario']='';
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT conexion.id, conexion.host, conexion.db_name, conexion.user, conexion.pass, conexion.fk_app
+		$sql = 'SELECT conexion.id, conexion.host, conexion.db_name, conexion.user, conexion.pass, conexion.fk_app, conexion.fk_usuario, Usuario0.nombre AS nombre_fk_usuario
  FROM constructor_db_config AS conexion
+ LEFT JOIN system_usuarios AS Usuario0 ON Usuario0.id = conexion.fk_usuario
   WHERE conexion.id=:id';
 		$pdo = $this->getConexion();
 		$sth = $pdo->prepare($sql);
@@ -191,6 +213,9 @@ class conexionModelo extends Modelo{
 		} 
 		if ( isset( $datos['fk_app'] ) ){
 			$strCampos .= ' fk_app=:fk_app, ';
+		} 
+		if ( isset( $datos['fk_usuario'] ) ){
+			$strCampos .= ' fk_usuario=:fk_usuario, ';
 		}		
 		//--------------------------------------------
 		
@@ -224,6 +249,9 @@ class conexionModelo extends Modelo{
 		}
 		if  ( isset( $datos['fk_app'] ) ){
 			$sth->bindValue(':fk_app', $datos['fk_app'] );
+		}
+		if  ( isset( $datos['fk_usuario'] ) ){
+			$sth->bindValue(':fk_usuario', $datos['fk_usuario'] );
 		}		
 		if ( !$esNuevo)	{
 			$sth->bindValue(':id', $datos['id'] );

@@ -210,6 +210,12 @@
 					filterValue: value
 				});
 		
+				data.proxy.options.data.filtering.push({
+					dataKey: "nombre_Usuario",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
 				
 				
             }
@@ -240,7 +246,9 @@
 { dataKey: "db_name", visible:true, headerText: "DB Name" },
 { dataKey: "user", visible:true, headerText: "User" },
 { dataKey: "pass", visible:true, headerText: "Pass" },
-{ dataKey: "fk_app", visible:false, headerText: "App" },
+{ dataKey: "fk_app", visible:false, headerText: "App" },
+{ dataKey: "nombre_fk_usuario", visible:true, headerText: "Usuario" },
+{ dataKey: "fk_usuario", visible:false, headerText: "Usuario" },
 			]
 		});
 		
