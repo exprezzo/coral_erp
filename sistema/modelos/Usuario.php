@@ -208,7 +208,7 @@ class UsuarioModelo extends Modelo{
 			$obj['nombre']='';
 			$obj['ultima_conexion']='';
 			$obj['creado']='';
-			$obj['fk_rol']='';
+			$obj['fk_rol']='2';
 			$obj['ip']='';
 		return $obj;
 	}

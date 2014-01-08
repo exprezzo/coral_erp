@@ -24,34 +24,28 @@ $menuMod= new menuModelo();
 ?>
 <ul class="nav nav-list">
 	<li>
-		<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paginas/inicio" class="dropdown-toggle">
+		<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paginas/buscar" class="dropdown-toggle">
 			<i class="icon-dashboard"></i>
 			<span class="menu-text">General</span>
 			<b class="arrow icon-angle-down"></b>
 		</a>
 		<ul class="submenu">		
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/empresas/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/apps/buscar">
 					<i class="icon-double-angle-right"></i>
-					Empresa
+					Aplicaciones
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/sucursales/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/menus/buscar">
 					<i class="icon-double-angle-right"></i>
-					Sucursales
+					Menus
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/aplicaciones_del_usuario/buscar">
 					<i class="icon-double-angle-right"></i>
-					Usuarios
-				</a>
-			</li>
-			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/roles/buscar">
-					<i class="icon-double-angle-right"></i>
-					Roles
+					Aplicaciones De Usuarios
 				</a>
 			</li>
 		</ul>
@@ -107,5 +101,49 @@ $menuMod= new menuModelo();
 			</li>
 			';			
 		}
-	?>	
+	?>
+	
+
+	<li class="active open">
+		<a href="#" class="dropdown-toggle">
+			<i class="icon-file-alt"></i>
+
+			<span class="menu-text">
+				Other Pages
+				<span class="badge badge-primary ">4</span>
+			</span>
+
+			<b class="arrow icon-angle-down"></b>
+		</a>
+
+		<ul class="submenu">
+			<li>
+				<a href="error-404.html">
+					<i class="icon-double-angle-right"></i>
+					Error 404
+				</a>
+			</li>
+
+			<li>
+				<a href="error-500.html">
+					<i class="icon-double-angle-right"></i>
+					Error 500
+				</a>
+			</li>
+
+			<li>
+				<a href="grid.html">
+					<i class="icon-double-angle-right"></i>
+					Grid
+				</a>
+			</li>
+
+			<li class="active">
+				<a href="blank.html">
+					<i class="icon-double-angle-right"></i>
+					Blank Page
+				</a>
+			</li>
+		</ul>
+	</li>
 </ul>

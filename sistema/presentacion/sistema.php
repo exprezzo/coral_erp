@@ -392,9 +392,13 @@
 						<span class="btn btn-danger"></span>
 					</div>
 				</div><!--#sidebar-shortcuts-->
-
-				<?php include 'menu.php' ?>
-
+				<?php 
+					if ( intval($user['fk_rol']) ===1){
+						include 'menu_admin.php';
+					}else{
+						include 'menu.php';
+					}
+				?>
 				<div class="sidebar-collapse" id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
 				</div>
