@@ -1,10 +1,10 @@
 <?php 
-require_once $_PETICION->basePath.'/modelos/aplicacion_usuario.php';
-require_once $_PETICION->basePath.'/modelos/app.php';
-require_once $_PETICION->basePath.'/modelos/conexion.php';
-require_once $_PETICION->basePath.'/modelos/menu.php';
+// require_once $_PETICION->basePath.'/modelos/aplicacion_usuario.php';
+// require_once $_PETICION->basePath.'/modelos/app.php';
+// require_once $_PETICION->basePath.'/modelos/conexion.php';
+// require_once $_PETICION->basePath.'/modelos/menu.php';
 
-$modApps=new aplicacion_usuarioModelo();
+// $modApps=new aplicacion_usuarioModelo();
 
 $user = sessionGet('user');
 $params=array(
@@ -17,10 +17,11 @@ $params=array(
 		)
 	)
 );
-$apps = $modApps->buscar( $params );
-$appMod= new appModelo();
+$apps=array('datos'=>array());
+// $apps = $modApps->buscar( $params );
+// $appMod= new appModelo();
 
-$menuMod= new menuModelo();
+// $menuMod= new menuModelo();
 ?>
 <ul class="nav nav-list">
 	<li>
@@ -52,6 +53,24 @@ $menuMod= new menuModelo();
 				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/roles/buscar">
 					<i class="icon-double-angle-right"></i>
 					Roles
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paises/buscar">
+					<i class="icon-double-angle-right"></i>
+					Paises
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/estados/buscar">
+					<i class="icon-double-angle-right"></i>
+					Estados
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/municipios/buscar">
+					<i class="icon-double-angle-right"></i>
+					Municipios
 				</a>
 			</li>
 		</ul>

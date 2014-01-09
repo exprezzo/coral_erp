@@ -94,3 +94,5 @@ background: #191921 url(images/ui-bg_highlight-soft_35_191921_1x100.png) 50% 50%
 font-weight: normal;
 color: #8fddff;
 }*/
+
+.inputBox.oculto{display:none;}

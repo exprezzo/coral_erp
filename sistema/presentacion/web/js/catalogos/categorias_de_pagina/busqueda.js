@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Categoria de Pagina?");
+			var r=confirm("Â¿Eliminar Categoria de Pagina?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Categoria de Pagina?");
+						var r=confirm("Â¿Eliminar Categoria de Pagina?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -186,6 +186,12 @@
 					filterValue: value
 				});
 		
+				data.proxy.options.data.filtering.push({
+					dataKey: "nombre_categoria_de_pagina",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
 				
 				
             }
@@ -212,7 +218,9 @@
 			showFilter:false,
 			columns: [ 
 				{ dataKey: "id", visible:false, headerText: "Id" },
-{ dataKey: "nombre", visible:true, headerText: "Nombre" },
+{ dataKey: "nombre", visible:true, headerText: "Nombre" },
+{ dataKey: "nombre_fk_categoria", visible:true, headerText: "Padre" },
+{ dataKey: "fk_categoria", visible:false, headerText: "Padre" },
 			]
 		});
 		

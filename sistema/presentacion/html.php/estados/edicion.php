@@ -5,13 +5,13 @@
 	
 if ( !empty( $this->datos['id'] ) ){
 			
-			$fk_categoria_listado=array();
-			$fk_categoria_listado[]=array('id'=>$this->datos['fk_categoria'],'nombre'=>$this->datos['nombre_fk_categoria'] );
-			$this->fk_categoria_listado = $fk_categoria_listado;
+			$fk_pais_listado=array();
+			$fk_pais_listado[]=array('id'=>$this->datos['fk_pais'],'nombre'=>$this->datos['nombre_fk_pais'] );
+			$this->fk_pais_listado = $fk_pais_listado;
 		}else{
-			$mod=new categoria_de_paginaModelo();
+			$mod=new paisModelo();
 			$objs=$mod->buscar( array() );		
-			$this->fk_categoria_listado = $objs['datos'];
+			$this->fk_pais_listado = $objs['datos'];
 		}
 ?>
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/edicion.js"></script>
@@ -63,7 +63,7 @@ if ( !empty( $this->datos['id'] ) ){
 			pk:"id"
 			
 		};				
-		 var editor=new EdicionCategorias_de_pagina();
+		 var editor=new EdicionEstados();
 		 editor.init(config);	
 		//-----
 		
@@ -74,7 +74,7 @@ if ( !empty( $this->datos['id'] ) ){
 </style>
 <div class="contenedor_formulario" id="<?php echo $id; ?>">
 	<div id="titulo">
-    	<h1>Nueva Categoria de Pagina</h1>
+    	<h1>Nuevo Estado</h1>
 	</div>
 	<div id="cuerpo">
 		<div id="contenedorDatos2">
@@ -88,12 +88,12 @@ if ( !empty( $this->datos['id'] ) ){
 					<label style="">Nombre:</label>
 					<input title="Nombre" type="text" name="nombre" class="entradaDatos" value="<?php echo $this->datos['nombre']; ?>" style="width:500px;" />
 				</div>
-				<div class="inputBox contenedor_fk_categoria" style=""  >
-					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/categorias_de_pagina/nuevo'; ?>"><label style="">Padre:</label></a>
-					<select name="fk_categoria" class="entradaDatos" style="width:250px;">
+				<div class="inputBox contenedor_fk_pais" style=""  >
+					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/paises/nuevo'; ?>"><label style="">Pais:</label></a>
+					<select name="fk_pais" class="entradaDatos" style="width:250px;">
 						<?php
-							foreach($this->fk_categoria_listado as $categoria_de_pagina){
-								echo '<option value="'.$categoria_de_pagina['id'].' " >'.$categoria_de_pagina['nombre'].'</option>';
+							foreach($this->fk_pais_listado as $pais){
+								echo '<option value="'.$pais['id'].' " >'.$pais['nombre'].'</option>';
 							}
 						?>
 					</select>

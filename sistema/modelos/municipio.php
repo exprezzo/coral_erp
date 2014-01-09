@@ -1,8 +1,8 @@
 <?php
-class categoria_de_paginaModelo extends Modelo{	
-	var $tabla='system_categoria_pagina';
+class municipioModelo extends Modelo{	
+	var $tabla='system_ubicacion_municipios';
 	var $pk='id';
-	var $campos= array('id', 'nombre', 'fk_categoria', 'nombre_categoria_de_pagina');
+	var $campos= array('id', 'nombre', 'clave_sepomex', 'fk_estado', 'nombre_estado');
 	
 	function buscar($params){
 		
@@ -12,16 +12,19 @@ class categoria_de_paginaModelo extends Modelo{
 			foreach($params['filtros'] as $filtro){
 				 
 				if ( $filtro['dataKey']=='id' ) {
-					$filtros .= ' categoria_de_pagina.id like :id OR ';
+					$filtros .= ' municipio.id like :id OR ';
 				} 
 				if ( $filtro['dataKey']=='nombre' ) {
-					$filtros .= ' categoria_de_pagina.nombre like :nombre OR ';
+					$filtros .= ' municipio.nombre like :nombre OR ';
 				} 
-				if ( $filtro['dataKey']=='fk_categoria' ) {
-					$filtros .= ' categoria_de_pagina.fk_categoria like :fk_categoria OR ';
+				if ( $filtro['dataKey']=='clave_sepomex' ) {
+					$filtros .= ' municipio.clave_sepomex like :clave_sepomex OR ';
 				} 
-				if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
-					$filtros .= ' categoria_de_pagina0.nombre like :nombre_categoria_de_pagina OR ';
+				if ( $filtro['dataKey']=='fk_estado' ) {
+					$filtros .= ' municipio.fk_estado like :fk_estado OR ';
+				} 
+				if ( $filtro['dataKey']=='nombre_estado' ) {
+					$filtros .= ' estado0.nombre like :nombre_estado OR ';
 				}			
 			}
 			$filtros=substr( $filtros,0,  strlen($filtros)-3 );
@@ -32,9 +35,9 @@ class categoria_de_paginaModelo extends Modelo{
 		
 		
 		$joins='
- LEFT JOIN system_categoria_pagina AS categoria_de_pagina0 ON categoria_de_pagina0.id = categoria_de_pagina.fk_categoria';
+ LEFT JOIN system_ubicacion_estados AS estado0 ON estado0.id = municipio.fk_estado';
 						
-		$sql = 'SELECT COUNT(*) as total FROM '.$this->tabla.' categoria_de_pagina '.$joins.$filtros;				
+		$sql = 'SELECT COUNT(*) as total FROM '.$this->tabla.' municipio '.$joins.$filtros;				
 		$sth = $pdo->prepare($sql);		
 		if ( !empty($params['filtros']) ){
 			foreach($params['filtros'] as $filtro){
@@ -45,11 +48,14 @@ class categoria_de_paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='nombre' ) {
 				$sth->bindValue(':nombre','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='fk_categoria' ) {
-				$sth->bindValue(':fk_categoria','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='clave_sepomex' ) {
+				$sth->bindValue(':clave_sepomex','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
-				$sth->bindValue(':nombre_categoria_de_pagina', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='fk_estado' ) {
+				$sth->bindValue(':fk_estado','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='nombre_estado' ) {
+				$sth->bindValue(':nombre_estado', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}		
 			}
 		}
@@ -70,9 +76,9 @@ class categoria_de_paginaModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT categoria_de_pagina.id, categoria_de_pagina.nombre, categoria_de_pagina.fk_categoria, categoria_de_pagina0.nombre AS nombre_fk_categoria FROM '.$this->tabla.' categoria_de_pagina '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT municipio.id, municipio.nombre, municipio.clave_sepomex, municipio.fk_estado, estado0.nombre AS nombre_fk_estado FROM '.$this->tabla.' municipio '.$joins.$filtros.' limit :start,:limit';
 		}else{
-			$sql = 'SELECT categoria_de_pagina.id, categoria_de_pagina.nombre, categoria_de_pagina.fk_categoria, categoria_de_pagina0.nombre AS nombre_fk_categoria FROM '.$this->tabla.' categoria_de_pagina '.$joins.$filtros;
+			$sql = 'SELECT municipio.id, municipio.nombre, municipio.clave_sepomex, municipio.fk_estado, estado0.nombre AS nombre_fk_estado FROM '.$this->tabla.' municipio '.$joins.$filtros;
 		}
 				
 		$sth = $pdo->prepare($sql);
@@ -90,11 +96,14 @@ class categoria_de_paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='nombre' ) {
 				$sth->bindValue(':nombre','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='fk_categoria' ) {
-				$sth->bindValue(':fk_categoria','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='clave_sepomex' ) {
+				$sth->bindValue(':clave_sepomex','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
-				$sth->bindValue(':nombre_categoria_de_pagina', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='fk_estado' ) {
+				$sth->bindValue(':fk_estado','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='nombre_estado' ) {
+				$sth->bindValue(':nombre_estado', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}	
 			}
 		}
@@ -120,15 +129,16 @@ class categoria_de_paginaModelo extends Modelo{
 		
 			$obj['id']='';
 			$obj['nombre']='';
-			$obj['fk_categoria']='';
-			$obj['nombre_categoria_de_pagina']='';
+			$obj['clave_sepomex']='';
+			$obj['fk_estado']='';
+			$obj['nombre_estado']='';
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT categoria_de_pagina.id, categoria_de_pagina.nombre, categoria_de_pagina.fk_categoria, categoria_de_pagina0.nombre AS nombre_fk_categoria
- FROM system_categoria_pagina AS categoria_de_pagina
- LEFT JOIN system_categoria_pagina AS categoria_de_pagina0 ON categoria_de_pagina0.id = categoria_de_pagina.fk_categoria
-  WHERE categoria_de_pagina.id=:id';
+		$sql = 'SELECT municipio.id, municipio.nombre, municipio.clave_sepomex, municipio.fk_estado, estado0.nombre AS nombre_fk_estado
+ FROM system_ubicacion_municipios AS municipio
+ LEFT JOIN system_ubicacion_estados AS estado0 ON estado0.id = municipio.fk_estado
+  WHERE municipio.id=:id';
 		$pdo = $this->getConexion();
 		$sth = $pdo->prepare($sql);
 		 $sth->BindValue(':id',$llave ); 
@@ -162,8 +172,11 @@ class categoria_de_paginaModelo extends Modelo{
 		if ( isset( $datos['nombre'] ) ){
 			$strCampos .= ' nombre=:nombre, ';
 		} 
-		if ( isset( $datos['fk_categoria'] ) ){
-			$strCampos .= ' fk_categoria=:fk_categoria, ';
+		if ( isset( $datos['clave_sepomex'] ) ){
+			$strCampos .= ' clave_sepomex=:clave_sepomex, ';
+		} 
+		if ( isset( $datos['fk_estado'] ) ){
+			$strCampos .= ' fk_estado=:fk_estado, ';
 		}		
 		//--------------------------------------------
 		
@@ -172,10 +185,10 @@ class categoria_de_paginaModelo extends Modelo{
 		
 		if ( $esNuevo ){
 			$sql = 'INSERT INTO '.$this->tabla.' SET '.$strCampos;
-			$msg='Categoria de Pagina Creada';
+			$msg='Municipio Creado';
 		}else{
 			$sql = 'UPDATE '.$this->tabla.' SET '.$strCampos.' WHERE id=:id';
-			$msg='Categoria de Pagina Actualizada';
+			$msg='Municipio Actualizado';
 		}
 		
 		$pdo = $this->getConexion();
@@ -186,8 +199,11 @@ class categoria_de_paginaModelo extends Modelo{
 		if  ( isset( $datos['nombre'] ) ){
 			$sth->bindValue(':nombre', $datos['nombre'] );
 		}
-		if  ( isset( $datos['fk_categoria'] ) ){
-			$sth->bindValue(':fk_categoria', $datos['fk_categoria'] );
+		if  ( isset( $datos['clave_sepomex'] ) ){
+			$sth->bindValue(':clave_sepomex', $datos['clave_sepomex'] );
+		}
+		if  ( isset( $datos['fk_estado'] ) ){
+			$sth->bindValue(':fk_estado', $datos['fk_estado'] );
 		}		
 		if ( !$esNuevo)	{
 			$sth->bindValue(':id', $datos['id'] );

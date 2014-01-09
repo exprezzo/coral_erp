@@ -1,8 +1,8 @@
 <?php
-class categoria_de_paginaModelo extends Modelo{	
-	var $tabla='system_categoria_pagina';
+class estadoModelo extends Modelo{	
+	var $tabla='system_ubicacion_estados';
 	var $pk='id';
-	var $campos= array('id', 'nombre', 'fk_categoria', 'nombre_categoria_de_pagina');
+	var $campos= array('id', 'nombre', 'fk_pais', 'nombre_pais');
 	
 	function buscar($params){
 		
@@ -12,16 +12,16 @@ class categoria_de_paginaModelo extends Modelo{
 			foreach($params['filtros'] as $filtro){
 				 
 				if ( $filtro['dataKey']=='id' ) {
-					$filtros .= ' categoria_de_pagina.id like :id OR ';
+					$filtros .= ' estado.id like :id OR ';
 				} 
 				if ( $filtro['dataKey']=='nombre' ) {
-					$filtros .= ' categoria_de_pagina.nombre like :nombre OR ';
+					$filtros .= ' estado.nombre like :nombre OR ';
 				} 
-				if ( $filtro['dataKey']=='fk_categoria' ) {
-					$filtros .= ' categoria_de_pagina.fk_categoria like :fk_categoria OR ';
+				if ( $filtro['dataKey']=='fk_pais' ) {
+					$filtros .= ' estado.fk_pais like :fk_pais OR ';
 				} 
-				if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
-					$filtros .= ' categoria_de_pagina0.nombre like :nombre_categoria_de_pagina OR ';
+				if ( $filtro['dataKey']=='nombre_pais' ) {
+					$filtros .= ' pais0.nombre like :nombre_pais OR ';
 				}			
 			}
 			$filtros=substr( $filtros,0,  strlen($filtros)-3 );
@@ -32,9 +32,9 @@ class categoria_de_paginaModelo extends Modelo{
 		
 		
 		$joins='
- LEFT JOIN system_categoria_pagina AS categoria_de_pagina0 ON categoria_de_pagina0.id = categoria_de_pagina.fk_categoria';
+ LEFT JOIN system_ubicacion_paises AS pais0 ON pais0.id = estado.fk_pais';
 						
-		$sql = 'SELECT COUNT(*) as total FROM '.$this->tabla.' categoria_de_pagina '.$joins.$filtros;				
+		$sql = 'SELECT COUNT(*) as total FROM '.$this->tabla.' estado '.$joins.$filtros;				
 		$sth = $pdo->prepare($sql);		
 		if ( !empty($params['filtros']) ){
 			foreach($params['filtros'] as $filtro){
@@ -45,11 +45,11 @@ class categoria_de_paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='nombre' ) {
 				$sth->bindValue(':nombre','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='fk_categoria' ) {
-				$sth->bindValue(':fk_categoria','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='fk_pais' ) {
+				$sth->bindValue(':fk_pais','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
-				$sth->bindValue(':nombre_categoria_de_pagina', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='nombre_pais' ) {
+				$sth->bindValue(':nombre_pais', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}		
 			}
 		}
@@ -70,9 +70,9 @@ class categoria_de_paginaModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT categoria_de_pagina.id, categoria_de_pagina.nombre, categoria_de_pagina.fk_categoria, categoria_de_pagina0.nombre AS nombre_fk_categoria FROM '.$this->tabla.' categoria_de_pagina '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT estado.id, estado.nombre, estado.fk_pais, pais0.nombre AS nombre_fk_pais FROM '.$this->tabla.' estado '.$joins.$filtros.' limit :start,:limit';
 		}else{
-			$sql = 'SELECT categoria_de_pagina.id, categoria_de_pagina.nombre, categoria_de_pagina.fk_categoria, categoria_de_pagina0.nombre AS nombre_fk_categoria FROM '.$this->tabla.' categoria_de_pagina '.$joins.$filtros;
+			$sql = 'SELECT estado.id, estado.nombre, estado.fk_pais, pais0.nombre AS nombre_fk_pais FROM '.$this->tabla.' estado '.$joins.$filtros;
 		}
 				
 		$sth = $pdo->prepare($sql);
@@ -90,11 +90,11 @@ class categoria_de_paginaModelo extends Modelo{
 			if ( $filtro['dataKey']=='nombre' ) {
 				$sth->bindValue(':nombre','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='fk_categoria' ) {
-				$sth->bindValue(':fk_categoria','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='fk_pais' ) {
+				$sth->bindValue(':fk_pais','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='nombre_categoria_de_pagina' ) {
-				$sth->bindValue(':nombre_categoria_de_pagina', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='nombre_pais' ) {
+				$sth->bindValue(':nombre_pais', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}	
 			}
 		}
@@ -120,15 +120,15 @@ class categoria_de_paginaModelo extends Modelo{
 		
 			$obj['id']='';
 			$obj['nombre']='';
-			$obj['fk_categoria']='';
-			$obj['nombre_categoria_de_pagina']='';
+			$obj['fk_pais']='';
+			$obj['nombre_pais']='';
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT categoria_de_pagina.id, categoria_de_pagina.nombre, categoria_de_pagina.fk_categoria, categoria_de_pagina0.nombre AS nombre_fk_categoria
- FROM system_categoria_pagina AS categoria_de_pagina
- LEFT JOIN system_categoria_pagina AS categoria_de_pagina0 ON categoria_de_pagina0.id = categoria_de_pagina.fk_categoria
-  WHERE categoria_de_pagina.id=:id';
+		$sql = 'SELECT estado.id, estado.nombre, estado.fk_pais, pais0.nombre AS nombre_fk_pais
+ FROM system_ubicacion_estados AS estado
+ LEFT JOIN system_ubicacion_paises AS pais0 ON pais0.id = estado.fk_pais
+  WHERE estado.id=:id';
 		$pdo = $this->getConexion();
 		$sth = $pdo->prepare($sql);
 		 $sth->BindValue(':id',$llave ); 
@@ -162,8 +162,8 @@ class categoria_de_paginaModelo extends Modelo{
 		if ( isset( $datos['nombre'] ) ){
 			$strCampos .= ' nombre=:nombre, ';
 		} 
-		if ( isset( $datos['fk_categoria'] ) ){
-			$strCampos .= ' fk_categoria=:fk_categoria, ';
+		if ( isset( $datos['fk_pais'] ) ){
+			$strCampos .= ' fk_pais=:fk_pais, ';
 		}		
 		//--------------------------------------------
 		
@@ -172,10 +172,10 @@ class categoria_de_paginaModelo extends Modelo{
 		
 		if ( $esNuevo ){
 			$sql = 'INSERT INTO '.$this->tabla.' SET '.$strCampos;
-			$msg='Categoria de Pagina Creada';
+			$msg='Estado Creado';
 		}else{
 			$sql = 'UPDATE '.$this->tabla.' SET '.$strCampos.' WHERE id=:id';
-			$msg='Categoria de Pagina Actualizada';
+			$msg='¿Actualizar Estado?';
 		}
 		
 		$pdo = $this->getConexion();
@@ -186,8 +186,8 @@ class categoria_de_paginaModelo extends Modelo{
 		if  ( isset( $datos['nombre'] ) ){
 			$sth->bindValue(':nombre', $datos['nombre'] );
 		}
-		if  ( isset( $datos['fk_categoria'] ) ){
-			$sth->bindValue(':fk_categoria', $datos['fk_categoria'] );
+		if  ( isset( $datos['fk_pais'] ) ){
+			$sth->bindValue(':fk_pais', $datos['fk_pais'] );
 		}		
 		if ( !$esNuevo)	{
 			$sth->bindValue(':id', $datos['id'] );

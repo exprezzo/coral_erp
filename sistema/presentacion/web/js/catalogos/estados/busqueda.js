@@ -1,4 +1,4 @@
-﻿var BusquedaPaginas=function(){
+﻿var BusquedaEstados=function(){
 	
 	this.buscar=function(){
 		var gridBusqueda=$(this.tabId+" .grid_busqueda");				
@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Pagina?");
+			var r=confirm("¿Eliminar Estado?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Pagina?");
+						var r=confirm("¿Eliminar Estado?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -181,37 +181,13 @@
 				var value = $('#nav-search-input').val();				
 				
 				data.proxy.options.data.filtering.push({
-					dataKey: "titulo",
+					dataKey: "nombre",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "autor",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "contenido",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "nombre_categoria_de_pagina",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "fecha_creacion",
-					filterOperator: "Contains",
-					filterValue: value
-				});
-		
-				data.proxy.options.data.filtering.push({
-					dataKey: "ultima_edicion",
+					dataKey: "nombre_pais",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -242,13 +218,9 @@
 			showFilter:false,
 			columns: [ 
 				{ dataKey: "id", visible:false, headerText: "Id" },
-{ dataKey: "titulo", visible:false, headerText: "Titulo" },
-{ dataKey: "autor", visible:true, headerText: "Autor" },
-{ dataKey: "contenido", visible:true, headerText: "Contenido" },
-{ dataKey: "nombre_fk_categoria_pagina", visible:true, headerText: "Categoria" },
-{ dataKey: "fk_categoria_pagina", visible:false, headerText: "Categoria" },
-{ dataKey: "fecha_creacion", visible:false, headerText: "Fecha Creacion" },
-{ dataKey: "ultima_edicion", visible:true, headerText: "" },
+{ dataKey: "nombre", visible:true, headerText: "Nombre" },
+{ dataKey: "nombre_fk_pais", visible:true, headerText: "Pais" },
+{ dataKey: "fk_pais", visible:false, headerText: "Pais" },
 			]
 		});
 		

@@ -3,55 +3,6 @@
 	this.tituloNuevo='Nueva Pagina';
 	this.saveAndClose=false;
 	
-	this.configurarComboAutor=function(){
-		var me=this;
-		
-		$('select[name="autor"]').wijcombobox({			
-			showTrigger: true,
-			width:300,
-			minLength:1,
-			autoFilter:false,	
-			forceSelectionText:true,
-			select : function (e, data) {						
-			},
-			search: function (e, obj) { 						
-			}
-		 });
-		 
-		 $('.contenedor_autor input[role="textbox"]').bind('keypress', function(){			
-			if (me.AutorEnAjax) return true;			
-			me.setDSAutor();
-			me.AutorEnAjax=true;
-		 });
-	};
-		
-		
-	this.setDSAutor = function(){		
-		
-		var filtering=new Array();
-		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/paginas/buscarUsuario',
-			dataType: "json", 
-			type:"POST",
-			data: {
-				style: "full",
-				 filtering:filtering						
-			},
-			key: 'datos'
-		}); 
-
-		var myReader = new wijarrayreader([
-		{name:'label', mapping:'nombre' }, 
-		{name:'value', mapping:'id' }]); 
-
-		var datasource = new wijdatasource({ 
-			reader: myReader, 
-			proxy: proxy 
-		}); 
-	
-		$('select[name="autor"]').wijcombobox('option','data',datasource);
-	};
-		
 	this.configurarComboFk_categoria_pagina=function(){
 		var me=this;
 		
@@ -247,21 +198,6 @@
 		
 
 		//-----------------------------------		
-		var selectedIndex = $('[name="autor"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="autor"]').wijcombobox("option","data");		
-		if (selectedIndex == -1){
-			paramObj['autor'] =0;
-		}else{
-			if (selectedItem.data == undefined ){
-				paramObj['autor'] =selectedItem[selectedIndex]['value'];
-			}else{
-				paramObj['autor'] =selectedItem.data[selectedIndex]['id'];
-			}
-		}
-		//-----------------------------------
-		
-
-		//-----------------------------------		
 		var selectedIndex = $('[name="fk_categoria_pagina"]').wijcombobox('option','selectedIndex');  
 		var selectedItem = $('[name="fk_categoria_pagina"]').wijcombobox("option","data");		
 		if (selectedIndex == -1){
@@ -431,7 +367,6 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboAutor();
 this.configurarComboFk_categoria_pagina();
 	};
 	this.configurarToolbar=function(tabId){					

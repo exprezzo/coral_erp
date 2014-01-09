@@ -1,60 +1,11 @@
-﻿var EdicionCategorias_de_pagina = function(){
+﻿var EdicionPaises = function(){
 	this.editado=false;
-	this.tituloNuevo='Nueva Categoria de Pagina';
+	this.tituloNuevo='Nuevo País';
 	this.saveAndClose=false;
 	
-	this.configurarComboFk_categoria=function(){
-		var me=this;
-		
-		$('select[name="fk_categoria"]').wijcombobox({			
-			showTrigger: true,
-			width:300,
-			minLength:1,
-			autoFilter:false,	
-			forceSelectionText:true,
-			select : function (e, data) {						
-			},
-			search: function (e, obj) { 						
-			}
-		 });
-		 
-		 $('.contenedor_fk_categoria input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_categoriaEnAjax) return true;			
-			me.setDSFk_categoria();
-			me.Fk_categoriaEnAjax=true;
-		 });
-	};
-		
-		
-	this.setDSFk_categoria = function(){		
-		
-		var filtering=new Array();
-		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/categorias_de_pagina/buscarCategoria_de_pagina',
-			dataType: "json", 
-			type:"POST",
-			data: {
-				style: "full",
-				 filtering:filtering						
-			},
-			key: 'datos'
-		}); 
-
-		var myReader = new wijarrayreader([
-		{name:'label', mapping:'nombre' }, 
-		{name:'value', mapping:'id' }]); 
-
-		var datasource = new wijdatasource({ 
-			reader: myReader, 
-			proxy: proxy 
-		}); 
-	
-		$('select[name="fk_categoria"]').wijcombobox('option','data',datasource);
-	};
-		
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("Â¿Eliminar Categoria de Pagina?");
+		var r=confirm("¿Actualizar País?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -162,8 +113,10 @@
 		
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
-		if (id>0){						
-			$(tabId +' #titulo h1').html('Categoria de Pagina: ' + getValorCampo('nombre') + ''); 
+		if (id>0){			
+			var divTitulo='Pais<small><i class="icon-double-angle-right"></i> '+getValorCampo('nombre')+'</small>';
+			$(tabId +' #titulo h1').html(divTitulo);
+			// $(tabId +' #titulo h1').html('País: ' + getValorCampo('nombre') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
@@ -194,21 +147,6 @@
 			paramObj[kv.name] = kv.value;
 		  }
 		});
-		//-----------------------------------
-		
-
-		//-----------------------------------		
-		var selectedIndex = $('[name="fk_categoria"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_categoria"]').wijcombobox("option","data");		
-		if (selectedIndex == -1){
-			paramObj['fk_categoria'] =0;
-		}else{
-			if (selectedItem.data == undefined ){
-				paramObj['fk_categoria'] =selectedItem[selectedIndex]['value'];
-			}else{
-				paramObj['fk_categoria'] =selectedItem.data[selectedIndex]['id'];
-			}
-		}
 		//-----------------------------------
 		
 		//-----------------------------------
@@ -367,7 +305,6 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_categoria();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -388,7 +325,7 @@ this.configurarComboFk_categoria();
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("Â¿Eliminar Categoria de Pagina?");
+			var r=confirm("¿Actualizar País?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

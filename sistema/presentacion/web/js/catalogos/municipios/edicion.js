@@ -1,12 +1,12 @@
-﻿var EdicionCategorias_de_pagina = function(){
+﻿var EdicionMunicipios = function(){
 	this.editado=false;
-	this.tituloNuevo='Nueva Categoria de Pagina';
+	this.tituloNuevo='Nuevo Municipio';
 	this.saveAndClose=false;
 	
-	this.configurarComboFk_categoria=function(){
+	this.configurarComboFk_estado=function(){
 		var me=this;
 		
-		$('select[name="fk_categoria"]').wijcombobox({			
+		$('select[name="fk_estado"]').wijcombobox({			
 			showTrigger: true,
 			width:300,
 			minLength:1,
@@ -18,19 +18,19 @@
 			}
 		 });
 		 
-		 $('.contenedor_fk_categoria input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_categoriaEnAjax) return true;			
-			me.setDSFk_categoria();
-			me.Fk_categoriaEnAjax=true;
+		 $('.contenedor_fk_estado input[role="textbox"]').bind('keypress', function(){			
+			if (me.Fk_estadoEnAjax) return true;			
+			me.setDSFk_estado();
+			me.Fk_estadoEnAjax=true;
 		 });
 	};
 		
 		
-	this.setDSFk_categoria = function(){		
+	this.setDSFk_estado = function(){		
 		
 		var filtering=new Array();
 		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/categorias_de_pagina/buscarCategoria_de_pagina',
+			url: kore.url_base+kore.modulo+'/municipios/buscarEstado',
 			dataType: "json", 
 			type:"POST",
 			data: {
@@ -49,12 +49,12 @@
 			proxy: proxy 
 		}); 
 	
-		$('select[name="fk_categoria"]').wijcombobox('option','data',datasource);
+		$('select[name="fk_estado"]').wijcombobox('option','data',datasource);
 	};
 		
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("Â¿Eliminar Categoria de Pagina?");
+		var r=confirm("¿Eliminar Municipio?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -163,7 +163,7 @@
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
 		if (id>0){						
-			$(tabId +' #titulo h1').html('Categoria de Pagina: ' + getValorCampo('nombre') + ''); 
+			$(tabId +' #titulo h1').html('Municipio: ' + getValorCampo('nombre') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
@@ -198,15 +198,15 @@
 		
 
 		//-----------------------------------		
-		var selectedIndex = $('[name="fk_categoria"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_categoria"]').wijcombobox("option","data");		
+		var selectedIndex = $('[name="fk_estado"]').wijcombobox('option','selectedIndex');  
+		var selectedItem = $('[name="fk_estado"]').wijcombobox("option","data");		
 		if (selectedIndex == -1){
-			paramObj['fk_categoria'] =0;
+			paramObj['fk_estado'] =0;
 		}else{
 			if (selectedItem.data == undefined ){
-				paramObj['fk_categoria'] =selectedItem[selectedIndex]['value'];
+				paramObj['fk_estado'] =selectedItem[selectedIndex]['value'];
 			}else{
-				paramObj['fk_categoria'] =selectedItem.data[selectedIndex]['id'];
+				paramObj['fk_estado'] =selectedItem.data[selectedIndex]['id'];
 			}
 		}
 		//-----------------------------------
@@ -367,7 +367,7 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_categoria();
+this.configurarComboFk_estado();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -388,7 +388,7 @@ this.configurarComboFk_categoria();
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("Â¿Eliminar Categoria de Pagina?");
+			var r=confirm("¿Eliminar Municipio?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

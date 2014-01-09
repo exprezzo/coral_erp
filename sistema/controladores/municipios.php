@@ -1,17 +1,17 @@
 <?php
 
-require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
-require_once $_PETICION->basePath.'/presentacion/html.php/categorias_de_pagina/categoria_de_pagina_pdf.php';
+require_once $_PETICION->basePath.'/modelos/municipio.php';
+require_once $_PETICION->basePath.'/presentacion/html.php/municipios/municipio_pdf.php';
 
-require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
+require_once $_PETICION->basePath.'/modelos/estado.php';
 
-class categorias_de_pagina extends Controlador{
-	var $modelo="categoria_de_pagina";	
+class municipios extends Controlador{
+	var $modelo="municipio";	
 	
 	
-		function buscarCategoria_de_pagina(){
-			$categoria_de_paginaMod= new categoria_de_paginaModelo();
-			$res = $categoria_de_paginaMod->buscar( array() );
+		function buscarEstado(){
+			$estadoMod= new estadoModelo();
+			$res = $estadoMod->buscar( array() );
 			echo json_encode( $res );
 		}
 		
@@ -23,7 +23,7 @@ class categorias_de_pagina extends Controlador{
 		$id=$_PETICION->params[0];
 		$datos= $mod->obtener( $id );
 		//-------
-		$objPdf = new Categoria_de_paginaPdf('P','mm','letter');
+		$objPdf = new MunicipioPdf('P','mm','letter');
 		$objPdf->datos=$datos;
 		$objPdf->AddPage();
 		$objPdf->imprimir(  );

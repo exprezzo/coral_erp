@@ -1,20 +1,12 @@
 <?php
 
-require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
-require_once $_PETICION->basePath.'/presentacion/html.php/categorias_de_pagina/categoria_de_pagina_pdf.php';
+require_once $_PETICION->basePath.'/modelos/pais.php';
+require_once $_PETICION->basePath.'/presentacion/html.php/paises/pais_pdf.php';
 
-require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
-
-class categorias_de_pagina extends Controlador{
-	var $modelo="categoria_de_pagina";	
+class paises extends Controlador{
+	var $modelo="pais";	
 	
 	
-		function buscarCategoria_de_pagina(){
-			$categoria_de_paginaMod= new categoria_de_paginaModelo();
-			$res = $categoria_de_paginaMod->buscar( array() );
-			echo json_encode( $res );
-		}
-		
 	
 	function bajarPdf(){
 		//-------
@@ -23,7 +15,7 @@ class categorias_de_pagina extends Controlador{
 		$id=$_PETICION->params[0];
 		$datos= $mod->obtener( $id );
 		//-------
-		$objPdf = new Categoria_de_paginaPdf('P','mm','letter');
+		$objPdf = new PaisPdf('P','mm','letter');
 		$objPdf->datos=$datos;
 		$objPdf->AddPage();
 		$objPdf->imprimir(  );

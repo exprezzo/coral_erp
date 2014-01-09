@@ -3,20 +3,12 @@
 require_once $_PETICION->basePath.'/modelos/pagina.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/paginas/pagina_pdf.php';
 
-require_once $_PETICION->basePath.'/modelos/Usuario.php';
-
 require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
 
 class paginas extends Controlador{
 	var $modelo="pagina";	
 	
 	
-		function buscarUsuario(){
-			$UsuarioMod= new UsuarioModelo();
-			$res = $UsuarioMod->buscar( array() );
-			echo json_encode( $res );
-		}
-		
 		function buscarCategoria_de_pagina(){
 			$categoria_de_paginaMod= new categoria_de_paginaModelo();
 			$res = $categoria_de_paginaMod->buscar( array() );

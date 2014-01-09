@@ -5,16 +5,6 @@
 	
 if ( !empty( $this->datos['id'] ) ){
 			
-			$autor_listado=array();
-			$autor_listado[]=array('id'=>$this->datos['autor'],'nombre'=>$this->datos['nombre_autor'] );
-			$this->autor_listado = $autor_listado;
-		}else{
-			$mod=new UsuarioModelo();
-			$objs=$mod->buscar( array() );		
-			$this->autor_listado = $objs['datos'];
-		}
-if ( !empty( $this->datos['id'] ) ){
-			
 			$fk_categoria_pagina_listado=array();
 			$fk_categoria_pagina_listado[]=array('id'=>$this->datos['fk_categoria_pagina'],'nombre'=>$this->datos['nombre_fk_categoria_pagina'] );
 			$this->fk_categoria_pagina_listado = $fk_categoria_pagina_listado;
@@ -99,14 +89,8 @@ if ( !empty( $this->datos['id'] ) ){
 					<input title="" type="text" name="titulo" class="entradaDatos" value="<?php echo $this->datos['titulo']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_autor" style=""  >
-					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/usuarios/nuevo'; ?>"><label style="">Autor:</label></a>
-					<select name="autor" class="entradaDatos" style="width:250px;">
-						<?php
-							foreach($this->autor_listado as $Usuario){
-								echo '<option value="'.$Usuario['id'].' " >'.$Usuario['nombre'].'</option>';
-							}
-						?>
-					</select>
+					<label style="">Autor:</label>
+					<input title="" type="text" name="autor" class="entradaDatos" value="<?php echo $this->datos['autor']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_contenido" style=""  >
 					<label style="">Contenido:</label>

@@ -5,13 +5,13 @@
 	
 if ( !empty( $this->datos['id'] ) ){
 			
-			$fk_categoria_listado=array();
-			$fk_categoria_listado[]=array('id'=>$this->datos['fk_categoria'],'nombre'=>$this->datos['nombre_fk_categoria'] );
-			$this->fk_categoria_listado = $fk_categoria_listado;
+			$fk_estado_listado=array();
+			$fk_estado_listado[]=array('id'=>$this->datos['fk_estado'],'nombre'=>$this->datos['nombre_fk_estado'] );
+			$this->fk_estado_listado = $fk_estado_listado;
 		}else{
-			$mod=new categoria_de_paginaModelo();
+			$mod=new estadoModelo();
 			$objs=$mod->buscar( array() );		
-			$this->fk_categoria_listado = $objs['datos'];
+			$this->fk_estado_listado = $objs['datos'];
 		}
 ?>
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/edicion.js"></script>
@@ -63,7 +63,7 @@ if ( !empty( $this->datos['id'] ) ){
 			pk:"id"
 			
 		};				
-		 var editor=new EdicionCategorias_de_pagina();
+		 var editor=new EdicionMunicipios();
 		 editor.init(config);	
 		//-----
 		
@@ -74,7 +74,7 @@ if ( !empty( $this->datos['id'] ) ){
 </style>
 <div class="contenedor_formulario" id="<?php echo $id; ?>">
 	<div id="titulo">
-    	<h1>Nueva Categoria de Pagina</h1>
+    	<h1>Nuevo Municipio</h1>
 	</div>
 	<div id="cuerpo">
 		<div id="contenedorDatos2">
@@ -88,12 +88,16 @@ if ( !empty( $this->datos['id'] ) ){
 					<label style="">Nombre:</label>
 					<input title="Nombre" type="text" name="nombre" class="entradaDatos" value="<?php echo $this->datos['nombre']; ?>" style="width:500px;" />
 				</div>
-				<div class="inputBox contenedor_fk_categoria" style=""  >
-					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/categorias_de_pagina/nuevo'; ?>"><label style="">Padre:</label></a>
-					<select name="fk_categoria" class="entradaDatos" style="width:250px;">
+				<div class="inputBox contenedor_clave_sepomex oculto" style=""  >
+					<label style="">Clave Sepomex:</label>
+					<input title="Clave Asignada por Servicos Postales Mexicanos" type="text" name="clave_sepomex" class="entradaDatos" value="<?php echo $this->datos['clave_sepomex']; ?>" style="width:500px;" />
+				</div>
+				<div class="inputBox contenedor_fk_estado" style=""  >
+					<a target="_blank" href="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/estados/nuevo'; ?>"><label style="">Estado:</label></a>
+					<select name="fk_estado" class="entradaDatos" style="width:250px;">
 						<?php
-							foreach($this->fk_categoria_listado as $categoria_de_pagina){
-								echo '<option value="'.$categoria_de_pagina['id'].' " >'.$categoria_de_pagina['nombre'].'</option>';
+							foreach($this->fk_estado_listado as $estado){
+								echo '<option value="'.$estado['id'].' " >'.$estado['nombre'].'</option>';
 							}
 						?>
 					</select>
