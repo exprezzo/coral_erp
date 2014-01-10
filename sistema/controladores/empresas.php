@@ -1,9 +1,38 @@
 <?php
-//{REQUIRE-CLASES}
-class Controlador extends Controlador{
-	var $modelo="{MODELO}";	
+
+require_once $_PETICION->basePath.'/modelos/empresa.php';
+require_once $_PETICION->basePath.'/presentacion/html.php/empresas/empresa_pdf.php';
+
+require_once $_PETICION->basePath.'/modelos/pais.php';
+
+require_once $_PETICION->basePath.'/modelos/estado.php';
+
+require_once $_PETICION->basePath.'/modelos/municipio.php';
+
+require_once $_PETICION->basePath.'/modelos/conexion.php';
+
+class empresas extends Controlador{
+	var $modelo="empresa";	
 	
-	//{FUNCIONES-COMBO}
+	
+		function buscarPais(){
+			$paisMod= new paisModelo();
+			$res = $paisMod->buscar( array() );
+			echo json_encode( $res );
+		}
+		
+		function buscarEstado(){
+			$estadoMod= new estadoModelo();
+			$res = $estadoMod->buscar( array() );
+			echo json_encode( $res );
+		}
+		
+		function buscarMunicipio(){
+			$municipioMod= new municipioModelo();
+			$res = $municipioMod->buscar( array() );
+			echo json_encode( $res );
+		}
+		
 	
 	function bajarPdf(){
 		//-------
@@ -12,7 +41,7 @@ class Controlador extends Controlador{
 		$id=$_PETICION->params[0];
 		$datos= $mod->obtener( $id );
 		//-------
-		$objPdf = new ModeloPdf('P','mm','letter');
+		$objPdf = new EmpresaPdf('P','mm','letter');
 		$objPdf->datos=$datos;
 		$objPdf->AddPage();
 		$objPdf->imprimir(  );

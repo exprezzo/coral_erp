@@ -1,9 +1,12 @@
 <?php
-//{REQUIRE-CLASES}
-class Controlador extends Controlador{
-	var $modelo="{MODELO}";	
+
+require_once $_PETICION->basePath.'/modelos/conexion.php';
+require_once $_PETICION->basePath.'/presentacion/html.php/conexiones/conexion_pdf.php';
+
+class conexiones extends Controlador{
+	var $modelo="conexion";	
 	
-	//{FUNCIONES-COMBO}
+	
 	
 	function bajarPdf(){
 		//-------
@@ -12,7 +15,7 @@ class Controlador extends Controlador{
 		$id=$_PETICION->params[0];
 		$datos= $mod->obtener( $id );
 		//-------
-		$objPdf = new ModeloPdf('P','mm','letter');
+		$objPdf = new ConexionPdf('P','mm','letter');
 		$objPdf->datos=$datos;
 		$objPdf->AddPage();
 		$objPdf->imprimir(  );
@@ -74,37 +77,7 @@ class Controlador extends Controlador{
 		return $res;
 	}
 	function eliminar(){
-		$modObj= $this->getModelo();
-		$params=array();
-		
-		if ( !isset($_POST[$modObj->pk]) ){
-			$id=$_POST['datos'];
-		}else{
-			$id=$_POST[$modObj->pk];
-		}
-	
-		if (empty($id) ){			
-			$response=array(
-				'success'=>false,
-				'msg'=>'Seleccione un elemento'
-			);
-		}else{
-			$params[$modObj->pk]=$id;
-		
-			$res=$modObj->borrar($params);
-			// print_r($res); exit;
-			$response=array(
-				'success'=>$res,
-				'msg'=>'{Registro Eliminado}'
-			);
-			
-			
-			if ( $res ){				
-				sessionSet('res', $response);
-			}
-		}
-		echo json_encode($response);
-		return $response;
+		return parent::eliminar();
 	}
 	function editar(){
 		global $_PETICION;

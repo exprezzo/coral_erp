@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-01-2014 a las 01:55:27
+-- Tiempo de generación: 10-01-2014 a las 02:00:50
 -- Versión del servidor: 5.6.11
 -- Versión de PHP: 5.5.3
 
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `constructor_elemento_catalogo` (
   `fk_catalogo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_catalogo` (`fk_catalogo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1114 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1138 ;
 
 --
 -- Volcado de datos para la tabla `constructor_elemento_catalogo`
@@ -122,7 +122,31 @@ INSERT INTO `constructor_elemento_catalogo` (`id`, `esDefault`, `extras`, `campo
 (1106, '', 'auto_increment', 'id', 'PRI', 'NO', 'int(11)', 'Text Input', '{"etiqueta":"Id","ayuda":"Id","requerido":"0","oculto":"1","editable":"1"}', 113),
 (1107, '', '', 'nombre', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Nombre","requerido":"0","editable":"1","oculto":"0","ayuda":"Nombre" }', 113),
 (1108, '', '', 'clave_sepomex', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Clave Sepomex","ayuda":"Clave Asignada por Servicos Postales Mexicanos","requerido":"0","oculto":"1","editable":"1"}', 113),
-(1109, '', '', 'fk_estado', '', 'YES', 'int(11)', 'Combo Box', '{"etiqueta":"Estado","ayuda":"Estado al que pertenece el municipio","requerido":"0","oculto":"0","editable":"1","target":"112","campo_a_mostrar":"nombre"}', 113);
+(1109, '', '', 'fk_estado', '', 'YES', 'int(11)', 'Combo Box', '{"etiqueta":"Estado","ayuda":"Estado al que pertenece el municipio","requerido":"0","oculto":"0","editable":"1","target":"112","campo_a_mostrar":"nombre"}', 113),
+(1114, '', 'auto_increment', 'id', 'PRI', 'NO', 'int(11)', 'Text Input', '{"etiqueta":"Id","ayuda":"Id","requerido":"0","oculto":"1","editable":"1"}', 114),
+(1115, '', '', 'nombre', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Nombre","requerido":"0","editable":"1","oculto":"0","ayuda":"Nombre" }', 114),
+(1116, '', '', 'telefonos', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Telefonos","requerido":"0","editable":"1","oculto":"0","ayuda":"Telefonos" }', 114),
+(1117, '', '', 'logo', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Logo","requerido":"0","editable":"1","oculto":"0","ayuda":"Logo" }', 114),
+(1118, '', '', 'sitios_web', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Sitios_web","requerido":"0","editable":"1","oculto":"0","ayuda":"Sitios_web" }', 114),
+(1119, '', '', 'actividad', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Actividad","requerido":"0","editable":"1","oculto":"0","ayuda":"Actividad" }', 114),
+(1120, '', '', 'RFC', '', 'NO', 'char(1)', 'Text Input', '{"etiqueta":"RFC","requerido":"0","editable":"1","oculto":"0","ayuda":"RFC" }', 114),
+(1121, '', '', 'fk_pais', '', 'NO', 'int(11)', 'Combo Box', '{"etiqueta":"Pais","ayuda":"Pais","requerido":"0","oculto":"0","editable":"1","target":"111","campo_a_mostrar":"nombre"}', 114),
+(1122, '', '', 'fk_estado', '', 'NO', 'int(11)', 'Combo Box', '{"etiqueta":"Estado","ayuda":"Estado","requerido":"0","oculto":"0","editable":"1","target":"112","campo_a_mostrar":"nombre"}', 114),
+(1123, '', '', 'fk_municipio', '', 'NO', 'int(11)', 'Combo Box', '{"etiqueta":"Municipios","ayuda":"Municipio","requerido":"0","oculto":"0","editable":"1","target":"113","campo_a_mostrar":"nombre"}', 114),
+(1124, '', '', 'localidad', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Localidad","requerido":"0","editable":"1","oculto":"0","ayuda":"Localidad" }', 114),
+(1125, '', '', 'referencia', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Referencia","requerido":"0","editable":"1","oculto":"0","ayuda":"Referencia" }', 114),
+(1126, '', '', 'calle', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Calle","requerido":"0","editable":"1","oculto":"0","ayuda":"Calle" }', 114),
+(1127, '', '', 'numero_exterior', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Numero_exterior","requerido":"0","editable":"1","oculto":"0","ayuda":"Numero_exterior" }', 114),
+(1128, '', '', 'numero_interior', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Numero_interior","requerido":"0","editable":"1","oculto":"0","ayuda":"Numero_interior" }', 114),
+(1129, '', '', 'colonia', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Colonia","requerido":"0","editable":"1","oculto":"0","ayuda":"Colonia" }', 114),
+(1130, '', '', 'codigo_postal', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Codigo_postal","requerido":"0","editable":"1","oculto":"0","ayuda":"Codigo_postal" }', 114),
+(1131, '', 'auto_increment', 'id', 'PRI', 'NO', 'int(11)', 'Text Input', '{"etiqueta":"Id","requerido":"0","editable":"1","oculto":"0","ayuda":"Id" }', 115),
+(1132, '', '', 'host', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Host","requerido":"0","editable":"1","oculto":"0","ayuda":"Host" }', 115),
+(1133, '', '', 'db_name', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Db_name","requerido":"0","editable":"1","oculto":"0","ayuda":"Db_name" }', 115),
+(1134, '', '', 'user', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"User","requerido":"0","editable":"1","oculto":"0","ayuda":"User" }', 115),
+(1135, '', '', 'pass', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Pass","requerido":"0","editable":"1","oculto":"0","ayuda":"Pass" }', 115),
+(1136, '', '', 'fk_empresa', '', 'YES', 'int(11)', 'Text Input', '{"etiqueta":"Empresa","ayuda":"Empresa","requerido":"0","oculto":"1","editable":"1"}', 115),
+(1137, '', '', 'conexion', '', '', '', 'Tabla', '{"titulo":"Conexion","ayuda":"Base de datos de la empersa","editable":"1","target":"115","llave_foranea":"fk_empresa","config_tabla":"[{\\"id\\":\\"1131\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"auto_increment\\",\\"campo\\":\\"id\\",\\"llave\\":\\"PRI\\",\\"esNulo\\":\\"NO\\",\\"tipo\\":\\"int(11)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Id\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Id\\\\\\" }\\",\\"fk_catalogo\\":\\"115\\"},{\\"id\\":\\"1132\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"host\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Host\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Host\\\\\\" }\\",\\"fk_catalogo\\":\\"115\\"},{\\"id\\":\\"1133\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"db_name\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Db_name\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Db_name\\\\\\" }\\",\\"fk_catalogo\\":\\"115\\"},{\\"id\\":\\"1134\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"user\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"User\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"User\\\\\\" }\\",\\"fk_catalogo\\":\\"115\\"},{\\"id\\":\\"1135\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"pass\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"char(255)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Pass\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"0\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Pass\\\\\\" }\\",\\"fk_catalogo\\":\\"115\\"},{\\"id\\":\\"1136\\",\\"esDefault\\":\\"\\",\\"extras\\":\\"\\",\\"campo\\":\\"fk_empresa\\",\\"llave\\":\\"\\",\\"esNulo\\":\\"YES\\",\\"tipo\\":\\"int(11)\\",\\"componente\\":\\"Text Input\\",\\"comp_config\\":\\"{\\\\\\"etiqueta\\\\\\":\\\\\\"Empresa\\\\\\",\\\\\\"ayuda\\\\\\":\\\\\\"Empresa\\\\\\",\\\\\\"requerido\\\\\\":\\\\\\"0\\\\\\",\\\\\\"oculto\\\\\\":\\\\\\"1\\\\\\",\\\\\\"editable\\\\\\":\\\\\\"1\\\\\\"}\\",\\"fk_catalogo\\":\\"115\\"}]"}', 114);
 
 -- --------------------------------------------------------
 
@@ -161,7 +185,19 @@ CREATE TABLE IF NOT EXISTS `erp_empresa` (
   `colonia` char(255) NOT NULL,
   `codigo_postal` char(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+
+--
+-- Volcado de datos para la tabla `erp_empresa`
+--
+
+INSERT INTO `erp_empresa` (`id`, `nombre`, `telefonos`, `logo`, `sitios_web`, `actividad`, `RFC`, `fk_pais`, `fk_estado`, `fk_municipio`, `localidad`, `referencia`, `calle`, `numero_exterior`, `numero_interior`, `colonia`, `codigo_postal`) VALUES
+(20, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
+(22, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
+(23, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
+(30, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
+(31, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
+(34, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -175,25 +211,21 @@ CREATE TABLE IF NOT EXISTS `erp_empresa_database` (
   `db_name` char(255) DEFAULT NULL,
   `user` char(255) DEFAULT NULL,
   `pass` char(255) DEFAULT NULL,
-  `fk_app` int(11) DEFAULT NULL,
-  `fk_usuario` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `fk_empresa` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `empresa` (`fk_empresa`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Volcado de datos para la tabla `erp_empresa_database`
 --
 
-INSERT INTO `erp_empresa_database` (`id`, `host`, `db_name`, `user`, `pass`, `fk_app`, `fk_usuario`) VALUES
-(1, 'localhost', 'nominas', 'root', '', 0, 144),
-(2, 'localhost', 'transportes', 'root', '', 5, 1),
-(3, 'localhost', 'maquinas', 'root', '', 6, 2),
-(4, 'localhot', 'nominas', 'root', '', 7, 3),
-(5, 'localhost', 'soporte', 'root', '', 4, 4),
-(6, 'localhot', 'constructor', 'root', '', 2, 5),
-(7, '', '', '', '', 8, 6),
-(8, '', '', '', '', 9, 7),
-(9, 'localhost', 'octopus_erp_app_cesar', 'root', '', 10, 8);
+INSERT INTO `erp_empresa_database` (`id`, `host`, `db_name`, `user`, `pass`, `fk_empresa`) VALUES
+(9, '', '', '', '', 20),
+(11, '', '', '', '', 22),
+(12, '', '', '', '', 23),
+(19, '', '', '', '', 30),
+(20, '', '', '', '', 31);
 
 -- --------------------------------------------------------
 
@@ -243,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `system_catalogos` (
   `msg_cambios` char(255) DEFAULT NULL,
   `campos_busqueda` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=114 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=116 ;
 
 --
 -- Volcado de datos para la tabla `system_catalogos`
@@ -260,7 +292,9 @@ INSERT INTO `system_catalogos` (`id`, `fk_modulo`, `nombre`, `controlador`, `mod
 (109, 8, 'Menu', 'menus', 'menu', 'system_menu', 'id', '', 'Nuevo Menu', 'Menu: {titulo}', 'Menus', 'Menu Creado', 'Menu Actualizado', '¿Eliminar Menu?', 'Menu Eliminado', '', ''),
 (111, 8, 'Paises', 'paises', 'pais', 'system_ubicacion_paises', 'id', '', 'Nuevo País', 'País: {nombre}', 'Paises', 'País Creado', 'País Actualizado', '¿Actualizar País?', 'País Elimindo', '', ''),
 (112, 8, 'Estados', 'estados', 'estado', 'system_ubicacion_estados', 'id', '', 'Nuevo Estado', 'Estado: {nombre}', 'Estados', 'Estado Creado', '¿Actualizar Estado?', '¿Eliminar Estado?', 'Estado Eliminado', '', ''),
-(113, 8, 'Municipios', 'municipios', 'municipio', 'system_ubicacion_municipios', 'id', '', 'Nuevo Municipio', 'Municipio: {nombre}', 'Municipios', 'Municipio Creado', 'Municipio Actualizado', '¿Eliminar Municipio?', 'Municipio Eliminado', '', '');
+(113, 8, 'Municipios', 'municipios', 'municipio', 'system_ubicacion_municipios', 'id', '', 'Nuevo Municipio', 'Municipio: {nombre}', 'Municipios', 'Municipio Creado', 'Municipio Actualizado', '¿Eliminar Municipio?', 'Municipio Eliminado', '', ''),
+(114, 8, 'Empresas', 'empresas', 'empresa', 'erp_empresa', 'id', '', 'Nueva Empresa', 'Empresa: {nombre}', 'Empresas', 'Empresa Creada', 'Empresa Actualizada', '¿Eliminar Empresa?', 'Empresa Eliminada', '', ''),
+(115, 8, 'Conexiones', 'conexiones', 'conexion', 'erp_empresa_database', 'id', '', 'Nueva Conexion', 'Conexion: {host}', 'Conexiones', 'Conexion Creada', 'Conexion Actualizada', '¿Eliminar Conexion?', 'Conexion Eliminada', '', '');
 
 -- --------------------------------------------------------
 
@@ -3037,7 +3071,7 @@ CREATE TABLE IF NOT EXISTS `system_usuarios` (
 
 INSERT INTO `system_usuarios` (`id`, `username`, `pass`, `email`, `nombre`, `apellidoss`, `ultima_conexion`, `creado`, `fk_rol`, `ip`) VALUES
 (16, 'admin', '098f6bcd4621d373cade4e832627b4f6', 'email@webmaster.com', 'Administrador del sistema', NULL, '2013-12-13 17:43:45', '0000-00-00 00:00:00', 1, ''),
-(102, 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', NULL, '2014-01-08 13:53:23', '0000-00-00 00:00:00', 2, ''),
+(102, 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', NULL, '2014-01-09 11:45:29', '0000-00-00 00:00:00', 2, ''),
 (138, '', '912ec803b2ce49e4a541068d495ab570', '', 'asdf', NULL, '2014-01-05 17:44:04', NULL, 2, ''),
 (141, 'asdf', '912ec803b2ce49e4a541068d495ab570', 'asdf', '', NULL, '2014-01-05 17:44:48', NULL, 2, ''),
 (144, 'cesar', '202cb962ac59075b964b07152d234b70', 'cesar', 'cesar', NULL, '2014-01-05 17:49:45', NULL, 2, ''),
@@ -3053,6 +3087,12 @@ INSERT INTO `system_usuarios` (`id`, `username`, `pass`, `email`, `nombre`, `ape
 --
 ALTER TABLE `constructor_elemento_catalogo`
   ADD CONSTRAINT `fk_catalogo` FOREIGN KEY (`fk_catalogo`) REFERENCES `system_catalogos` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `erp_empresa_database`
+--
+ALTER TABLE `erp_empresa_database`
+  ADD CONSTRAINT `empresa` FOREIGN KEY (`fk_empresa`) REFERENCES `erp_empresa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

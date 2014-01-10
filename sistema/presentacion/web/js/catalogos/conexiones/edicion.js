@@ -1,11 +1,11 @@
-﻿var EdicionControlador = function(){
+﻿var EdicionConexiones = function(){
 	this.editado=false;
-	this.tituloNuevo='{TITULO NUEVO}';
+	this.tituloNuevo='Nueva Conexion';
 	this.saveAndClose=false;
-	//FUNCIONES-COMBO
+	
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("{PREGUNTA-ELIMINAR}");
+		var r=confirm("¿Eliminar Conexion?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -112,16 +112,21 @@
 		}
 		
 		var tabId = this.tabId;		
-		var id = $(this.tabId + ' [name="{LLAVE-PRIMARIA}"]').val();
+		var id = $(this.tabId + ' [name="id"]').val();
 		if (id>0){						
-			//{TITULO-EDICION} 
+			$(tabId +' #titulo h1').html('Conexion: ' + getValorCampo('host') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
 		}
 	};
 	this.nuevo=function(){
-		window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/nuevo';
+		var tabId=this.tabId;
+		var tab = $('#tabs '+tabId);		
+		$(tabId +' #titulo h1').html(this.tituloNuevo);
+		
+		tab.find('[name="id"]').val(0);
+		me.editado=false;
 	};	
 	this.guardar=function(){
 		var tabId=this.tabId;
@@ -141,10 +146,10 @@
 		  }
 		});
 		//-----------------------------------
-		//{CODIGO-GUARDAR-COMBOS}
+		
 		//-----------------------------------
 		var datos=paramObj;
-		//{GUARDAR-TABLAS}
+		
 				
 		//Envia los datos al servidor, el servidor responde success true o false.
 		$("#contenedorDatos2").block({ 
@@ -204,7 +209,7 @@
 					class_name: 'my-sticky-class'
 				});
 				
-				//{CARGAR-TABLAS}
+				
 				if (me.saveAndClose===true){
 					//busca el indice del tab
 					var idTab=$(me.tabId).attr('id');
@@ -233,11 +238,11 @@
 		});
 	};	
 	this.eliminar=function(){
-		var id = $(this.tabId + ' [name="{LLAVE-PRIMARIA}"]').val();
+		var id = $(this.tabId + ' [name="id"]').val();
 		var me=this;
 		
 		var params={};
-		params['{LLAVE-PRIMARIA}']=id;
+		params['id']=id;
 		
 		
 		$.ajax({
@@ -266,8 +271,7 @@
 				msg= (resp.msg)? resp.msg : '';
 				if ( resp.success == true	){					
 					icon=kore.url_web+'imagenes/yes.png';
-					title= 'Success';	
-					 me.nuevo();
+					title= 'Success';									
 				}else{
 					icon= kore.url_web+'imagenes/error.png';
 					title= 'Error';
@@ -283,7 +287,7 @@
 						// $('#tabs').wijtabs('remove', i);
 					// }
 				// }
-				$(me.tabId).find('[name="{LLAVE-PRIMARIA}"]').val(0);
+				$(me.tabId).find('[name="id"]').val(0);
 					
 				$.gritter.add({
 					position: 'bottom-left',
@@ -298,7 +302,7 @@
 		var me=this;
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
-		//{INIT-COMBOS}
+		
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -319,11 +323,11 @@
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("{PREGUNTA-ELIMINAR}");
+			var r=confirm("¿Eliminar Conexion?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;
-			  // me.nuevo();
+			  me.nuevo();
 			}
 		});
 	};	
