@@ -56,7 +56,7 @@ class usuarios extends Controlador{
 						'success'=>true,
 						'msg'=>'Usuario identificado'
 					);
-					echo json_enode( $res );
+					echo json_encode( $res );
 				}else{
 					$url=sessionGet('_PETICION');
 					$url=( empty($url) ) ? $_PETICION->url_app.$_PETICION->modulo.'/paginas/inicio' : '/'.$url;
@@ -68,9 +68,11 @@ class usuarios extends Controlador{
 				if ( isAjax() ){
 					$res = array(
 						'success'=>false,
-						'msg'=>$res['msg']
+						'msg'=>utf8_encode($res['msg'])
 					);
-					echo json_enode( $res );
+					
+					
+					echo json_encode( $res );
 				}else{
 					$vista->error= $res['msg'];//'USUARIO O CONTRASEÑA INCORRECTA';
 					$vista->username=$_POST['nick'];

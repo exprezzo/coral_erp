@@ -1,3 +1,11 @@
+<?php
+	$user=sessionGet('user');
+	if ( !empty($user) ){
+		$url = $_PETICION->url_app.$_PETICION->modulo.'/paginas/inicio';
+		header('Location: '.$url);
+		exit;
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -21,7 +29,7 @@
 		<![endif]-->
 
 		<!--page specific plugin styles-->
-
+		<script src="<?php echo $_PETICION->url_web; ?>js/catalogos/usuarios/login.js" type="text/javascript"></script>
 		<!--fonts-->
 
 		<link rel="stylesheet" href="<?php echo $_PETICION->url_web; ?>http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
@@ -49,11 +57,15 @@
 				};
 				
 				$.extend($.gritter.options, {
-				position: 'bottom-right',
-				fade_in_speed: 'medium', // how fast notifications fade in (string or int)
-				fade_out_speed: 2000, // how fast the notices fade out
-				time: 6000 // hang on the screen for...
-			});
+					position: 'bottom-right',
+					fade_in_speed: 'medium', // how fast notifications fade in (string or int)
+					fade_out_speed: 2000, // how fast the notices fade out
+					time: 6000 // hang on the screen for...			
+				});
+				
+				var login = new LoginUsuarios();
+				login.init();
+			
 		</script>
 	</head>
 		

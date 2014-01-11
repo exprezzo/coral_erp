@@ -1,21 +1,6 @@
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/login.js"></script>
 <div id="login-box" class="login-box visible widget-box no-border">
-	<?php 
-			if ( !empty($this->error) ){
-				echo '<div style="position: absolute; top: 0; "><div style="display: inline-block; width: 100%; margin-top: 23px;" class="alert alert-error">
-										<button onClick="removeMsgError()" type="button" class="close" data-dismiss="alert">
-											<i class="icon-remove"></i>
-										</button>
-
-										<strong>
-											<i class="icon-remove"></i>
-											Error!
-										</strong>
-										'.htmlentities($this->error).'
-										<br>
-									</div></div>';
-			}
-		?>
+	
 	<div class="widget-body">
 		
 		
@@ -51,7 +36,7 @@
 							<span class="lbl"> Recordarme</span>
 						</label>
 
-						<button  onClick="return true;" class="width-35 pull-right btn btn-small btn-primary">
+						<button id="btnLogin" onClick="return true;" class="width-35 pull-right btn btn-small btn-primary">
 							<i class="icon-key"></i>
 							Entrar
 						</button>

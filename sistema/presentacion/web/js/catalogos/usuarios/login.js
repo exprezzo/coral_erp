@@ -32,7 +32,7 @@
 		//-----------------------------------
 		var datos=paramObj;
 		
-				
+				console.log(paramObj);
 		//Envia los datos al servidor, el servidor responde success true o false.
 		$("#login-box").block({ 
 			message: '<h1>Identificando</h1>'               
@@ -40,9 +40,11 @@
 		$.ajax({
 			type: "POST",
 			url: kore.url_base+kore.modulo+'/usuarios/login',
-			data: { datos: datos}
+			data: { 
+				nick: paramObj.nick, pass: paramObj.pass			
+			}
 		}).done(function( response ) {
-			$("#signup-box").unblock(); 
+			$("#login-box").unblock(); 
 			var msg;
 			var title;	
 			try{
@@ -50,26 +52,22 @@
 			}catch(err){
 				msg='El servidor ha respondido de manera incorrecta. <br />'+response;
 				title='Error Al Guardar';
-				icon= kore.url_web+'imagenes/error.png';
-				var div='<div class="alert alert-error">'+
-										'<button type="button" class="close" data-dismiss="alert">'+
-											'<i class="icon-remove"></i>'+
-										'</button>'+
-										'<strong>'+
-											'<i class="icon-remove"></i>'+
-											'Oh snap!'+
-										'</strong>'+
-										'Change a few things up and try submitting again.'+
-										'<br>'+
-									'</div>';
-				$('body').append(div);
+				icon= kore.url_web+'imagenes/error.png';				
+				$.gritter.add({
+					position: 'bottom-left',
+					title:title,
+					text: msg,
+					image: icon,
+					class_name: 'my-sticky-class'
+				});
 				return false;
 			}			
 			msg= (resp.msg)? resp.msg : '';
 			
 			
 			if ( resp.success == true	){
-				window.location = kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/editar/'+ resp.datos.id;				
+				
+				window.location = kore.url_base+kore.modulo+'/usuarios/login';				
 			}else{
 				icon= kore.url_web+'imagenes/error.png';
 				title= 'Error';					
@@ -156,9 +154,8 @@
 	this.configurarToolbar=function(){					
 		var me=this;			
 		$('#btnLogin').click( function(e){
-			alert("asd");
-			 me.login();
 			e.preventDefault();
+			me.login();			
 		});
 		
 		$('#btnRegistrar').click( function(e){
