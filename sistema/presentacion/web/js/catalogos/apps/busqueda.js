@@ -1,4 +1,4 @@
-﻿var BusquedaMunicipios=function(){
+﻿var BusquedaApps=function(){
 	
 	this.buscar=function(){
 		var gridBusqueda=$(this.tabId+" .grid_busqueda");				
@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Municipio?");
+			var r=confirm("¿Eliminar Aplicacion?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Municipio?");
+						var r=confirm("¿Eliminar Aplicacion?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -187,13 +187,31 @@
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "clave_sepomex",
+					dataKey: "ubicacion",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "nombre_estado",
+					dataKey: "logo",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "favicon",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "descripcion",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "tags",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -225,9 +243,11 @@
 			columns: [ 
 				{ dataKey: "id", visible:false, headerText: "Id" },
 { dataKey: "nombre", visible:true, headerText: "Nombre" },
-{ dataKey: "clave_sepomex", visible:false, headerText: "Clave Sepomex" },
-{ dataKey: "nombre_fk_estado", visible:true, headerText: "Estado" },
-{ dataKey: "fk_estado", visible:false, headerText: "Estado" },
+{ dataKey: "ubicacion", visible:true, headerText: "Ubicacion" },
+{ dataKey: "logo", visible:true, headerText: "Logo" },
+{ dataKey: "favicon", visible:true, headerText: "Favicon" },
+{ dataKey: "descripcion", visible:true, headerText: "Descripcion" },
+{ dataKey: "tags", visible:true, headerText: "Tags" },
 			]
 		});
 		

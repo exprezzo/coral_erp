@@ -85,7 +85,38 @@ class municipios extends Controlador{
 		return $res;
 	}
 	function eliminar(){
-		return parent::eliminar();
+		$modObj= $this->getModelo();
+		$params=array();
+		
+		if ( !isset($_POST[$modObj->pk]) ){
+			$id=$_POST['datos'];
+		}else{
+			$id=$_POST[$modObj->pk];
+		}
+	
+		if (empty($id) ){			
+			$response=array(
+				'success'=>false,
+				'msg'=>'Seleccione un elemento'
+			);
+		}else{
+			$params[$modObj->pk]=$id;
+		
+			$res=$modObj->borrar($params);
+			// print_r($res); exit;
+			$response=array(
+				'success'=>$res,
+				'msg'=>'Municipio Eliminado'
+			);
+			
+			
+			if ( $res ){				
+				$sinGuardar = empty( $_POST['sinGuardar'] )? false : $_POST['sinGuardar'] ;
+				if ( !$sinGuardar ) sessionSet('res', $response);
+			}
+		}
+		echo json_encode($response);
+		return $response;
 	}
 	function editar(){
 		global $_PETICION;

@@ -54,7 +54,7 @@ require_once $_PETICION->basePath.\'/modelos/'.$modelo.'.php\';';
 		$conStr = str_replace('{MODELO}', $cat['modelo'], $conStr);
 		$conStr = str_replace('class Controlador', 'class '.$cat['controlador'], $conStr);
 		$conStr = str_replace('$objPdf = new ModeloPdf', '$objPdf = new '.ucfirst($cat['modelo']).'Pdf', $conStr);
-		
+		$conStr = str_replace('{Registro Eliminado}', $cat['msg_eliminado'], $conStr);
 		
 		$crlf = "\r\n";
 		$strRequire=$this->getRequire( $cat['modelo'] );

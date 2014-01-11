@@ -1,4 +1,4 @@
-﻿var BusquedaMunicipios=function(){
+﻿var BusquedaConexiones=function(){
 	
 	this.buscar=function(){
 		var gridBusqueda=$(this.tabId+" .grid_busqueda");				
@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Municipio?");
+			var r=confirm("¿Eliminar Conexion?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Municipio?");
+						var r=confirm("¿Eliminar Conexion?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -181,19 +181,31 @@
 				var value = $('#nav-search-input').val();				
 				
 				data.proxy.options.data.filtering.push({
-					dataKey: "nombre",
+					dataKey: "host",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "clave_sepomex",
+					dataKey: "db_name",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "nombre_estado",
+					dataKey: "user",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "pass",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "fk_empresa",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -223,11 +235,12 @@
 			data:dataSource,
 			showFilter:false,
 			columns: [ 
-				{ dataKey: "id", visible:false, headerText: "Id" },
-{ dataKey: "nombre", visible:true, headerText: "Nombre" },
-{ dataKey: "clave_sepomex", visible:false, headerText: "Clave Sepomex" },
-{ dataKey: "nombre_fk_estado", visible:true, headerText: "Estado" },
-{ dataKey: "fk_estado", visible:false, headerText: "Estado" },
+				{ dataKey: "id", visible:true, headerText: "Id" },
+{ dataKey: "host", visible:true, headerText: "Host" },
+{ dataKey: "db_name", visible:true, headerText: "Db_name" },
+{ dataKey: "user", visible:true, headerText: "User" },
+{ dataKey: "pass", visible:true, headerText: "Pass" },
+{ dataKey: "fk_empresa", visible:false, headerText: "Empresa" },
 			]
 		});
 		

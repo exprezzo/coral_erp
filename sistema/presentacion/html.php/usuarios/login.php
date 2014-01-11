@@ -1,3 +1,6 @@
+<?php
+// print_r( $_SESSION ); exit;
+?>
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/login.js"></script>
 <div id="login-box" class="login-box visible widget-box no-border">
 	

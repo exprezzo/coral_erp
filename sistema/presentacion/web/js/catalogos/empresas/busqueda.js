@@ -1,4 +1,4 @@
-﻿var BusquedaMunicipios=function(){
+﻿var BusquedaEmpresas=function(){
 	
 	this.buscar=function(){
 		var gridBusqueda=$(this.tabId+" .grid_busqueda");				
@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Municipio?");
+			var r=confirm("¿Eliminar Empresa?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Municipio?");
+						var r=confirm("¿Eliminar Empresa?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -187,13 +187,91 @@
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "clave_sepomex",
+					dataKey: "telefonos",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "logo",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "sitios_web",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "actividad",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "RFC",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "nombre_pais",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
 					dataKey: "nombre_estado",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "nombre_municipio",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "localidad",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "referencia",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "calle",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "numero_exterior",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "numero_interior",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "colonia",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "codigo_postal",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -225,9 +303,24 @@
 			columns: [ 
 				{ dataKey: "id", visible:false, headerText: "Id" },
 { dataKey: "nombre", visible:true, headerText: "Nombre" },
-{ dataKey: "clave_sepomex", visible:false, headerText: "Clave Sepomex" },
+{ dataKey: "telefonos", visible:true, headerText: "Telefonos" },
+{ dataKey: "logo", visible:true, headerText: "Logo" },
+{ dataKey: "sitios_web", visible:true, headerText: "Sitios_web" },
+{ dataKey: "actividad", visible:true, headerText: "Actividad" },
+{ dataKey: "RFC", visible:true, headerText: "RFC" },
+{ dataKey: "nombre_fk_pais", visible:true, headerText: "Pais" },
+{ dataKey: "fk_pais", visible:false, headerText: "Pais" },
 { dataKey: "nombre_fk_estado", visible:true, headerText: "Estado" },
-{ dataKey: "fk_estado", visible:false, headerText: "Estado" },
+{ dataKey: "fk_estado", visible:false, headerText: "Estado" },
+{ dataKey: "nombre_fk_municipio", visible:true, headerText: "Municipios" },
+{ dataKey: "fk_municipio", visible:false, headerText: "Municipios" },
+{ dataKey: "localidad", visible:true, headerText: "Localidad" },
+{ dataKey: "referencia", visible:true, headerText: "Referencia" },
+{ dataKey: "calle", visible:true, headerText: "Calle" },
+{ dataKey: "numero_exterior", visible:true, headerText: "Numero_exterior" },
+{ dataKey: "numero_interior", visible:true, headerText: "Numero_interior" },
+{ dataKey: "colonia", visible:true, headerText: "Colonia" },
+{ dataKey: "codigo_postal", visible:true, headerText: "Codigo_postal" },
 			]
 		});
 		

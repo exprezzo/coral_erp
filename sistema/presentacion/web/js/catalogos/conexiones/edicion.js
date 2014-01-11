@@ -1,60 +1,11 @@
-﻿var EdicionMunicipios = function(){
+﻿var EdicionConexiones = function(){
 	this.editado=false;
-	this.tituloNuevo='Nuevo Municipio';
+	this.tituloNuevo='Nueva Conexion';
 	this.saveAndClose=false;
 	
-	this.configurarComboFk_estado=function(){
-		var me=this;
-		
-		$('select[name="fk_estado"]').wijcombobox({			
-			showTrigger: true,
-			width:300,
-			minLength:1,
-			autoFilter:false,	
-			forceSelectionText:true,
-			select : function (e, data) {						
-			},
-			search: function (e, obj) { 						
-			}
-		 });
-		 
-		 $('.contenedor_fk_estado input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_estadoEnAjax) return true;			
-			me.setDSFk_estado();
-			me.Fk_estadoEnAjax=true;
-		 });
-	};
-		
-		
-	this.setDSFk_estado = function(){		
-		
-		var filtering=new Array();
-		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/municipios/buscarEstado',
-			dataType: "json", 
-			type:"POST",
-			data: {
-				style: "full",
-				 filtering:filtering						
-			},
-			key: 'datos'
-		}); 
-
-		var myReader = new wijarrayreader([
-		{name:'label', mapping:'nombre' }, 
-		{name:'value', mapping:'id' }]); 
-
-		var datasource = new wijdatasource({ 
-			reader: myReader, 
-			proxy: proxy 
-		}); 
-	
-		$('select[name="fk_estado"]').wijcombobox('option','data',datasource);
-	};
-		
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("¿Eliminar Municipio?");
+		var r=confirm("¿Eliminar Conexion?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -163,7 +114,7 @@
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
 		if (id>0){						
-			$(tabId +' #titulo h1').html('Municipio: ' + getValorCampo('nombre') + ''); 
+			$(tabId +' #titulo h1').html('Conexion: ' + getValorCampo('host') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
@@ -189,21 +140,6 @@
 			paramObj[kv.name] = kv.value;
 		  }
 		});
-		//-----------------------------------
-		
-
-		//-----------------------------------		
-		var selectedIndex = $('[name="fk_estado"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_estado"]').wijcombobox("option","data");		
-		if (selectedIndex == -1){
-			paramObj['fk_estado'] =0;
-		}else{
-			if (selectedItem.data == undefined ){
-				paramObj['fk_estado'] =selectedItem[selectedIndex]['value'];
-			}else{
-				paramObj['fk_estado'] =selectedItem.data[selectedIndex]['id'];
-			}
-		}
 		//-----------------------------------
 		
 		//-----------------------------------
@@ -363,7 +299,6 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_estado();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -384,7 +319,7 @@ this.configurarComboFk_estado();
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("¿Eliminar Municipio?");
+			var r=confirm("¿Eliminar Conexion?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

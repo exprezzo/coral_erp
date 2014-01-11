@@ -1,5 +1,5 @@
-var ElementosDeCatalogo=function (){	
-	//{FUNCIONES-COMBO-TABLA}
+var ConexionDeEmpresas=function (){	
+	
 	this.init=function(config){
 		var tabId=config.tabId, 
 			padre = config.padre, 			
@@ -26,7 +26,7 @@ var ElementosDeCatalogo=function (){
 		this.configurarGrid(this.targetSelector, articulos);		
 		this.configurarToolbar(tabId);		
 		var me = this;
-		$(this.tabId + "-dialog-confirm-eliminarConcepto").wijdialog({
+		$(this.tabId + "-dialog-confirm-eliminar-conexion").wijdialog({
 			autoOpen: false,
             captionButtons: {                  
 				pin: { visible: false },
@@ -62,7 +62,13 @@ var ElementosDeCatalogo=function (){
 	
 	this.configurarGrid=function(targetSelector, articulos){		
 		var fields=[
-			//{FIELDS}
+			
+				{ name: "id"},
+				{ name: "host"},
+				{ name: "db_name"},
+				{ name: "user"},
+				{ name: "pass"},
+				{ name: "fk_empresa"}
 		];
 		
 		this.fields=fields;	
@@ -76,7 +82,7 @@ var ElementosDeCatalogo=function (){
 			if(e.keyCode==46 && e.shiftKey){
 				me.recuperar();
 			}else if(e.keyCode==46){
-				$(me.tabId + "-dialog-confirm-eliminarConcepto").wijdialog('open');
+				$(me.tabId + "-dialog-confirm-eliminar-conexion").wijdialog('open');
 			}
 		});
 		
@@ -96,7 +102,13 @@ var ElementosDeCatalogo=function (){
 				}
 			},
 			columns: [
-				//{COLUMNAS}
+				
+				{ dataKey: "id", visible:true, headerText: "Id" },
+				{ dataKey: "host", visible:true, headerText: "Host" },
+				{ dataKey: "db_name", visible:true, headerText: "Db_name" },
+				{ dataKey: "user", visible:true, headerText: "User" },
+				{ dataKey: "pass", visible:true, headerText: "Pass" },
+				{ dataKey: "fk_empresa", visible:false, headerText: "Empresa" }
 			]
 		});
 		var me=this;
@@ -159,7 +171,7 @@ var ElementosDeCatalogo=function (){
 		
 		gridElementos.wijgrid({ beforeCellEdit: function(e, args) {
 			switch (args.cell.column().dataKey) {
-				//{COMBOS-BEFORE-EDIT}
+				
 				default:						
 					var domCel = args.cell.tableCell();						
 					var w,h;
@@ -181,7 +193,7 @@ var ElementosDeCatalogo=function (){
 		
 		gridElementos.wijgrid({beforeCellUpdate:function(e, args) {
 				switch (args.cell.column().dataKey) {
-					//{COMBOS-BEFORE-UPDATE}
+					
 					default:						
 						args.value = args.cell.container().find("input").val();	
 						var row=args.cell.row();						
@@ -398,7 +410,7 @@ var ElementosDeCatalogo=function (){
 		  .click(function( event ) {
 			
 				// me.eliminar();	
-				$(me.tabId + "-dialog-confirm-eliminarConcepto").wijdialog('open');
+				$(me.tabId + "-dialog-confirm-eliminar-conexion").wijdialog('open');
 		});
 	}
 }

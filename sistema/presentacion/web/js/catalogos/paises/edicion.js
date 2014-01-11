@@ -113,22 +113,15 @@
 		
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
-		if (id>0){			
-			var divTitulo='Pais<small><i class="icon-double-angle-right"></i> '+getValorCampo('nombre')+'</small>';
-			$(tabId +' #titulo h1').html(divTitulo);
-			// $(tabId +' #titulo h1').html('País: ' + getValorCampo('nombre') + ''); 
+		if (id>0){						
+			$(tabId +' #titulo h1').html('País: ' + getValorCampo('nombre') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
 		}
 	};
 	this.nuevo=function(){
-		var tabId=this.tabId;
-		var tab = $('#tabs '+tabId);		
-		$(tabId +' #titulo h1').html(this.tituloNuevo);
-		
-		tab.find('[name="id"]').val(0);
-		me.editado=false;
+		window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/nuevo';
 	};	
 	this.guardar=function(){
 		var tabId=this.tabId;
@@ -273,7 +266,8 @@
 				msg= (resp.msg)? resp.msg : '';
 				if ( resp.success == true	){					
 					icon=kore.url_web+'imagenes/yes.png';
-					title= 'Success';									
+					title= 'Success';	
+					 me.nuevo();
 				}else{
 					icon= kore.url_web+'imagenes/error.png';
 					title= 'Error';
@@ -329,7 +323,7 @@
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;
-			  me.nuevo();
+			  // me.nuevo();
 			}
 		});
 	};	
