@@ -12,7 +12,7 @@
 	var me=this;	
 	var params={};
 	params[this.configuracion.pk]=id;
-	
+	params.sinGuardar=true;
 	$.ajax({
 			type: "POST",
 			url: kore.url_base+this.configuracion.modulo.nombre+'/'+this.controlador.nombre+'/eliminar',

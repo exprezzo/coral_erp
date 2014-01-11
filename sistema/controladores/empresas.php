@@ -124,12 +124,13 @@ class empresas extends Controlador{
 			// print_r($res); exit;
 			$response=array(
 				'success'=>$res,
-				'msg'=>'{Registro Eliminado}'
+				'msg'=>'Empresa Eliminada'
 			);
 			
 			
 			if ( $res ){				
-				sessionSet('res', $response);
+				$sinGuardar = empty( $_POST['sinGuardar'] )? false : $_POST['sinGuardar'] ;
+				if ( !$sinGuardar ) sessionSet('res', $response);
 			}
 		}
 		echo json_encode($response);

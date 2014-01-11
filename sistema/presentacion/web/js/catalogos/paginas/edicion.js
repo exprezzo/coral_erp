@@ -170,12 +170,7 @@
 		}
 	};
 	this.nuevo=function(){
-		var tabId=this.tabId;
-		var tab = $('#tabs '+tabId);		
-		$(tabId +' #titulo h1').html(this.tituloNuevo);
-		
-		tab.find('[name="id"]').val(0);
-		me.editado=false;
+		window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/nuevo';
 	};	
 	this.guardar=function(){
 		var tabId=this.tabId;
@@ -335,7 +330,8 @@
 				msg= (resp.msg)? resp.msg : '';
 				if ( resp.success == true	){					
 					icon=kore.url_web+'imagenes/yes.png';
-					title= 'Success';									
+					title= 'Success';	
+					 me.nuevo();
 				}else{
 					icon= kore.url_web+'imagenes/error.png';
 					title= 'Error';
@@ -392,7 +388,7 @@ this.configurarComboFk_categoria_pagina();
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;
-			  me.nuevo();
+			  // me.nuevo();
 			}
 		});
 	};	

@@ -1,12 +1,12 @@
-﻿var EdicionMunicipios = function(){
+﻿var EdicionMenus = function(){
 	this.editado=false;
-	this.tituloNuevo='Nuevo Municipio';
+	this.tituloNuevo='Nuevo Menu';
 	this.saveAndClose=false;
 	
-	this.configurarComboFk_estado=function(){
+	this.configurarComboFk_menu=function(){
 		var me=this;
 		
-		$('select[name="fk_estado"]').wijcombobox({			
+		$('select[name="fk_menu"]').wijcombobox({			
 			showTrigger: true,
 			width:300,
 			minLength:1,
@@ -18,19 +18,68 @@
 			}
 		 });
 		 
-		 $('.contenedor_fk_estado input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_estadoEnAjax) return true;			
-			me.setDSFk_estado();
-			me.Fk_estadoEnAjax=true;
+		 $('.contenedor_fk_menu input[role="textbox"]').bind('keypress', function(){			
+			if (me.Fk_menuEnAjax) return true;			
+			me.setDSFk_menu();
+			me.Fk_menuEnAjax=true;
 		 });
 	};
 		
 		
-	this.setDSFk_estado = function(){		
+	this.setDSFk_menu = function(){		
 		
 		var filtering=new Array();
 		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/municipios/buscarEstado',
+			url: kore.url_base+kore.modulo+'/menus/buscarMenu',
+			dataType: "json", 
+			type:"POST",
+			data: {
+				style: "full",
+				 filtering:filtering						
+			},
+			key: 'datos'
+		}); 
+
+		var myReader = new wijarrayreader([
+		{name:'label', mapping:'titulo' }, 
+		{name:'value', mapping:'id' }]); 
+
+		var datasource = new wijdatasource({ 
+			reader: myReader, 
+			proxy: proxy 
+		}); 
+	
+		$('select[name="fk_menu"]').wijcombobox('option','data',datasource);
+	};
+		
+	this.configurarComboFk_app=function(){
+		var me=this;
+		
+		$('select[name="fk_app"]').wijcombobox({			
+			showTrigger: true,
+			width:300,
+			minLength:1,
+			autoFilter:false,	
+			forceSelectionText:true,
+			select : function (e, data) {						
+			},
+			search: function (e, obj) { 						
+			}
+		 });
+		 
+		 $('.contenedor_fk_app input[role="textbox"]').bind('keypress', function(){			
+			if (me.Fk_appEnAjax) return true;			
+			me.setDSFk_app();
+			me.Fk_appEnAjax=true;
+		 });
+	};
+		
+		
+	this.setDSFk_app = function(){		
+		
+		var filtering=new Array();
+		var proxy = new wijhttpproxy({
+			url: kore.url_base+kore.modulo+'/menus/buscarApp',
 			dataType: "json", 
 			type:"POST",
 			data: {
@@ -49,12 +98,12 @@
 			proxy: proxy 
 		}); 
 	
-		$('select[name="fk_estado"]').wijcombobox('option','data',datasource);
+		$('select[name="fk_app"]').wijcombobox('option','data',datasource);
 	};
 		
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("¿Eliminar Municipio?");
+		var r=confirm("¿Eliminar Menu?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -163,7 +212,7 @@
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
 		if (id>0){						
-			$(tabId +' #titulo h1').html('Municipio: ' + getValorCampo('nombre') + ''); 
+			$(tabId +' #titulo h1').html('Menu: ' + getValorCampo('titulo') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
@@ -193,15 +242,30 @@
 		
 
 		//-----------------------------------		
-		var selectedIndex = $('[name="fk_estado"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_estado"]').wijcombobox("option","data");		
+		var selectedIndex = $('[name="fk_menu"]').wijcombobox('option','selectedIndex');  
+		var selectedItem = $('[name="fk_menu"]').wijcombobox("option","data");		
 		if (selectedIndex == -1){
-			paramObj['fk_estado'] =0;
+			paramObj['fk_menu'] =0;
 		}else{
 			if (selectedItem.data == undefined ){
-				paramObj['fk_estado'] =selectedItem[selectedIndex]['value'];
+				paramObj['fk_menu'] =selectedItem[selectedIndex]['value'];
 			}else{
-				paramObj['fk_estado'] =selectedItem.data[selectedIndex]['id'];
+				paramObj['fk_menu'] =selectedItem.data[selectedIndex]['id'];
+			}
+		}
+		//-----------------------------------
+		
+
+		//-----------------------------------		
+		var selectedIndex = $('[name="fk_app"]').wijcombobox('option','selectedIndex');  
+		var selectedItem = $('[name="fk_app"]').wijcombobox("option","data");		
+		if (selectedIndex == -1){
+			paramObj['fk_app'] =0;
+		}else{
+			if (selectedItem.data == undefined ){
+				paramObj['fk_app'] =selectedItem[selectedIndex]['value'];
+			}else{
+				paramObj['fk_app'] =selectedItem.data[selectedIndex]['id'];
 			}
 		}
 		//-----------------------------------
@@ -363,7 +427,8 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_estado();
+this.configurarComboFk_menu();
+this.configurarComboFk_app();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -384,7 +449,7 @@ this.configurarComboFk_estado();
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("¿Eliminar Municipio?");
+			var r=confirm("¿Eliminar Menu?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

@@ -23,15 +23,15 @@
 			pk:"id"
 			
 		};				
-		 var lista=new BusquedaEmpresas();
+		 var lista=new BusquedaMenus();
 		 lista.init(config);		
 	});
 </script>
 
 <div class="contenedor_catalogo" id="<?php echo $id; ?>">	
-	<div id="titulo">    	
-		<h1>Empresas<small><i class="icon-double-angle-right"></i>overview &amp; stats</small></h1>
-	</div>
+	<div id="titulo">
+    	<h1>Menus</h1>
+	</div>		
 	<div id="cuerpo" >				
 		<div id="contenedorDatos2">
 		<table class="grid_busqueda">

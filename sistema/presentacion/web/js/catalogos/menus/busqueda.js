@@ -1,4 +1,4 @@
-﻿var BusquedaConexiones=function(){
+﻿var BusquedaMenus=function(){
 	
 	this.buscar=function(){
 		var gridBusqueda=$(this.tabId+" .grid_busqueda");				
@@ -105,7 +105,7 @@
 		
 		$(this.tabId + ' .toolbarEdicion .btnEliminar').click( function(){
 			if (me.selected==undefined) return false;
-			var r=confirm("¿Eliminar Conexion?");
+			var r=confirm("¿Eliminar Menu?");
 			if (r==true){
 			  me.eliminar();
 			}
@@ -131,7 +131,7 @@
 					break;
 					case 'eliminar':
 						if (me.selected==undefined) return false;
-						var r=confirm("¿Eliminar Conexion?");
+						var r=confirm("¿Eliminar Menu?");
 						if (r==true){
 						  me.eliminar();
 						}
@@ -181,31 +181,37 @@
 				var value = $('#nav-search-input').val();				
 				
 				data.proxy.options.data.filtering.push({
-					dataKey: "host",
+					dataKey: "titulo",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "db_name",
+					dataKey: "target",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "user",
+					dataKey: "es_menu_externo",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "pass",
+					dataKey: "icon",
 					filterOperator: "Contains",
 					filterValue: value
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "fk_empresa",
+					dataKey: "titulo_menu",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
+				data.proxy.options.data.filtering.push({
+					dataKey: "nombre_app",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -235,12 +241,15 @@
 			data:dataSource,
 			showFilter:false,
 			columns: [ 
-				{ dataKey: "id", visible:true, headerText: "Id" },
-{ dataKey: "host", visible:true, headerText: "Host" },
-{ dataKey: "db_name", visible:true, headerText: "Db_name" },
-{ dataKey: "user", visible:true, headerText: "User" },
-{ dataKey: "pass", visible:true, headerText: "Pass" },
-{ dataKey: "fk_empresa", visible:false, headerText: "Empresa" },
+				{ dataKey: "id", visible:false, headerText: "Id" },
+{ dataKey: "titulo", visible:true, headerText: "Titulo" },
+{ dataKey: "target", visible:true, headerText: "Target" },
+{ dataKey: "es_menu_externo", visible:true, headerText: "Es_menu_externo" },
+{ dataKey: "icon", visible:true, headerText: "Icon" },
+{ dataKey: "titulo_fk_menu", visible:true, headerText: "Padre" },
+{ dataKey: "fk_menu", visible:false, headerText: "Padre" },
+{ dataKey: "nombre_fk_app", visible:true, headerText: "Aplicacion" },
+{ dataKey: "fk_app", visible:false, headerText: "Aplicacion" },
 			]
 		});
 		

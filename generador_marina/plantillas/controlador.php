@@ -100,7 +100,8 @@ class Controlador extends Controlador{
 			
 			
 			if ( $res ){				
-				sessionSet('res', $response);
+				$sinGuardar = empty( $_POST['sinGuardar'] )? false : $_POST['sinGuardar'] ;
+				if ( !$sinGuardar ) sessionSet('res', $response);
 			}
 		}
 		echo json_encode($response);

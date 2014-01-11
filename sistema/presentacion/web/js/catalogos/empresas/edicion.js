@@ -473,8 +473,8 @@
 				msg= (resp.msg)? resp.msg : '';
 				if ( resp.success == true	){					
 					icon=kore.url_web+'imagenes/yes.png';
-					title= 'Success';		
-					me.nuevo();
+					title= 'Success';	
+					 me.nuevo();
 				}else{
 					icon= kore.url_web+'imagenes/error.png';
 					title= 'Error';
