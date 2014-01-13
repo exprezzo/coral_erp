@@ -36,43 +36,19 @@ $apps=array('datos'=>array());
 					<i class="icon-double-angle-right"></i>
 					Empresa
 				</a>
-			</li>
+			</li>			
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/sucursales/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/apps/buscar">
 					<i class="icon-double-angle-right"></i>
-					Sucursales
+					Aplicaciones
 				</a>
-			</li>
+			</li>						
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/perfil">
 					<i class="icon-double-angle-right"></i>
-					Usuarios
+					Perfil
 				</a>
-			</li>
-			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/roles/buscar">
-					<i class="icon-double-angle-right"></i>
-					Roles
-				</a>
-			</li>
-			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paises/buscar">
-					<i class="icon-double-angle-right"></i>
-					Paises
-				</a>
-			</li>
-			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/estados/buscar">
-					<i class="icon-double-angle-right"></i>
-					Estados
-				</a>
-			</li>
-			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/municipios/buscar">
-					<i class="icon-double-angle-right"></i>
-					Municipios
-				</a>
-			</li>
+			</li>						
 		</ul>
 	</li>
 	<?php

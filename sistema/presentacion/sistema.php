@@ -337,9 +337,9 @@
 								</li>
 
 								<li>
-									<a href="#">
+									<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/perfil">
 										<i class="icon-user"></i>
-										Profile
+										Perfil
 									</a>
 								</li>
 

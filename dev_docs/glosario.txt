@@ -1,0 +1,59 @@
+ERP: 
+Es un sistema creado para registrar todas las operaciones de la empresa
+
+
+Aplicación: Es un paquete de código con objetivos funcionales específicos. 
+
+Ejemplos:
+
+-Punto de venta.
+-Chat.
+-Facturación.
+-Contabilidad.
+-Nomina
+
+Empresa: Dentro del ERP, toda la informacion generada se agrupa por empresas.
+
+Rol:  Define todas las acciones que puede ejecutar un usuario.
+En el ERP se definen tres roles básicos:  SysAdmin, Admin, Usuario ERP
+
+Plantillas de correo: Para personalizar los correos enviados por el sistema
+
+Plantillas de impresión: Para seleccionar la manera en la que nuestra información saldrá impresa.
+
+
+---------------ACCIONES DE CADA ROL---------------------
+
+SysAdmin: 
+
+-Instala aplicaciones.
+-Permite/restringe acceso de empresas a aplicaciones.
+-Crea/bloquea Usuarios.
+-Asigna Roles.
+-Crea/bloquea Empresas.
+
+-Activa/Desactiva aplicaciones solo para si mismo.
+-Modifica sus datos.
+
+Admin
+
+-Permite/Restringe acceso de usuarios a la empresa.
+-Permite/Restringe acceso de usuarios a aplicaciones.
+-Activa/Bloquea Aplicaciones.
+-Modifica, agrega, activa plantillas de correo.
+-Modifica, agrega activa plantillas de impresión
+-Permite/impide a los usuarios, el acceso o modificación de plantillas
+
+-Activa/Desactiva aplicaciones solo para si mismo.
+-Modifica sus datos.
+
+Usuario ERP
+
+-Activa/Desactiva aplicaciones solo para si mismo.
+-Modifica sus datos.
+
+---------------------------------------------------------
+
+Social App: Aplicacion para transmitir informacion entre usuarios de la empresa.
+Fallas: Seguimiento a fallas y resolucion de problemas
+FAQ: Modulo para administrar las preguntas frecuentes
