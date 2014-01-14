@@ -2,7 +2,7 @@
 class empresaModelo extends Modelo{	
 	var $tabla='erp_empresa';
 	var $pk='id';
-	var $campos= array('id', 'nombre', 'telefonos', 'logo', 'sitios_web', 'actividad', 'RFC', 'fk_pais', 'nombre_pais', 'fk_estado', 'nombre_estado', 'fk_municipio', 'nombre_municipio', 'localidad', 'referencia', 'calle', 'numero_exterior', 'numero_interior', 'colonia', 'codigo_postal');
+	var $campos= array('id', 'nombre', 'telefonos', 'logo', 'sitio_web', 'actividad', 'RFC', 'fk_pais', 'nombre_pais', 'fk_estado', 'nombre_estado', 'fk_municipio', 'nombre_municipio', 'localidad', 'referencia', 'calle', 'numero_exterior', 'numero_interior', 'colonia', 'codigo_postal');
 	
 	function buscar($params){
 		
@@ -23,8 +23,8 @@ class empresaModelo extends Modelo{
 				if ( $filtro['dataKey']=='logo' ) {
 					$filtros .= ' empresa.logo like :logo OR ';
 				} 
-				if ( $filtro['dataKey']=='sitios_web' ) {
-					$filtros .= ' empresa.sitios_web like :sitios_web OR ';
+				if ( $filtro['dataKey']=='sitio_web' ) {
+					$filtros .= ' empresa.sitio_web like :sitio_web OR ';
 				} 
 				if ( $filtro['dataKey']=='actividad' ) {
 					$filtros .= ' empresa.actividad like :actividad OR ';
@@ -101,8 +101,8 @@ class empresaModelo extends Modelo{
 			if ( $filtro['dataKey']=='logo' ) {
 				$sth->bindValue(':logo','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='sitios_web' ) {
-				$sth->bindValue(':sitios_web','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='sitio_web' ) {
+				$sth->bindValue(':sitio_web','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='actividad' ) {
 				$sth->bindValue(':actividad','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -168,9 +168,9 @@ class empresaModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitios_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal FROM '.$this->tabla.' empresa '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal FROM '.$this->tabla.' empresa '.$joins.$filtros.' limit :start,:limit';
 		}else{
-			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitios_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal FROM '.$this->tabla.' empresa '.$joins.$filtros;
+			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal FROM '.$this->tabla.' empresa '.$joins.$filtros;
 		}
 				
 		$sth = $pdo->prepare($sql);
@@ -194,8 +194,8 @@ class empresaModelo extends Modelo{
 			if ( $filtro['dataKey']=='logo' ) {
 				$sth->bindValue(':logo','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			if ( $filtro['dataKey']=='sitios_web' ) {
-				$sth->bindValue(':sitios_web','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			if ( $filtro['dataKey']=='sitio_web' ) {
+				$sth->bindValue(':sitio_web','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='actividad' ) {
 				$sth->bindValue(':actividad','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -268,7 +268,7 @@ class empresaModelo extends Modelo{
 			$obj['nombre']='';
 			$obj['telefonos']='';
 			$obj['logo']='';
-			$obj['sitios_web']='';
+			$obj['sitio_web']='';
 			$obj['actividad']='';
 			$obj['RFC']='';
 			$obj['fk_pais']='';
@@ -289,7 +289,7 @@ class empresaModelo extends Modelo{
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitios_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal
+		$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal
  FROM erp_empresa AS empresa
  LEFT JOIN system_ubicacion_paises AS pais0 ON pais0.id = empresa.fk_pais
  LEFT JOIN system_ubicacion_estados AS estado1 ON estado1.id = empresa.fk_estado
@@ -349,8 +349,8 @@ class empresaModelo extends Modelo{
 		if ( isset( $datos['logo'] ) ){
 			$strCampos .= ' logo=:logo, ';
 		} 
-		if ( isset( $datos['sitios_web'] ) ){
-			$strCampos .= ' sitios_web=:sitios_web, ';
+		if ( isset( $datos['sitio_web'] ) ){
+			$strCampos .= ' sitio_web=:sitio_web, ';
 		} 
 		if ( isset( $datos['actividad'] ) ){
 			$strCampos .= ' actividad=:actividad, ';
@@ -415,8 +415,8 @@ class empresaModelo extends Modelo{
 		if  ( isset( $datos['logo'] ) ){
 			$sth->bindValue(':logo', $datos['logo'] );
 		}
-		if  ( isset( $datos['sitios_web'] ) ){
-			$sth->bindValue(':sitios_web', $datos['sitios_web'] );
+		if  ( isset( $datos['sitio_web'] ) ){
+			$sth->bindValue(':sitio_web', $datos['sitio_web'] );
 		}
 		if  ( isset( $datos['actividad'] ) ){
 			$sth->bindValue(':actividad', $datos['actividad'] );

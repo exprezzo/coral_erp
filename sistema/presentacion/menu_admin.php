@@ -1,10 +1,10 @@
 <?php 
-require_once $_PETICION->basePath.'/modelos/aplicacion_usuario.php';
-require_once $_PETICION->basePath.'/modelos/app.php';
-require_once $_PETICION->basePath.'/modelos/conexion.php';
-require_once $_PETICION->basePath.'/modelos/menu.php';
+// require_once $_PETICION->basePath.'/modelos/aplicacion_usuario.php';
+// require_once $_PETICION->basePath.'/modelos/app.php';
+// require_once $_PETICION->basePath.'/modelos/conexion.php';
+// require_once $_PETICION->basePath.'/modelos/menu.php';
 
-$modApps=new aplicacion_usuarioModelo();
+// $modApps=new aplicacion_usuarioModelo();
 
 $user = sessionGet('user');
 $params=array(
@@ -17,10 +17,10 @@ $params=array(
 		)
 	)
 );
-$apps = $modApps->buscar( $params );
-$appMod= new appModelo();
+// $apps = $modApps->buscar( $params );
+// $appMod= new appModelo();
 
-$menuMod= new menuModelo();
+// $menuMod= new menuModelo();
 ?>
 <ul class="nav nav-list">
 	<li>
@@ -43,14 +43,41 @@ $menuMod= new menuModelo();
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/aplicaciones_del_usuario/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/empresas/buscar">
 					<i class="icon-double-angle-right"></i>
-					Aplicaciones De Usuarios
+					Empresas
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
+					<i class="icon-double-angle-right"></i>
+					Usuarios
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
+					<i class="icon-double-angle-right"></i>
+					Empresas y Aplicaciones
+				</a>
+			</li>
+			
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
+					<i class="icon-double-angle-right"></i>
+					Usuarios y Empresas
+				</a>
+			</li>
+			
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
+					<i class="icon-double-angle-right"></i>
+					Mis Aplicaciones
 				</a>
 			</li>
 		</ul>
 	</li>
 	<?php
+		/*
 		foreach($apps['datos'] as $app){
 			$app = $appMod->obtener($app['fk_app']);
 			
@@ -73,7 +100,7 @@ $menuMod= new menuModelo();
 				$flechaSubmenus='<b class="arrow icon-angle-down"></b>';
 				$claseSubmenus='dropdown-toggle';
 			}
-		    // print_r($menus);
+
 			foreach($menus['datos'] as $menu){
 				$menuStr.='<li>
 					<a href="'.$_PETICION->url_app.$menu['target'].'">
@@ -100,7 +127,7 @@ $menuMod= new menuModelo();
 				'.$menuStr.'
 			</li>
 			';			
-		}
+		} */
 	?>
 	
 

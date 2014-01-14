@@ -35,7 +35,10 @@
 				console.log(paramObj);
 		//Envia los datos al servidor, el servidor responde success true o false.
 		$("#login-box").block({ 
-			message: '<h1>Identificando</h1>'               
+			message: '<h1>Identificando</h1>' ,
+			css: { 
+				width:          '204'
+			}
 		}); 
 		$.ajax({
 			type: "POST",
@@ -103,7 +106,10 @@
 				
 		//Envia los datos al servidor, el servidor responde success true o false.
 		$("#signup-box").block({ 
-			message: '<h1>Registrando</h1>'               
+			message: '<h1>Registrando</h1>',
+			css: { 
+				width:          '204'
+			}			
 		}); 
 		$.ajax({
 			type: "POST",
@@ -133,7 +139,7 @@
 			
 			if ( resp.success == true	){				
 				// window.location = kore.url_base+kore.modulo+'/paginas/inicio';								
-				$("#signup-box input[type=text], #signup-box textarea, #signup-box input[type=password]").val("");
+				$("#signup-box input[type=text], #signup-box textarea, #signup-box input[type=password], #signup-box input[type=email]").val("");
 				show_box('login-box');
 				$('#login-box [name="nick"]').focus();
 				icon= kore.url_web+'imagenes/yes.png';

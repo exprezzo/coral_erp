@@ -1,0 +1,23 @@
+\nEMAIL DE BIENVENIDA\nSaludos cesar <br> Se ha registrado un usuario  usando este email , de click al siguiente link para activar su cuenta. <br> Usuario: Cesar Octavio\nexception 'Swift_RfcComplianceException' with message 'Address in mailbox given [facturathon] does not comply with RFC 2822, 3.6.2.' in C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php:352
+Stack trace:
+#0 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php(264): Swift_Mime_Headers_MailboxHeader->_assertValidAddress('facturathon')
+#1 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php(108): Swift_Mime_Headers_MailboxHeader->normalizeMailboxes(Array)
+#2 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php(65): Swift_Mime_Headers_MailboxHeader->setNameAddresses(Array)
+#3 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\SimpleMimeEntity.php(604): Swift_Mime_Headers_MailboxHeader->setFieldBodyModel(Array)
+#4 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\SimpleMessage.php(215): Swift_Mime_SimpleMimeEntity->_setHeaderFieldModel('From', Array)
+#5 C:\xampp\htdocs\coral_erp\sistema\modelos\Usuario.php(38): Swift_Mime_SimpleMessage->setFrom(Array)
+#6 C:\xampp\htdocs\coral_erp\sistema\controladores\usuarios.php(17): UsuarioModelo->mensajeBienvenida(Array)
+#7 C:\xampp\htdocs\coral_erp\core\mvc\controlador.php(91): usuarios->registrar()
+#8 C:\xampp\htdocs\coral_erp\core\entrada.php(160): Controlador->servir()
+#9 {main}\n\nEMAIL DE BIENVENIDA\nSaludos cesar <br> Se ha registrado un usuario  usando este email , de click al siguiente link para activar su cuenta. <br> Usuario: Cesar Octavio\nexception 'Swift_RfcComplianceException' with message 'Address in mailbox given [facturathon] does not comply with RFC 2822, 3.6.2.' in C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php:352
+Stack trace:
+#0 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php(264): Swift_Mime_Headers_MailboxHeader->_assertValidAddress('facturathon')
+#1 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php(108): Swift_Mime_Headers_MailboxHeader->normalizeMailboxes(Array)
+#2 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\Headers\MailboxHeader.php(65): Swift_Mime_Headers_MailboxHeader->setNameAddresses(Array)
+#3 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\SimpleMimeEntity.php(604): Swift_Mime_Headers_MailboxHeader->setFieldBodyModel(Array)
+#4 C:\xampp\htdocs\coral_erp\php_libs\Swift-5.0.3\lib\classes\Swift\Mime\SimpleMessage.php(215): Swift_Mime_SimpleMimeEntity->_setHeaderFieldModel('From', Array)
+#5 C:\xampp\htdocs\coral_erp\sistema\modelos\Usuario.php(38): Swift_Mime_SimpleMessage->setFrom(Array)
+#6 C:\xampp\htdocs\coral_erp\sistema\controladores\usuarios.php(17): UsuarioModelo->mensajeBienvenida(Array)
+#7 C:\xampp\htdocs\coral_erp\core\mvc\controlador.php(91): usuarios->registrar()
+#8 C:\xampp\htdocs\coral_erp\core\entrada.php(160): Controlador->servir()
+#9 {main}\n

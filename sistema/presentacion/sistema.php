@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 	$user=sessionGet('user');	
+	// print_r($user);
 ?>
 
 <html lang="en">

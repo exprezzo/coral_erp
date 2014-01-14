@@ -7,14 +7,76 @@ class usuarios extends Controlador{
 	
 	var $accionesPublicas=array('login','registrar');
 	
+	
 	function registrar(){
+		$res=array();
+		$res['success']=false;
 		
 		$_POST['datos']['id'] =0;
-		$res =  $this->guardar();
-		if ( $res['success'] ){
-			// $res = $usrMod->identificar($_POST['datos']['nick'], $_POST['datos']['pass']);			
+		$mod=$this->getModelo();
+		$pdo=$mod->getPDO();
+		$pdo->beginTransaction();
+		
+		//validar email
+		$email_a=$_POST['datos']['email'];
+		if ( !filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+			$msg = "Este email ($email_a) NO es considerado válido.";
+			$res['msg']=$msg;
+			echo json_encode( $res );
+			return $res;
 		}
 		
+		//VALIDAR username
+		if ( empty($_POST['datos']['username']) ) {
+			$msg = "Debe escribir un nombre de usuario.";
+			$res['msg']=$msg;
+			echo json_encode( $res );
+			return $res;
+		}
+		
+		//VALIDAR username
+		if ( empty($_POST['datos']['username']) ) {
+			$msg = "Debe escribir un nombre de usuario.";
+			$res['msg']=$msg;
+			echo json_encode( $res );
+			return $res;
+		}
+		
+		//VALIDAR username
+		if ( empty($_POST['datos']['pass']) ) {
+			$msg = "Debe escribir una contraseña.";
+			$res['msg']=$msg;
+			echo json_encode( $res );
+			return $res;
+		}
+		
+		//VALIDAR username
+		if ( empty($_POST['datos']['nombre']) ) {
+			$msg = "Debe escribir su nombre.";
+			$res['msg']=$msg;
+			echo json_encode( $res );
+			return $res;
+		}
+		
+		
+		ob_start();
+		$res =  $this->guardar();
+		ob_end_clean();
+		if ( $res['success'] ){
+			$mod=$this->getModelo();
+			$resMsg = $mod->mensajeBienvenida( $res['datos'] );
+			
+			if ( $resMsg['success'] ){
+				$pdo->commit();
+				// $pdo->rollBack();
+			}else{
+				$pdo->rollBack();
+				echo json_encode( $resMsg );
+			}
+
+		}
+		
+		echo json_encode( $res );
 		return $res;
 	}
 	function logout(){

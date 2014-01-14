@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-01-2014 a las 02:00:50
+-- Tiempo de generación: 14-01-2014 a las 01:51:12
 -- Versión del servidor: 5.6.11
 -- Versión de PHP: 5.5.3
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `constructor_app` (
 
 INSERT INTO `constructor_app` (`id`, `nombre`, `ubicacion`, `logo`, `favicon`, `descripcion`, `tags`) VALUES
 (8, 'Ventas', '', '', 'ventas_ico.png', '', ''),
-(9, 'Nomina', '', '', 'nomina_ico.png', '', ''),
+(9, 'Nomina', '', '', 'nomina_ico.png', 'Nomina Timbrada según lo establecido por el SAT', ''),
 (10, 'Erp', '/erp', '', 'erp_ico.png', '', '');
 
 -- --------------------------------------------------------
@@ -127,7 +127,7 @@ INSERT INTO `constructor_elemento_catalogo` (`id`, `esDefault`, `extras`, `campo
 (1115, '', '', 'nombre', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Nombre","requerido":"0","editable":"1","oculto":"0","ayuda":"Nombre" }', 114),
 (1116, '', '', 'telefonos', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Telefonos","requerido":"0","editable":"1","oculto":"0","ayuda":"Telefonos" }', 114),
 (1117, '', '', 'logo', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Logo","requerido":"0","editable":"1","oculto":"0","ayuda":"Logo" }', 114),
-(1118, '', '', 'sitios_web', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Sitios_web","requerido":"0","editable":"1","oculto":"0","ayuda":"Sitios_web" }', 114),
+(1118, '', '', 'sitio_web', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Sitio Web","ayuda":"Sitio web de la empresa","requerido":"0","oculto":"0","editable":"1"}', 114),
 (1119, '', '', 'actividad', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Actividad","requerido":"0","editable":"1","oculto":"0","ayuda":"Actividad" }', 114),
 (1120, '', '', 'RFC', '', 'NO', 'char(1)', 'Text Input', '{"etiqueta":"RFC","requerido":"0","editable":"1","oculto":"0","ayuda":"RFC" }', 114),
 (1121, '', '', 'fk_pais', '', 'NO', 'int(11)', 'Combo Box', '{"etiqueta":"Pais","ayuda":"Pais","requerido":"0","oculto":"0","editable":"1","target":"111","campo_a_mostrar":"nombre"}', 114),
@@ -136,10 +136,10 @@ INSERT INTO `constructor_elemento_catalogo` (`id`, `esDefault`, `extras`, `campo
 (1124, '', '', 'localidad', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Localidad","requerido":"0","editable":"1","oculto":"0","ayuda":"Localidad" }', 114),
 (1125, '', '', 'referencia', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Referencia","requerido":"0","editable":"1","oculto":"0","ayuda":"Referencia" }', 114),
 (1126, '', '', 'calle', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Calle","requerido":"0","editable":"1","oculto":"0","ayuda":"Calle" }', 114),
-(1127, '', '', 'numero_exterior', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Numero_exterior","requerido":"0","editable":"1","oculto":"0","ayuda":"Numero_exterior" }', 114),
-(1128, '', '', 'numero_interior', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Numero_interior","requerido":"0","editable":"1","oculto":"0","ayuda":"Numero_interior" }', 114),
+(1127, '', '', 'numero_exterior', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Numero Exterior","ayuda":"Numero Exterior","requerido":"0","oculto":"0","editable":"1"}', 114),
+(1128, '', '', 'numero_interior', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Numero Interior","ayuda":"Numero Interior","requerido":"0","oculto":"0","editable":"1"}', 114),
 (1129, '', '', 'colonia', '', 'NO', 'char(255)', 'Text Input', '{"etiqueta":"Colonia","requerido":"0","editable":"1","oculto":"0","ayuda":"Colonia" }', 114),
-(1130, '', '', 'codigo_postal', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Codigo_postal","requerido":"0","editable":"1","oculto":"0","ayuda":"Codigo_postal" }', 114),
+(1130, '', '', 'codigo_postal', '', 'NO', 'char(50)', 'Text Input', '{"etiqueta":"Codigo Postal","ayuda":"Codigo Postal","requerido":"0","oculto":"0","editable":"1"}', 114),
 (1131, '', 'auto_increment', 'id', 'PRI', 'NO', 'int(11)', 'Text Input', '{"etiqueta":"Id","requerido":"0","editable":"1","oculto":"0","ayuda":"Id" }', 115),
 (1132, '', '', 'host', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Host","requerido":"0","editable":"1","oculto":"0","ayuda":"Host" }', 115),
 (1133, '', '', 'db_name', '', 'YES', 'char(255)', 'Text Input', '{"etiqueta":"Db_name","requerido":"0","editable":"1","oculto":"0","ayuda":"Db_name" }', 115),
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `erp_empresa` (
   `nombre` char(255) NOT NULL,
   `telefonos` char(255) NOT NULL,
   `logo` char(255) NOT NULL,
-  `sitios_web` char(255) NOT NULL,
+  `sitio_web` char(255) NOT NULL,
   `actividad` char(255) NOT NULL,
   `RFC` char(1) NOT NULL,
   `fk_pais` int(11) NOT NULL,
@@ -185,19 +185,16 @@ CREATE TABLE IF NOT EXISTS `erp_empresa` (
   `colonia` char(255) NOT NULL,
   `codigo_postal` char(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Volcado de datos para la tabla `erp_empresa`
 --
 
-INSERT INTO `erp_empresa` (`id`, `nombre`, `telefonos`, `logo`, `sitios_web`, `actividad`, `RFC`, `fk_pais`, `fk_estado`, `fk_municipio`, `localidad`, `referencia`, `calle`, `numero_exterior`, `numero_interior`, `colonia`, `codigo_postal`) VALUES
-(20, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
-(22, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
-(23, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
-(30, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
-(31, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', ''),
-(34, '', '', '', '', '', '', 1, 1, 2489, '', '', '', '', '', '', '');
+INSERT INTO `erp_empresa` (`id`, `nombre`, `telefonos`, `logo`, `sitio_web`, `actividad`, `RFC`, `fk_pais`, `fk_estado`, `fk_municipio`, `localidad`, `referencia`, `calle`, `numero_exterior`, `numero_interior`, `colonia`, `codigo_postal`) VALUES
+(42, 'Soluciones Triples Administrativas', '9 13 12 81', '', 'www.solucionestriples.com', 'Soluciones Tecnológicas', '', 1, 25, 2844, '', '', '', '', '', '', ''),
+(43, 'Cone-Karne', '9 84 80 34', '', 'www.conecarne.com', 'Proveedor de Carne de Conejo', '', 1, 25, 2844, '', '', '', '', '', '', ''),
+(44, 'Diversiones Boomerang', '9 13 12 81', '', 'www.diversionesboomerang.com', 'Renta de Rockolas, mesas, sillas y manteles', '', 1, 25, 2844, '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -214,18 +211,15 @@ CREATE TABLE IF NOT EXISTS `erp_empresa_database` (
   `fk_empresa` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `empresa` (`fk_empresa`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Volcado de datos para la tabla `erp_empresa_database`
 --
 
 INSERT INTO `erp_empresa_database` (`id`, `host`, `db_name`, `user`, `pass`, `fk_empresa`) VALUES
-(9, '', '', '', '', 20),
-(11, '', '', '', '', 22),
-(12, '', '', '', '', 23),
-(19, '', '', '', '', 30),
-(20, '', '', '', '', 31);
+(30, '', '', '', '', 42),
+(32, '', '', '', '', 44);
 
 -- --------------------------------------------------------
 
@@ -3059,24 +3053,23 @@ CREATE TABLE IF NOT EXISTS `system_usuarios` (
   `creado` datetime DEFAULT NULL,
   `fk_rol` int(11) NOT NULL DEFAULT '2',
   `ip` char(50) NOT NULL,
+  `estado` int(11) NOT NULL,
+  `confirmado` int(11) NOT NULL,
+  `genero` char(1) NOT NULL,
   PRIMARY KEY (`id`,`fk_rol`),
   UNIQUE KEY `username` (`username`) USING BTREE,
   UNIQUE KEY `usuario` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=147 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=191 ;
 
 --
 -- Volcado de datos para la tabla `system_usuarios`
 --
 
-INSERT INTO `system_usuarios` (`id`, `username`, `pass`, `email`, `nombre`, `apellidoss`, `ultima_conexion`, `creado`, `fk_rol`, `ip`) VALUES
-(16, 'admin', '098f6bcd4621d373cade4e832627b4f6', 'email@webmaster.com', 'Administrador del sistema', NULL, '2013-12-13 17:43:45', '0000-00-00 00:00:00', 1, ''),
-(102, 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', NULL, '2014-01-09 11:45:29', '0000-00-00 00:00:00', 2, ''),
-(138, '', '912ec803b2ce49e4a541068d495ab570', '', 'asdf', NULL, '2014-01-05 17:44:04', NULL, 2, ''),
-(141, 'asdf', '912ec803b2ce49e4a541068d495ab570', 'asdf', '', NULL, '2014-01-05 17:44:48', NULL, 2, ''),
-(144, 'cesar', '202cb962ac59075b964b07152d234b70', 'cesar', 'cesar', NULL, '2014-01-05 17:49:45', NULL, 2, ''),
-(145, 'diego', '078c007bd92ddec308ae2f5115c1775d', 'diego@email.com', 'diego', NULL, '2014-01-06 17:38:53', NULL, 2, ''),
-(146, 'asd', '7815696ecbf1c96e6894b779456d330e', 'asd', 'asd', NULL, '2014-01-08 13:51:41', NULL, 2, '');
+INSERT INTO `system_usuarios` (`id`, `username`, `pass`, `email`, `nombre`, `apellidoss`, `ultima_conexion`, `creado`, `fk_rol`, `ip`, `estado`, `confirmado`, `genero`) VALUES
+(16, 'admin', '098f6bcd4621d373cade4e832627b4f6', 'email@webmaster.com', 'Administrador del sistema', NULL, '2014-01-13 13:46:21', '0000-00-00 00:00:00', 1, '', 0, 0, ''),
+(102, 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', NULL, '2014-01-13 13:44:42', '0000-00-00 00:00:00', 2, '', 0, 0, ''),
+(185, 'cesar', '6f597c1ddab467f7bf5498aad1b41899', 'cbibriesca@hotmail.com', 'Cesar Octavio', NULL, '2014-01-13 13:32:09', NULL, 2, '', 0, 0, '');
 
 --
 -- Restricciones para tablas volcadas

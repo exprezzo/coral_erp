@@ -199,7 +199,7 @@
 				});
 		
 				data.proxy.options.data.filtering.push({
-					dataKey: "sitios_web",
+					dataKey: "sitio_web",
 					filterOperator: "Contains",
 					filterValue: value
 				});
@@ -305,7 +305,7 @@
 { dataKey: "nombre", visible:true, headerText: "Nombre" },
 { dataKey: "telefonos", visible:true, headerText: "Telefonos" },
 { dataKey: "logo", visible:true, headerText: "Logo" },
-{ dataKey: "sitios_web", visible:true, headerText: "Sitios_web" },
+{ dataKey: "sitio_web", visible:true, headerText: "Sitio Web" },
 { dataKey: "actividad", visible:true, headerText: "Actividad" },
 { dataKey: "RFC", visible:true, headerText: "RFC" },
 { dataKey: "nombre_fk_pais", visible:true, headerText: "Pais" },
@@ -317,10 +317,10 @@
 { dataKey: "localidad", visible:true, headerText: "Localidad" },
 { dataKey: "referencia", visible:true, headerText: "Referencia" },
 { dataKey: "calle", visible:true, headerText: "Calle" },
-{ dataKey: "numero_exterior", visible:true, headerText: "Numero_exterior" },
-{ dataKey: "numero_interior", visible:true, headerText: "Numero_interior" },
+{ dataKey: "numero_exterior", visible:true, headerText: "Numero Exterior" },
+{ dataKey: "numero_interior", visible:true, headerText: "Numero Interior" },
 { dataKey: "colonia", visible:true, headerText: "Colonia" },
-{ dataKey: "codigo_postal", visible:true, headerText: "Codigo_postal" },
+{ dataKey: "codigo_postal", visible:true, headerText: "Codigo Postal" },
 			]
 		});
 		

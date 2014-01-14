@@ -1,0 +1,47 @@
+quiero registrarme en el sistema
++maquetar pantalla de registro
++validar que el email sea valido 
++validar que el usuario y el email no exista.
++correo de bienvenida
+-codigo de seguridad a los 3 intentos.
+-activacion de cuenta
+-rechazar creacion de cuenta
+-bloquear cuentas sin activar
+-eliminar cuentas bloqueadas
+-registrarse usando cuentas de redes sociales como facebook, twiter, youtube.
+
+quiero recuperar mi contraseña en caso de olvidarla
+-maquetar pantalla
+-codigo de seguridad
+-enviar correo con nueva contraseña
+
+como SysAdmin quiero instalar aplicaciones y permitir/bloquear el acceso a ciertas empresas
+- catalogo aplicaciones
+- catalogo permisos a empresas
+- catalogo Menu de la Aplicacion
+
+como SysAdmin quiero suspender el acceso a una empresa
+- catalogo Suspension de empresas.
+
+quiero que la informacion de mi empresa no se mezcle con la de otras empresas
+- catalogo empresas
+	-relacionar combos de ubicacion.
+	-crear carpeta por empresa para almacenar sus archivos
+	-cargar imagenes para el logo
+	-precargar los datos de conexion
+	-crear carpeta por empresa para almacenar sus archivos
+- Al crear empresa crearle una BD 
+
+como administrador quiero decidir quienes pueden entrar a mi empresa y bloquear el acceso cuando lo requiera
+-catalogo usuarios con permiso
+-opcion suspender usuario
+
+como administrador, quiero personalizar los emails que salen del sistema
+-catalogo formatos de emails
+
+como administrador, quiero personalizar las impresiones que se genera en el sistema
+-catalogo formatos de impresion
+
+
+como usuario, quiero poder activar aplicaciones para uso personal
+-catalogo Mis Aplicaciones.

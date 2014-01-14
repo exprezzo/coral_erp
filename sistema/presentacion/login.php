@@ -149,17 +149,19 @@
 													<fieldset>
 														<label>
 															<span class="block input-icon input-icon-right">
-																<input name="email" type="email" class="span12" placeholder="Email" />
-																<i class="icon-envelope"></i>
+																<input name="nombre" type="text" class="span12" placeholder="Escriba su Nombre" />
+																<i class="icon-user"></i>
 															</span>
 														</label>
 														
 														<label>
 															<span class="block input-icon input-icon-right">
-																<input name="nombre" type="text" class="span12" placeholder="Nombre" />
-																<i class="icon-user"></i>
+																<input name="email" type="email" class="span12" placeholder="Email" />
+																<i class="icon-envelope"></i>
 															</span>
 														</label>
+														
+														
 														
 														<label>
 															<span class="block input-icon input-icon-right">
@@ -268,15 +270,13 @@
 		<script type="text/javascript">
 			function show_box(id) {
 				$('.alert-error').remove();
-			 $('.widget-box.visible').removeClass('visible');
-			 $('#'+id).addClass('visible');
+				$('.widget-box.visible').removeClass('visible');
+				$('#'+id).addClass('visible');
 			}
 			
 			function removeMsgError(){				
 				$('.alert-error').remove();
-			}
-			
-			
+			}					
 		</script>
 		
 	</body>

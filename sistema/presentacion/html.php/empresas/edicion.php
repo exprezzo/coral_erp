@@ -99,6 +99,15 @@ if ( !empty( $this->datos['id'] ) ){
 
 		var conexionDeEmpresas = new ConexionDeEmpresas();		
 		conexionDeEmpresas.init(configDet);
+		
+		// function PreviewImage() {
+			// var oFReader = new FileReader();
+			// oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+			// oFReader.onload = function (oFREvent) {
+				// document.getElementById("uploadPreview").src = oFREvent.target.result;
+			// };
+		// };
 				
 	});
 </script>
@@ -112,6 +121,10 @@ if ( !empty( $this->datos['id'] ) ){
 	<div id="cuerpo">
 		<div id="contenedorDatos2">
 			<form class="frmEdicion" style="">
+				<div class="inputBox contenedor_logo" style=""  >
+					<label style="">Logo:</label>
+					<input title="Logo" type="file" name="logo" class="entradaDatos" value="<?php echo $this->datos['logo']; ?>" style="width:500px;" />
+				</div>
 				
 				<div class="inputBox contenedor_id oculto" style=""  >
 					<label style="">Id:</label>
@@ -125,13 +138,10 @@ if ( !empty( $this->datos['id'] ) ){
 					<label style="">Telefonos:</label>
 					<input title="Telefonos" type="text" name="telefonos" class="entradaDatos" value="<?php echo $this->datos['telefonos']; ?>" style="width:500px;" />
 				</div>
-				<div class="inputBox contenedor_logo" style=""  >
-					<label style="">Logo:</label>
-					<input title="Logo" type="text" name="logo" class="entradaDatos" value="<?php echo $this->datos['logo']; ?>" style="width:500px;" />
-				</div>
-				<div class="inputBox contenedor_sitios_web" style=""  >
-					<label style="">Sitios_web:</label>
-					<input title="Sitios_web" type="text" name="sitios_web" class="entradaDatos" value="<?php echo $this->datos['sitios_web']; ?>" style="width:500px;" />
+				
+				<div class="inputBox contenedor_sitio_web" style=""  >
+					<label style="">Sitio Web:</label>
+					<input title="Sitio web de la empresa" type="text" name="sitio_web" class="entradaDatos" value="<?php echo $this->datos['sitio_web']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_actividad" style=""  >
 					<label style="">Actividad:</label>
@@ -184,20 +194,20 @@ if ( !empty( $this->datos['id'] ) ){
 					<input title="Calle" type="text" name="calle" class="entradaDatos" value="<?php echo $this->datos['calle']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_numero_exterior" style=""  >
-					<label style="">Numero_exterior:</label>
-					<input title="Numero_exterior" type="text" name="numero_exterior" class="entradaDatos" value="<?php echo $this->datos['numero_exterior']; ?>" style="width:500px;" />
+					<label style="">Numero Exterior:</label>
+					<input title="Numero Exterior" type="text" name="numero_exterior" class="entradaDatos" value="<?php echo $this->datos['numero_exterior']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_numero_interior" style=""  >
-					<label style="">Numero_interior:</label>
-					<input title="Numero_interior" type="text" name="numero_interior" class="entradaDatos" value="<?php echo $this->datos['numero_interior']; ?>" style="width:500px;" />
+					<label style="">Numero Interior:</label>
+					<input title="Numero Interior" type="text" name="numero_interior" class="entradaDatos" value="<?php echo $this->datos['numero_interior']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_colonia" style=""  >
 					<label style="">Colonia:</label>
 					<input title="Colonia" type="text" name="colonia" class="entradaDatos" value="<?php echo $this->datos['colonia']; ?>" style="width:500px;" />
 				</div>
 				<div class="inputBox contenedor_codigo_postal" style=""  >
-					<label style="">Codigo_postal:</label>
-					<input title="Codigo_postal" type="text" name="codigo_postal" class="entradaDatos" value="<?php echo $this->datos['codigo_postal']; ?>" style="width:500px;" />
+					<label style="">Codigo Postal:</label>
+					<input title="Codigo Postal" type="text" name="codigo_postal" class="entradaDatos" value="<?php echo $this->datos['codigo_postal']; ?>" style="width:500px;" />
 				</div>
 				<div class="tabla contenedor_tabla_conexion" style="position: relative; margin-top: 26px;"  >
 					

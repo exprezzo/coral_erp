@@ -29,9 +29,9 @@
 </script>
 
 <div class="contenedor_catalogo" id="<?php echo $id; ?>">	
-	<div id="titulo">    	
-		<h1>Empresas<small><i class="icon-double-angle-right"></i>overview &amp; stats</small></h1>
-	</div>
+	<div id="titulo">
+    	<h1>Empresas</h1>
+	</div>		
 	<div id="cuerpo" >				
 		<div id="contenedorDatos2">
 		<table class="grid_busqueda">

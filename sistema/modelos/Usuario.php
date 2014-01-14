@@ -3,6 +3,72 @@ class UsuarioModelo extends Modelo{
 	var $tabla='system_usuarios';
 	var $pk='id';
 	var $campos= array('id', 'username', 'pass', 'email', 'nombre', 'ultima_conexion', 'creado', 'fk_rol', 'ip');
+	
+	function mensajeBienvenida($usuario){
+		$res =array();
+		global $APP_CONFIG;
+
+		//--------------------------------------------
+		$subject = 'Bienvenido al ERP';		
+		$body='Saludos '.$usuario['nombre'].', se ha registrado un usuario  usando este email. ';
+		$body.='<br/><br/><strong> Datos de Acceso:</strong> <br /><br/>';
+		$body.='User: '.$usuario['username'].'<br/>';
+		$body.='Contrase&ntilde;a: *****'.'<br/>';
+		$body.='<a href="www.solucionestriples.com/erp">Coral ERP</a>';
+		
+		
+		
+		require_once  '../php_libs/Swift-5.0.3/lib/swift_required.php';
+
+		$userName    = $APP_CONFIG['email_user'];
+		$pass        = $APP_CONFIG['email_pass'];
+		$email_host  = $APP_CONFIG['email_host'];
+		$email_port  = $APP_CONFIG['email_port'];
+		
+		try{
+			$transport = Swift_SmtpTransport::newInstance($email_host, $email_port)
+			  ->setUsername($userName)
+			  ->setPassword($pass);
+
+			$mailer = Swift_Mailer::newInstance($transport);
+			
+			// los correos separados por comas se convierten en arreglos
+				
+			$destinos=array( $usuario['email'] );
+
+			$message = Swift_Message::newInstance($subject)
+			  ->setFrom( array($userName => 'Sistema Coral ERP') )
+			  ->setTo($destinos)
+			  ->setBody( $body ,'text/html');
+		 }catch(Exception $e){
+			file_put_contents('../error_log.txt', '\n'.'EMAIL DE BIENVENIDA'.'\n'.$body.'\n'.$e.'\n', FILE_APPEND);
+			$res['success']=false;
+			$res['msg']=$e;
+			return $res;
+		 }
+		
+
+		
+		$exito = $mailer->send($message, $failures);
+		// if ( !empty($failures) ){
+			 // print_r( $failures );
+		// }
+
+		if ( !$exito ){
+			$msg='Error al enviar correo de bienvenida';
+			$exito=false;
+			//logear este error
+			file_put_contents('../error_log.txt', '\n'.'EMAIL DE BIENVENIDA'.'\n'.$body.'\n' ,FILE_APPEND);
+		}else{
+			$msg=$subject.'Correo de bienvenida enviado';
+			$exito=true;
+		}
+		$res['success']=$exito;
+		$res['msg']=$msg;
+
+		return $res;
+	}
+	
 	function identificar($usuario, $contra){
 				
 		$sql = 'SELECT * FROM '.$this->tabla.' WHERE username=:usuario and pass=:pass';				
@@ -343,7 +409,7 @@ class UsuarioModelo extends Modelo{
 					$msg = utf8_encode('Ese email ya existe, escoja otro');
 				}
 				
-				$aparece = strstr ($msg, 'for key \'nick\'');
+				$aparece = strstr ($msg, 'for key \'username\'');
 				if ( strlen($aparece)>0 ){
 					$msg = utf8_encode('Ese usuario ya existe, escoja otro');
 				}				
