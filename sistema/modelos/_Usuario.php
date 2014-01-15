@@ -2,7 +2,7 @@
 class UsuarioModelo extends Modelo{	
 	var $tabla='system_usuarios';
 	var $pk='id';
-	var $campos= array('id', 'username', 'pass', 'email', 'nombre', 'ultima_conexion', 'creado', 'fk_rol', 'nombre_rol', 'ip');
+	var $campos= array('id', 'username', 'pass', 'email', 'nombre', 'ultima_conexion', 'creado', 'fk_rol', 'ip');
 	
 	function mensajeBienvenida($usuario){
 		$res =array();
@@ -68,6 +68,7 @@ class UsuarioModelo extends Modelo{
 
 		return $res;
 	}
+	
 	function identificar($usuario, $contra){
 				
 		$sql = 'SELECT * FROM '.$this->tabla.' WHERE username=:usuario and pass=:pass';				
@@ -121,7 +122,9 @@ class UsuarioModelo extends Modelo{
 				if ( $filtro['dataKey']=='username' ) {
 					$filtros .= ' Usuario.username like :username OR ';
 				} 
-				
+				if ( $filtro['dataKey']=='pass' ) {
+					$filtros .= ' Usuario.pass like :pass OR ';
+				} 
 				if ( $filtro['dataKey']=='email' ) {
 					$filtros .= ' Usuario.email like :email OR ';
 				} 
@@ -137,9 +140,6 @@ class UsuarioModelo extends Modelo{
 				if ( $filtro['dataKey']=='fk_rol' ) {
 					$filtros .= ' Usuario.fk_rol like :fk_rol OR ';
 				} 
-				if ( $filtro['dataKey']=='nombre_rol' ) {
-					$filtros .= ' rol0.nombre like :nombre_rol OR ';
-				} 
 				if ( $filtro['dataKey']=='ip' ) {
 					$filtros .= ' Usuario.ip like :ip OR ';
 				}			
@@ -151,8 +151,7 @@ class UsuarioModelo extends Modelo{
 		}
 		
 		
-		$joins='
- LEFT JOIN system_rol AS rol0 ON rol0.id = Usuario.fk_rol';
+		$joins='';
 						
 		$sql = 'SELECT COUNT(*) as total FROM '.$this->tabla.' Usuario '.$joins.$filtros;				
 		$sth = $pdo->prepare($sql);		
@@ -165,7 +164,9 @@ class UsuarioModelo extends Modelo{
 			if ( $filtro['dataKey']=='username' ) {
 				$sth->bindValue(':username','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			
+			if ( $filtro['dataKey']=='pass' ) {
+				$sth->bindValue(':pass','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
 			if ( $filtro['dataKey']=='email' ) {
 				$sth->bindValue(':email','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
@@ -180,9 +181,6 @@ class UsuarioModelo extends Modelo{
 			}
 			if ( $filtro['dataKey']=='fk_rol' ) {
 				$sth->bindValue(':fk_rol','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
-			}
-			if ( $filtro['dataKey']=='nombre_rol' ) {
-				$sth->bindValue(':nombre_rol', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='ip' ) {
 				$sth->bindValue(':ip','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -206,9 +204,9 @@ class UsuarioModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT Usuario.id, Usuario.username,  Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, rol0.nombre AS nombre_fk_rol, Usuario.ip FROM '.$this->tabla.' Usuario '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT Usuario.id, Usuario.username, Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, Usuario.ip FROM '.$this->tabla.' Usuario '.$joins.$filtros.' limit :start,:limit';
 		}else{
-			$sql = 'SELECT Usuario.id, Usuario.username,  Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, rol0.nombre AS nombre_fk_rol, Usuario.ip FROM '.$this->tabla.' Usuario '.$joins.$filtros;
+			$sql = 'SELECT Usuario.id, Usuario.username, Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, Usuario.ip FROM '.$this->tabla.' Usuario '.$joins.$filtros;
 		}
 				
 		$sth = $pdo->prepare($sql);
@@ -226,7 +224,9 @@ class UsuarioModelo extends Modelo{
 			if ( $filtro['dataKey']=='username' ) {
 				$sth->bindValue(':username','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
-			
+			if ( $filtro['dataKey']=='pass' ) {
+				$sth->bindValue(':pass','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
 			if ( $filtro['dataKey']=='email' ) {
 				$sth->bindValue(':email','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
@@ -241,9 +241,6 @@ class UsuarioModelo extends Modelo{
 			}
 			if ( $filtro['dataKey']=='fk_rol' ) {
 				$sth->bindValue(':fk_rol','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
-			}
-			if ( $filtro['dataKey']=='nombre_rol' ) {
-				$sth->bindValue(':nombre_rol', '%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
 			if ( $filtro['dataKey']=='ip' ) {
 				$sth->bindValue(':ip','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
@@ -278,14 +275,12 @@ class UsuarioModelo extends Modelo{
 			$obj['ultima_conexion']='';
 			$obj['creado']='';
 			$obj['fk_rol']='2';
-			$obj['nombre_rol']='';
 			$obj['ip']='';
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT Usuario.id, Usuario.username, Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, rol0.nombre AS nombre_fk_rol, Usuario.ip
+		$sql = 'SELECT Usuario.id, Usuario.username, Usuario.pass, Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, Usuario.ip
  FROM system_usuarios AS Usuario
- LEFT JOIN system_rol AS rol0 ON rol0.id = Usuario.fk_rol
   WHERE Usuario.id=:id';
 		$pdo = $this->getConexion();
 		$sth = $pdo->prepare($sql);

@@ -1,12 +1,12 @@
-﻿var EdicionUsuarios = function(){
+﻿var EdicionAccesos = function(){
 	this.editado=false;
-	this.tituloNuevo='Nuevo Usuario';
+	this.tituloNuevo='Nuevo Acceso';
 	this.saveAndClose=false;
 	
-	this.configurarComboFk_rol=function(){
+	this.configurarComboFk_usuario=function(){
 		var me=this;
 		
-		$('select[name="fk_rol"]').wijcombobox({			
+		$('select[name="fk_usuario"]').wijcombobox({			
 			showTrigger: true,
 			width:300,
 			minLength:1,
@@ -18,19 +18,19 @@
 			}
 		 });
 		 
-		 $('.contenedor_fk_rol input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_rolEnAjax) return true;			
-			me.setDSFk_rol();
-			me.Fk_rolEnAjax=true;
+		 $('.contenedor_fk_usuario input[role="textbox"]').bind('keypress', function(){			
+			if (me.Fk_usuarioEnAjax) return true;			
+			me.setDSFk_usuario();
+			me.Fk_usuarioEnAjax=true;
 		 });
 	};
 		
 		
-	this.setDSFk_rol = function(){		
+	this.setDSFk_usuario = function(){		
 		
 		var filtering=new Array();
 		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/usuarios/buscarRol',
+			url: kore.url_base+kore.modulo+'/accesos/buscarUsuario',
 			dataType: "json", 
 			type:"POST",
 			data: {
@@ -49,12 +49,110 @@
 			proxy: proxy 
 		}); 
 	
-		$('select[name="fk_rol"]').wijcombobox('option','data',datasource);
+		$('select[name="fk_usuario"]').wijcombobox('option','data',datasource);
+	};
+		
+	this.configurarComboFk_empresa=function(){
+		var me=this;
+		
+		$('select[name="fk_empresa"]').wijcombobox({			
+			showTrigger: true,
+			width:300,
+			minLength:1,
+			autoFilter:false,	
+			forceSelectionText:true,
+			select : function (e, data) {						
+			},
+			search: function (e, obj) { 						
+			}
+		 });
+		 
+		 $('.contenedor_fk_empresa input[role="textbox"]').bind('keypress', function(){			
+			if (me.Fk_empresaEnAjax) return true;			
+			me.setDSFk_empresa();
+			me.Fk_empresaEnAjax=true;
+		 });
+	};
+		
+		
+	this.setDSFk_empresa = function(){		
+		
+		var filtering=new Array();
+		var proxy = new wijhttpproxy({
+			url: kore.url_base+kore.modulo+'/accesos/buscarEmpresa',
+			dataType: "json", 
+			type:"POST",
+			data: {
+				style: "full",
+				 filtering:filtering						
+			},
+			key: 'datos'
+		}); 
+
+		var myReader = new wijarrayreader([
+		{name:'label', mapping:'nombre' }, 
+		{name:'value', mapping:'id' }]); 
+
+		var datasource = new wijdatasource({ 
+			reader: myReader, 
+			proxy: proxy 
+		}); 
+	
+		$('select[name="fk_empresa"]').wijcombobox('option','data',datasource);
+	};
+		
+	this.configurarComboStatus=function(){
+		var me=this;
+		
+		$('select[name="status"]').wijcombobox({			
+			showTrigger: true,
+			width:300,
+			minLength:1,
+			autoFilter:false,	
+			forceSelectionText:true,
+			select : function (e, data) {						
+			},
+			search: function (e, obj) { 						
+			}
+		 });
+		 
+		 $('.contenedor_status input[role="textbox"]').bind('keypress', function(){			
+			if (me.StatusEnAjax) return true;			
+			me.setDSStatus();
+			me.StatusEnAjax=true;
+		 });
+	};
+		
+		
+	this.setDSStatus = function(){		
+		
+		var filtering=new Array();
+		var proxy = new wijhttpproxy({
+			url: kore.url_base+kore.modulo+'/accesos/buscarStatus_de_acceso',
+			dataType: "json", 
+			type:"POST",
+			data: {
+				style: "full",
+				 filtering:filtering						
+			},
+			key: 'datos'
+		}); 
+
+		var myReader = new wijarrayreader([
+		{name:'label', mapping:'nombre' }, 
+		{name:'value', mapping:'id' }]); 
+
+		var datasource = new wijdatasource({ 
+			reader: myReader, 
+			proxy: proxy 
+		}); 
+	
+		$('select[name="status"]').wijcombobox('option','data',datasource);
 	};
 		
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("¿Eliminar Usuario?");
+		var r=confirm("¿Eliminar Acceso?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -163,7 +261,7 @@
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
 		if (id>0){						
-			$(tabId +' #titulo h1').html('Usuario: ' + getValorCampo('nombre') + ''); 
+			$(tabId +' #titulo h1').html('Acceso: ' + getValorCampo('id') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
@@ -193,15 +291,45 @@
 		
 
 		//-----------------------------------		
-		var selectedIndex = $('[name="fk_rol"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_rol"]').wijcombobox("option","data");		
+		var selectedIndex = $('[name="fk_usuario"]').wijcombobox('option','selectedIndex');  
+		var selectedItem = $('[name="fk_usuario"]').wijcombobox("option","data");		
 		if (selectedIndex == -1){
-			paramObj['fk_rol'] =0;
+			paramObj['fk_usuario'] =0;
 		}else{
 			if (selectedItem.data == undefined ){
-				paramObj['fk_rol'] =selectedItem[selectedIndex]['value'];
+				paramObj['fk_usuario'] =selectedItem[selectedIndex]['value'];
 			}else{
-				paramObj['fk_rol'] =selectedItem.data[selectedIndex]['id'];
+				paramObj['fk_usuario'] =selectedItem.data[selectedIndex]['id'];
+			}
+		}
+		//-----------------------------------
+		
+
+		//-----------------------------------		
+		var selectedIndex = $('[name="fk_empresa"]').wijcombobox('option','selectedIndex');  
+		var selectedItem = $('[name="fk_empresa"]').wijcombobox("option","data");		
+		if (selectedIndex == -1){
+			paramObj['fk_empresa'] =0;
+		}else{
+			if (selectedItem.data == undefined ){
+				paramObj['fk_empresa'] =selectedItem[selectedIndex]['value'];
+			}else{
+				paramObj['fk_empresa'] =selectedItem.data[selectedIndex]['id'];
+			}
+		}
+		//-----------------------------------
+		
+
+		//-----------------------------------		
+		var selectedIndex = $('[name="status"]').wijcombobox('option','selectedIndex');  
+		var selectedItem = $('[name="status"]').wijcombobox("option","data");		
+		if (selectedIndex == -1){
+			paramObj['status'] =0;
+		}else{
+			if (selectedItem.data == undefined ){
+				paramObj['status'] =selectedItem[selectedIndex]['value'];
+			}else{
+				paramObj['status'] =selectedItem.data[selectedIndex]['id'];
 			}
 		}
 		//-----------------------------------
@@ -363,7 +491,9 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_rol();
+this.configurarComboFk_usuario();
+this.configurarComboFk_empresa();
+this.configurarComboStatus();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -384,7 +514,7 @@ this.configurarComboFk_rol();
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("¿Eliminar Usuario?");
+			var r=confirm("¿Eliminar Acceso?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

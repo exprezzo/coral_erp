@@ -1,14 +1,14 @@
-<?php
-require_once $_PETICION->basePath.'/modelos/Usuario.php';
-require_once $_PETICION->basePath.'/presentacion/html.php/usuarios/Usuario_pdf.php';
+<?php 
 
-require_once $_PETICION->basePath.'/modelos/rol.php';
+require_once $_PETICION->basePath.'/modelos/Usuario.php';
 
 class usuarios extends Controlador{
 	var $modelo="Usuario";	
+	
 	var $accionesPublicas=array('login','registrar');
+	
+	
 	function registrar(){
-
 		$res=array();
 		$res['success']=false;
 		
@@ -25,7 +25,7 @@ class usuarios extends Controlador{
 			echo json_encode( $res );
 			return $res;
 		}
-
+		
 		//VALIDAR username
 		if ( empty($_POST['datos']['username']) ) {
 			$msg = "Debe escribir un nombre de usuario.";
@@ -147,39 +147,7 @@ class usuarios extends Controlador{
 			return $vista->mostrarTema($_PETICION, $_TEMA_APP, $layout);
 		}				
 	}
-		
-		function buscarRol(){
-			$rolMod= new rolModelo();
-			$res = $rolMod->buscar( array() );
-			echo json_encode( $res );
-		}
-		
 	
-	function bajarPdf(){
-		//-------
-		$mod= $this->getModelo();
-		global $_PETICION;
-		$id=$_PETICION->params[0];
-		$datos= $mod->obtener( $id );
-		//-------
-		$objPdf = new UsuarioPdf('P','mm','letter');
-		$objPdf->datos=$datos;
-		$objPdf->AddPage();
-		$objPdf->imprimir(  );
-		//-------
-		$path='../';
-		$nombreArchivo=$objPdf->titulo.'_'.$datos['id'];			
-		//http://stackoverflow.com/questions/2021624/string-sanitizer-for-filename			
-		$nombreArchivo = preg_replace('/[^a-zA-Z0-9-_\.]/','_', $nombreArchivo);
-		$fullPath=$path.$nombreArchivo.'.pdf';
-		$pdfStr=$objPdf->Output($fullPath, 'S');
-		//-------
-		header ("Content-Length: ".strlen($pdfStr)); 
-		header ("Content-Disposition: attachment; filename=".$nombreArchivo.'.pdf');
-		header ("Content-Type: application/octet-stream");
-		echo $pdfStr;
-	}
-		
 	function mostrarVista( $archivos=""){
 		$vista= $this->getVista();
 		
@@ -246,38 +214,7 @@ class usuarios extends Controlador{
 		return $res;
 	}
 	function eliminar(){
-		$modObj= $this->getModelo();
-		$params=array();
-		
-		if ( !isset($_POST[$modObj->pk]) ){
-			$id=$_POST['datos'];
-		}else{
-			$id=$_POST[$modObj->pk];
-		}
-	
-		if (empty($id) ){			
-			$response=array(
-				'success'=>false,
-				'msg'=>'Seleccione un elemento'
-			);
-		}else{
-			$params[$modObj->pk]=$id;
-		
-			$res=$modObj->borrar($params);
-			// print_r($res); exit;
-			$response=array(
-				'success'=>$res,
-				'msg'=>''
-			);
-			
-			
-			if ( $res ){				
-				$sinGuardar = empty( $_POST['sinGuardar'] )? false : $_POST['sinGuardar'] ;
-				if ( !$sinGuardar ) sessionSet('res', $response);
-			}
-		}
-		echo json_encode($response);
-		return $response;
+		return parent::eliminar();
 	}
 	function editar(){
 		global $_PETICION;

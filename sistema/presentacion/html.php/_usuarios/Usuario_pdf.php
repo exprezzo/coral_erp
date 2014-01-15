@@ -40,7 +40,7 @@ class UsuarioPdf extends TCPDF{
 		$valign = 'M' ;
 		// $this->Cell($w, $h, $txt, $border, $ln, $align, $fill, $link, $stretch, $ignore_min_height, $calign, $valign);
 		
-		$txt= 'Usuario: '.$this->datos['nombre'].'' ;		
+		$txt= ''Usuario: ' + getValorCampo('nombre')' ;		
 		$this->titulo=$txt;
 		$this->Cell($w, $h, $txt, $border, $ln, 'C', $fill, $link, $stretch, $ignore_min_height, $calign, $valign);
 	}

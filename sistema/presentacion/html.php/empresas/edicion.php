@@ -121,9 +121,10 @@ if ( !empty( $this->datos['id'] ) ){
 	<div id="cuerpo">
 		<div id="contenedorDatos2">
 			<form class="frmEdicion" style="">
+				
 				<div class="inputBox contenedor_logo" style=""  >
 					<label style="">Logo:</label>
-					<input title="Logo" type="file" name="logo" class="entradaDatos" value="<?php echo $this->datos['logo']; ?>" style="width:500px;" />
+					<input title="Logo" type="file" name="logo" class="entradaDatos" value="<?php echo $this->datos['logo']; ?>" style="width:500px;" />					
 				</div>
 				
 				<div class="inputBox contenedor_id oculto" style=""  >

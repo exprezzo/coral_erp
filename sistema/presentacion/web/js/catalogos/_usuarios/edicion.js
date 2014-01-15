@@ -2,57 +2,8 @@
 	this.editado=false;
 	this.tituloNuevo='Nuevo Usuario';
 	this.saveAndClose=false;
-	
-	this.configurarComboFk_rol=function(){
-		var me=this;
-		
-		$('select[name="fk_rol"]').wijcombobox({			
-			showTrigger: true,
-			width:300,
-			minLength:1,
-			autoFilter:false,	
-			forceSelectionText:true,
-			select : function (e, data) {						
-			},
-			search: function (e, obj) { 						
-			}
-		 });
-		 
-		 $('.contenedor_fk_rol input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_rolEnAjax) return true;			
-			me.setDSFk_rol();
-			me.Fk_rolEnAjax=true;
-		 });
-	};
-		
-		
-	this.setDSFk_rol = function(){		
-		
-		var filtering=new Array();
-		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/usuarios/buscarRol',
-			dataType: "json", 
-			type:"POST",
-			data: {
-				style: "full",
-				 filtering:filtering						
-			},
-			key: 'datos'
-		}); 
-
-		var myReader = new wijarrayreader([
-		{name:'label', mapping:'nombre' }, 
-		{name:'value', mapping:'id' }]); 
-
-		var datasource = new wijdatasource({ 
-			reader: myReader, 
-			proxy: proxy 
-		}); 
-	
-		$('select[name="fk_rol"]').wijcombobox('option','data',datasource);
-	};
-		
 	var me=this;
+	
 	this.borrar=function(){		
 		var r=confirm("¿Eliminar Usuario?");
 		if (r==true){
@@ -162,15 +113,22 @@
 		
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
-		if (id>0){						
-			$(tabId +' #titulo h1').html('Usuario: ' + getValorCampo('nombre') + ''); 
+		if (id>0){			
+			var div='<small><i class="icon-double-angle-right"></i>&nbsp;&nbsp;'+getValorCampo('nombre')+'</small>';
+				
+			$(tabId +' #titulo h1').html('Usuario: ' + div);
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
 		}
 	};
 	this.nuevo=function(){
-		window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/nuevo';
+		var tabId=this.tabId;
+		var tab = $('#tabs '+tabId);		
+		$(tabId +' #titulo h1').html(this.tituloNuevo);
+		
+		tab.find('[name="id"]').val(0);
+		me.editado=false;
 	};	
 	this.guardar=function(){
 		var tabId=this.tabId;
@@ -189,21 +147,6 @@
 			paramObj[kv.name] = kv.value;
 		  }
 		});
-		//-----------------------------------
-		
-
-		//-----------------------------------		
-		var selectedIndex = $('[name="fk_rol"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_rol"]').wijcombobox("option","data");		
-		if (selectedIndex == -1){
-			paramObj['fk_rol'] =0;
-		}else{
-			if (selectedItem.data == undefined ){
-				paramObj['fk_rol'] =selectedItem[selectedIndex]['value'];
-			}else{
-				paramObj['fk_rol'] =selectedItem.data[selectedIndex]['id'];
-			}
-		}
 		//-----------------------------------
 		
 		//-----------------------------------
@@ -330,8 +273,7 @@
 				msg= (resp.msg)? resp.msg : '';
 				if ( resp.success == true	){					
 					icon=kore.url_web+'imagenes/yes.png';
-					title= 'Success';	
-					 me.nuevo();
+					title= 'Success';									
 				}else{
 					icon= kore.url_web+'imagenes/error.png';
 					title= 'Error';
@@ -363,7 +305,6 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_rol();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -376,19 +317,12 @@ this.configurarComboFk_rol();
 			me.editado=true;
 		});
 		
-		$(this.tabId + ' .toolbarEdicion .btnPdf').click( function(){
-			var id=$(me.tabId + ' [name="id"]').val();
-			if (id > 0){								
-				window.location=kore.url_base+me.configuracion.modulo.nombre+'/'+me.controlador.nombre+'/bajarPdf/'+id;
-			}
-		});
-		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
 			var r=confirm("¿Eliminar Usuario?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;
-			  // me.nuevo();
+			  me.nuevo();
 			}
 		});
 	};	

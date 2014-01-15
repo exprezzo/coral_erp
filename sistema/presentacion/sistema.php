@@ -107,7 +107,7 @@
 					</a><!--/.brand-->
 
 					<ul class="nav ace-nav pull-right">
-						<li class="grey">
+						<!--li class="grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-tasks"></i>
 								<span class="badge badge-grey">4</span>
@@ -178,7 +178,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li-->
 
 						<li class="purple">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -189,7 +189,7 @@
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-warning-sign"></i>
-									8 Notifications
+									8 Notificaciones
 								</li>
 
 								<li>
@@ -197,7 +197,7 @@
 										<div class="clearfix">
 											<span class="pull-left">
 												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
-												New Comments
+												Nuevos comentarios
 											</span>
 											<span class="pull-right badge badge-info">+12</span>
 										</div>
@@ -207,7 +207,7 @@
 								<li>
 									<a href="#">
 										<i class="btn btn-mini btn-primary icon-user"></i>
-										Bob just signed up as an editor ...
+										Roberto ha entrado al sistema ...
 									</a>
 								</li>
 
@@ -216,28 +216,18 @@
 										<div class="clearfix">
 											<span class="pull-left">
 												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
-												New Orders
+												Nuevos Pedidos
 											</span>
 											<span class="pull-right badge badge-success">+8</span>
 										</div>
 									</a>
 								</li>
 
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
-										</div>
-									</a>
-								</li>
+								
 
 								<li>
 									<a href="#">
-										See all notifications
+										Ver todas las notificaciones
 										<i class="icon-arrow-right"></i>
 									</a>
 								</li>
@@ -253,7 +243,7 @@
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-closer">
 								<li class="nav-header">
 									<i class="icon-envelope-alt"></i>
-									5 Messages
+									5 Mensajes
 								</li>
 
 								<li>
@@ -261,13 +251,13 @@
 										<img src="<?php echo $_PETICION->url_web; ?>assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
+												<span class="blue">Manuel:</span>
+												Oye pasame el logotipo de Boomerang ...
 											</span>
 
 											<span class="msg-time">
 												<i class="icon-time"></i>
-												<span>a moment ago</span>
+												<span>Hace un momento</span>
 											</span>
 										</span>
 									</a>
@@ -278,13 +268,13 @@
 										<img src="<?php echo $_PETICION->url_web; ?>assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
+												<span class="blue">Susana:</span>
+												Ya se nos terminó la tinta de la impresora ...
 											</span>
 
 											<span class="msg-time">
 												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
+												<span>Hace 20 minutes</span>
 											</span>
 										</span>
 									</a>
@@ -295,8 +285,8 @@
 										<img src="<?php echo $_PETICION->url_web; ?>assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
+												<span class="blue">Roberto:</span>
+												¿Como le hago para tramitar los certificados?
 											</span>
 
 											<span class="msg-time">
@@ -309,7 +299,7 @@
 
 								<li>
 									<a href="#">
-										See all messages
+										Ver todos los mensajes
 										<i class="icon-arrow-right"></i>
 									</a>
 								</li>
@@ -320,7 +310,7 @@
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<img class="nav-user-photo" src="<?php echo $_PETICION->url_web; ?>assets/avatars/zesar.jpg" alt="Jason's Photo" />
 								<span class="user-info">
-									<small>Welcome,</small>
+									<small>Bienvenido,</small>
 									<?php 
 									echo ( $user['nombre'] );
 									?>
@@ -431,7 +421,7 @@
 					<div class="nav-search" id="nav-search">
 						<form class="form-search" action="<?php echo $_PETICION->url_app.$_PETICION->modulo.'/'.$_PETICION->controlador; ?>/buscar" method="get" />
 							<span class="input-icon">
-								<input value="<?php echo empty($_GET['query'])? '' : $_GET['query']; ?>"  name="query" type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+								<input value="<?php echo empty($_GET['query'])? '' : $_GET['query']; ?>"  name="query" type="text" placeholder="Buscar ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
 								<i class="icon-search nav-search-icon"></i>
 							</span>
 						</form>
@@ -467,27 +457,27 @@
 									<option data-class="skin-3" value="#D0D0D0" />#D0D0D0
 								</select>
 							</div>
-							<span>&nbsp; Choose Skin</span>
+							<span>&nbsp; Tema</span>
 						</div>
 
 						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-header" />
-							<label class="lbl" for="ace-settings-header"> Fixed Header</label>
+							<input type="checkbox" class="ace-checkbox-2" id="" />
+							<label class="lbl" for="ace-settings-header"> Opcion 1</label>
 						</div>
 
 						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-sidebar" />
-							<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
+							<input type="checkbox" class="ace-checkbox-2" id="" />
+							<label class="lbl" for="ace-settings-sidebar"> Opcion 2</label>
 						</div>
 
 						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-breadcrumbs" />
-							<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
+							<input type="checkbox" class="ace-checkbox-2" id="" />
+							<label class="lbl" for="ace-settings-breadcrumbs"> Opcion 3</label>
 						</div>
 
 						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-rtl" />
-							<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
+							<input type="checkbox" class="ace-checkbox-2" id="" />
+							<label class="lbl" for="ace-settings-rtl"> Opcion 4</label>
 						</div>
 					</div>
 				</div><!--/#ace-settings-container-->

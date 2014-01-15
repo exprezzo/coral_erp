@@ -1,60 +1,11 @@
-﻿var EdicionUsuarios = function(){
+﻿var EdicionStatus_de_accesos = function(){
 	this.editado=false;
-	this.tituloNuevo='Nuevo Usuario';
+	this.tituloNuevo='Nuevo Status de Acceso';
 	this.saveAndClose=false;
 	
-	this.configurarComboFk_rol=function(){
-		var me=this;
-		
-		$('select[name="fk_rol"]').wijcombobox({			
-			showTrigger: true,
-			width:300,
-			minLength:1,
-			autoFilter:false,	
-			forceSelectionText:true,
-			select : function (e, data) {						
-			},
-			search: function (e, obj) { 						
-			}
-		 });
-		 
-		 $('.contenedor_fk_rol input[role="textbox"]').bind('keypress', function(){			
-			if (me.Fk_rolEnAjax) return true;			
-			me.setDSFk_rol();
-			me.Fk_rolEnAjax=true;
-		 });
-	};
-		
-		
-	this.setDSFk_rol = function(){		
-		
-		var filtering=new Array();
-		var proxy = new wijhttpproxy({
-			url: kore.url_base+kore.modulo+'/usuarios/buscarRol',
-			dataType: "json", 
-			type:"POST",
-			data: {
-				style: "full",
-				 filtering:filtering						
-			},
-			key: 'datos'
-		}); 
-
-		var myReader = new wijarrayreader([
-		{name:'label', mapping:'nombre' }, 
-		{name:'value', mapping:'id' }]); 
-
-		var datasource = new wijdatasource({ 
-			reader: myReader, 
-			proxy: proxy 
-		}); 
-	
-		$('select[name="fk_rol"]').wijcombobox('option','data',datasource);
-	};
-		
 	var me=this;
 	this.borrar=function(){		
-		var r=confirm("¿Eliminar Usuario?");
+		var r=confirm("¿Eliminar Status de Acceso?");
 		if (r==true){
 		  this.eliminar();
 		}
@@ -163,7 +114,7 @@
 		var tabId = this.tabId;		
 		var id = $(this.tabId + ' [name="id"]').val();
 		if (id>0){						
-			$(tabId +' #titulo h1').html('Usuario: ' + getValorCampo('nombre') + ''); 
+			$(tabId +' #titulo h1').html('Status de Acceso: ' + getValorCampo('nombre') + ''); 
 		}else{
 			$(tabId +' #titulo h1').html(this.tituloNuevo);
 			// $('a[href="'+tabId+'"]').html('Nuevo');
@@ -189,21 +140,6 @@
 			paramObj[kv.name] = kv.value;
 		  }
 		});
-		//-----------------------------------
-		
-
-		//-----------------------------------		
-		var selectedIndex = $('[name="fk_rol"]').wijcombobox('option','selectedIndex');  
-		var selectedItem = $('[name="fk_rol"]').wijcombobox("option","data");		
-		if (selectedIndex == -1){
-			paramObj['fk_rol'] =0;
-		}else{
-			if (selectedItem.data == undefined ){
-				paramObj['fk_rol'] =selectedItem[selectedIndex]['value'];
-			}else{
-				paramObj['fk_rol'] =selectedItem.data[selectedIndex]['id'];
-			}
-		}
 		//-----------------------------------
 		
 		//-----------------------------------
@@ -363,7 +299,6 @@
 		// $(this.tabId+' .frmEdicion input[type="text"]').wijtextbox();		
 		// $(this.tabId+' .frmEdicion textarea').wijtextbox();			
 		
-this.configurarComboFk_rol();
 	};
 	this.configurarToolbar=function(tabId){					
 		var me=this;			
@@ -384,7 +319,7 @@ this.configurarComboFk_rol();
 		});
 		
 		$(this.tabId + ' .toolbarEdicion .btnDelete').click( function(){
-			var r=confirm("¿Eliminar Usuario?");
+			var r=confirm("¿Eliminar Status de Acceso?");
 			if (r==true){
 			  me.eliminar();
 			  me.editado=false;

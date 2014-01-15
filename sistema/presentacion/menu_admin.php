@@ -23,7 +23,7 @@ $params=array(
 // $menuMod= new menuModelo();
 ?>
 <ul class="nav nav-list">
-	<li>
+	<li class="active open">
 		<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paginas/buscar" class="dropdown-toggle">
 			<i class="icon-dashboard"></i>
 			<span class="menu-text">General</span>
@@ -62,12 +62,17 @@ $params=array(
 			</li>
 			
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/accesos/buscar">
 					<i class="icon-double-angle-right"></i>
 					Usuarios y Empresas
 				</a>
 			</li>
-			
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/roles/buscar">
+					<i class="icon-double-angle-right"></i>
+					Roles
+				</a>
+			</li>
 			<li>
 				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/buscar">
 					<i class="icon-double-angle-right"></i>
@@ -131,7 +136,7 @@ $params=array(
 	?>
 	
 
-	<li class="active open">
+	<li class="">
 		<a href="#" class="dropdown-toggle">
 			<i class="icon-file-alt"></i>
 
