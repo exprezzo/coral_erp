@@ -1,0 +1,11 @@
+Cuando el usuario es nuevo, no tiene asignada ninguna empresa.
+-Le aparecen las opciones generales
+-Le aparece una pagina donde se le invita a crear una empresa
+-Al crear la empresa esta se relaciona al usuario con el rol de administrador
+-Se Inicia sesion de manera automatica
+-Se le invita a instalar aplicaciones (este es otro proceso)
+
+Cuando el usuario ya tiene una empresa, se logea a esa empresa
+-Si no tiene aplicaciones instaladas se le invita a instalar aplicaciones
+
+-Si ya tiene aplicaciones instaladas, se muestra el menu de sus aplicaciones y en la pagina principal el dashboard (uno o mas elementos de cada aplicacion)

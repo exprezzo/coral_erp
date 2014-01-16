@@ -45,3 +45,5 @@ como administrador, quiero personalizar las impresiones que se genera en el sist
 
 como usuario, quiero poder activar aplicaciones para uso personal
 -catalogo Mis Aplicaciones.
+
+Quiero que se consideren las sucursales

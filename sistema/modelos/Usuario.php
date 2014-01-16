@@ -4,6 +4,99 @@ class UsuarioModelo extends Modelo{
 	var $pk='id';
 	var $campos= array('id', 'username', 'pass', 'email', 'nombre', 'ultima_conexion', 'creado', 'fk_rol', 'nombre_rol', 'ip');
 	
+	function ingresarEnEmpresa($fk_usuario, $fk_empresa){
+		$res=array(
+			'success'=>false,
+			'msg'=>'Logear en empresa en proceso',	
+		);
+		
+		//revisar que el usuario este relacionado con la empresa y que su estatus sea activo
+		
+		
+		$sql='SELECT status FROM erp_usuario_empresa WHERE fk_usuario=:fk_usuario AND fk_empresa=:fk_empresa';
+		$pdo=$this->getPdo();
+		$sth = $pdo->prepare( $sql );
+		
+		$sth->bindValue(':fk_usuario', $fk_usuario );		
+		$sth->bindValue(':fk_empresa', $fk_empresa );		
+		
+		$exito = $sth->execute();
+		
+		if ( !$exito ){
+			$error = $this->getError($sth);			
+			return $error;
+		}
+		
+		$datos = $sth->fetchAll(PDO::FETCH_ASSOC);
+		
+		if ( empty($datos) || empty($datos[0]['status'] ) ){
+			return array('success'=>false,'msg'=>'El usuario no tiene acceso a esta empresa');
+		}
+		
+		//SI LLEGAMOS AQUI SIGNIFICA QUE EL USUARIO SI TIENE ACCESO A ESA EMPRESA
+		
+		//ESTABLECE LA CONEXION CON LA BASE DE DATOS DE LA EMPRESA, GUARDA ESA INFO EN LA SESSION
+		
+		$empMod = new EmpresaModelo();		
+		$empresa=$empMod->obtener($fk_empresa);
+		
+		//la empresa debe existir, debe tener una conexion
+		
+		if ( empty($empresa) ){
+			$res=array(
+				'success'=>false,
+				'msg'=>'La empresa no existe',	
+			);
+			return $res;
+		}
+		
+		if ( empty($empresa['conexionDeEmpresas']) ){
+			$res=array(
+				'success'=>false,
+				'msg'=>'La empresa no tiene una conexion a la Base de Datos',	
+			);
+			return $res;
+		}
+		
+		//------------------------------------------------------------
+		$conexion = $empresa['conexionDeEmpresas'][0];
+		$DB_CONFIG=array(
+			'host'=>$conexion['host'],
+			'db_name'=>$conexion['db_name'],
+			'db_user'=>$conexion['user'],
+			'db_pass'=>$conexion['pass']
+		);	
+		$DB_CONFIG=sessionAdd('DB_CONFIG', $DB_CONFIG);
+		//------------------------------------------------------------
+		//obtiene las aplicaciones y sus menus
+		$params=array('filtros'=>array(
+			array(
+				'dataKey'=>'fk_empresa',
+				'filterValue'=>$empresa['id'],
+				'filterOperator'=>'equals'
+			)
+		));
+		
+		$appMod=new aplicacion_empresaModelo();
+		$resApps = $appMod->buscar( $params );
+		$aplicaciones = $resApps['datos'];
+		
+		$menuMod= new menuModelo();
+		
+		
+		
+		for($i=0; $i<sizeof($aplicaciones); $i++){
+			
+			$menus = $menuMod->buscar();
+		}
+		//------------------------------------------------------------
+		$res=array(
+			'success'=>true,
+			'msg'=>'Logeado en empresa',	
+		);
+		return $res;
+
+	}
 	function mensajeBienvenida($usuario){
 		$res =array();
 		global $APP_CONFIG;
@@ -283,7 +376,7 @@ class UsuarioModelo extends Modelo{
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT Usuario.id, Usuario.username, Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, rol0.nombre AS nombre_fk_rol, Usuario.ip
+		$sql = 'SELECT Usuario.id, Usuario.fk_ultima_empresa_logeada, Usuario.username, Usuario.email, Usuario.nombre, Usuario.ultima_conexion, Usuario.creado, Usuario.fk_rol, rol0.nombre AS nombre_fk_rol, Usuario.ip
  FROM system_usuarios AS Usuario
  LEFT JOIN system_rol AS rol0 ON rol0.id = Usuario.fk_rol
   WHERE Usuario.id=:id';

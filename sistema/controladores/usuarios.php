@@ -3,10 +3,32 @@ require_once $_PETICION->basePath.'/modelos/Usuario.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/usuarios/Usuario_pdf.php';
 
 require_once $_PETICION->basePath.'/modelos/rol.php';
+require_once $_PETICION->basePath.'/modelos/empresa.php';
+require_once $_PETICION->basePath.'/modelos/conexion.php';
+require_once $_PETICION->basePath.'/modelos/aplicacion_empresa.php';
+require_once $_PETICION->basePath.'/modelos/menu.php';
 
 class usuarios extends Controlador{
 	var $modelo="Usuario";	
 	var $accionesPublicas=array('login','registrar');
+	
+	private function proceso_login(){
+		
+		$res=array(
+			'success'=>false,
+			'msg'=>'Logear en empresa en proceso',	
+		);		
+		$user = sessionGet('user');
+		
+		 if ( !empty($user['fk_ultima_empresa_logeada']) ){
+			// Cuando el usuario ya seha logeado antes a una empresa, se logea automaticamente a esa empresa (se revisan permisos)
+			$mod=$this->getModelo();
+			$res = $mod->ingresarEnEmpresa($user['id'],$user['fk_ultima_empresa_logeada'] );
+		}
+		
+		return $res;
+	}
+	
 	function registrar(){
 
 		$res=array();
@@ -106,13 +128,16 @@ class usuarios extends Controlador{
 			
 			
 			if ($res['success']){
-				// isLoged(true);					
-				// addUser( $res['usuario'] );
+				
+				
+				
 				sessionAdd('isLoged', true);
 				
 				unset($res['usuario']['pass']);					
 				sessionAdd('user', $res['usuario']);
-								
+				
+				$resProcesoLogin=$this->proceso_login();
+				
 				if ( isAjax() ){
 					$res = array(
 						'success'=>true,
@@ -148,11 +173,11 @@ class usuarios extends Controlador{
 		}				
 	}
 		
-		function buscarRol(){
-			$rolMod= new rolModelo();
-			$res = $rolMod->buscar( array() );
-			echo json_encode( $res );
-		}
+	function buscarRol(){
+		$rolMod= new rolModelo();
+		$res = $rolMod->buscar( array() );
+		echo json_encode( $res );
+	}
 		
 	
 	function bajarPdf(){

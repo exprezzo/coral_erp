@@ -36,7 +36,13 @@ $apps=array('datos'=>array());
 					<i class="icon-double-angle-right"></i>
 					Empresa
 				</a>
-			</li>			
+			</li>		
+			<li>
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/sucursales/buscar">
+					<i class="icon-double-angle-right"></i>
+					Sucursales
+				</a>
+			</li>	
 			<li>
 				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/apps/buscar">
 					<i class="icon-double-angle-right"></i>
