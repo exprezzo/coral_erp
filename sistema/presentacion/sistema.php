@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <?php
 	$user=sessionGet('user');	
-	// print_r($user);
+	$empresa = sessionGet('empresa');
 ?>
 
 <html lang="en">
 	
 	<head>
 		<meta charset="utf-8" />
-		<title>Empresa Demo - Coral ERP</title>
+		<title><?php echo $empresa['nombre']; ?> - Coral ERP</title>
 		<link rel="icon" href="<?php echo $_PETICION->url_web; ?>favicon.ico" type="image/x-icon"/>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -102,7 +102,7 @@
 					<a href="#" class="brand">
 						<small>
 							<i class="icon-leaf"></i>
-							Empresa Demo - Coral ERP
+							<?php echo $empresa['nombre']; ?> - Coral ERP
 						</small>
 					</a><!--/.brand-->
 

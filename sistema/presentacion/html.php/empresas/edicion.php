@@ -99,15 +99,6 @@ if ( !empty( $this->datos['id'] ) ){
 
 		var conexionDeEmpresas = new ConexionDeEmpresas();		
 		conexionDeEmpresas.init(configDet);
-		
-		// function PreviewImage() {
-			// var oFReader = new FileReader();
-			// oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
-
-			// oFReader.onload = function (oFREvent) {
-				// document.getElementById("uploadPreview").src = oFREvent.target.result;
-			// };
-		// };
 				
 	});
 </script>
@@ -122,11 +113,6 @@ if ( !empty( $this->datos['id'] ) ){
 		<div id="contenedorDatos2">
 			<form class="frmEdicion" style="">
 				
-				<div class="inputBox contenedor_logo" style=""  >
-					<label style="">Logo:</label>
-					<input title="Logo" type="file" name="logo" class="entradaDatos" value="<?php echo $this->datos['logo']; ?>" style="width:500px;" />					
-				</div>
-				
 				<div class="inputBox contenedor_id oculto" style=""  >
 					<label style="">Id:</label>
 					<input title="Id" type="text" name="id" class="entradaDatos" value="<?php echo $this->datos['id']; ?>" style="width:500px;" />
@@ -139,7 +125,10 @@ if ( !empty( $this->datos['id'] ) ){
 					<label style="">Telefonos:</label>
 					<input title="Telefonos" type="text" name="telefonos" class="entradaDatos" value="<?php echo $this->datos['telefonos']; ?>" style="width:500px;" />
 				</div>
-				
+				<div class="inputBox contenedor_logo" style=""  >
+					<label style="">Logo:</label>
+					<input title="Logo" type="text" name="logo" class="entradaDatos" value="<?php echo $this->datos['logo']; ?>" style="width:500px;" />
+				</div>
 				<div class="inputBox contenedor_sitio_web" style=""  >
 					<label style="">Sitio Web:</label>
 					<input title="Sitio web de la empresa" type="text" name="sitio_web" class="entradaDatos" value="<?php echo $this->datos['sitio_web']; ?>" style="width:500px;" />
@@ -210,7 +199,12 @@ if ( !empty( $this->datos['id'] ) ){
 					<label style="">Codigo Postal:</label>
 					<input title="Codigo Postal" type="text" name="codigo_postal" class="entradaDatos" value="<?php echo $this->datos['codigo_postal']; ?>" style="width:500px;" />
 				</div>
-				<div class="tabla contenedor_tabla_conexion" style="position: relative; margin-top: 26px;"  >
+				
+				<?php 
+					$user=sessionGet( 'user' );
+					if ( $user['fk_rol']==='1' ){
+				?>
+				<div class="tabla contenedor_tabla_conexion " style="position: relative; margin-top: 26px;"  >
 					
 					<h1 class="tituloTabla" >Conexion</h1>
 					<div class="toolbar_detalles" style="">
@@ -224,6 +218,14 @@ if ( !empty( $this->datos['id'] ) ){
 					<div id="<?php echo $id; ?>-dialog-confirm-eliminar-conexion" title="&iquest;Eliminar Conexion?">
 						<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>&iquest;Eliminar Conexion?</p>
 					</div> 
+				</div>				
+				<?php
+					}
+				?>
+				
+				<div class="inputBox contenedor_icon" style=""  >
+					<label style="">Icono:</label>
+					<input title="Icono" type="text" name="icon" class="entradaDatos" value="<?php echo $this->datos['icon']; ?>" style="width:500px;" />
 				</div>
 			</form>
 			<div id="contenedorMenu2" class="toolbarEdicion">

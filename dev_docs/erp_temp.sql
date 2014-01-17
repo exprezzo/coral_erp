@@ -4,47 +4,16 @@ Navicat MySQL Data Transfer
 Source Server         : LOCAL
 Source Server Version : 50611
 Source Host           : localhost:3306
-Source Database       : erp_conecarne
+Source Database       : erp_temp
 
 Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2014-01-16 18:16:53
+Date: 2014-01-16 18:16:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for erp_empresa
--- ----------------------------
-DROP TABLE IF EXISTS `erp_empresa`;
-CREATE TABLE `erp_empresa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` char(255) NOT NULL,
-  `telefonos` char(255) NOT NULL,
-  `logo` char(255) NOT NULL,
-  `icon` char(255) DEFAULT NULL,
-  `sitio_web` char(255) NOT NULL,
-  `actividad` char(255) NOT NULL,
-  `RFC` char(1) NOT NULL,
-  `fk_pais` int(11) NOT NULL,
-  `fk_estado` int(11) NOT NULL,
-  `fk_municipio` int(11) NOT NULL,
-  `localidad` char(255) NOT NULL,
-  `referencia` char(255) NOT NULL,
-  `calle` char(255) NOT NULL,
-  `numero_exterior` char(50) NOT NULL,
-  `numero_interior` char(50) NOT NULL,
-  `colonia` char(255) NOT NULL,
-  `codigo_postal` char(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of erp_empresa
--- ----------------------------
-INSERT INTO `erp_empresa` VALUES ('43', 'Cone-Karne', '9 84 80 34', '', null, 'www.conecarne.com', 'Proveedor de Carne de Conejo', '', '1', '25', '2844', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for system_ubicacion_estados
@@ -92,6 +61,53 @@ INSERT INTO `system_ubicacion_estados` VALUES ('29', 'Tlaxcala', '1');
 INSERT INTO `system_ubicacion_estados` VALUES ('30', 'Veracruz de Ignacio de la Llave', '1');
 INSERT INTO `system_ubicacion_estados` VALUES ('31', 'Yucatán', '1');
 INSERT INTO `system_ubicacion_estados` VALUES ('32', 'Zacatecas', '1');
+
+-- ----------------------------
+-- Table structure for system_ubicacion_estados_copy
+-- ----------------------------
+DROP TABLE IF EXISTS `system_ubicacion_estados_copy`;
+CREATE TABLE `system_ubicacion_estados_copy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` char(255) DEFAULT NULL,
+  `fk_pais` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of system_ubicacion_estados_copy
+-- ----------------------------
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('1', 'Aguascalientes', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('2', 'Baja California', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('3', 'Baja California Sur', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('4', 'Campeche', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('5', 'Coahuila de Zaragoza', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('6', 'Colima', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('7', 'Chiapas', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('8', 'Chihuahua', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('9', 'Distrito Federal', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('10', 'Durango', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('11', 'Guanajuato', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('12', 'Guerrero', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('13', 'Hidalgo', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('14', 'Jalisco', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('15', 'México', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('16', 'Michoacán de Ocampo', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('17', 'Morelos', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('18', 'Nayarit', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('19', 'Nuevo León', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('20', 'Oaxaca', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('21', 'Puebla', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('22', 'Querétaro', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('23', 'Quintana Roo', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('24', 'San Luis Potosí', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('25', 'Sinaloa', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('26', 'Sonora', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('27', 'Tabasco', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('28', 'Tamaulipas', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('29', 'Tlaxcala', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('30', 'Veracruz de Ignacio de la Llave', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('31', 'Yucatán', '1');
+INSERT INTO `system_ubicacion_estados_copy` VALUES ('32', 'Zacatecas', '1');
 
 -- ----------------------------
 -- Table structure for system_ubicacion_municipios
@@ -2565,20 +2581,3 @@ INSERT INTO `system_ubicacion_municipios` VALUES ('4942', 'Zapotitlán Lagunas',
 INSERT INTO `system_ubicacion_municipios` VALUES ('4943', 'Zapotitlán Palmas', '568', '20');
 INSERT INTO `system_ubicacion_municipios` VALUES ('4944', 'Santa Inés de Zaragoza', '569', '20');
 INSERT INTO `system_ubicacion_municipios` VALUES ('4945', 'Zimatlán de Álvarez', '570', '20');
-
--- ----------------------------
--- Table structure for system_ubicacion_paises
--- ----------------------------
-DROP TABLE IF EXISTS `system_ubicacion_paises`;
-CREATE TABLE `system_ubicacion_paises` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` char(255) DEFAULT NULL,
-  `bandera` char(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of system_ubicacion_paises
--- ----------------------------
-INSERT INTO `system_ubicacion_paises` VALUES ('1', 'México', 'http://png.findicons.com/files/icons/282/flags/32/mexico.png');
-INSERT INTO `system_ubicacion_paises` VALUES ('2', 'USA', 'http://png.findicons.com/files/icons/282/flags/32/united_states_of_america_usa.png');

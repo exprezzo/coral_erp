@@ -3,10 +3,21 @@
 require_once $_PETICION->basePath.'/modelos/pagina.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/paginas/pagina_pdf.php';
 
-require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
+// require_once $_PETICION->basePath.'/modelos/categoria_de_pagina.php';
 
 class paginas extends Controlador{
 	var $modelo="pagina";	
+	
+	function inicio(){
+		$aplicaciones=sessionGet('aplicaciones');
+		
+		global $_PETICION,  $_TEMA_APP;
+		if ( !empty($aplicaciones) ){
+			$_PETICION->accion='dashboard';
+		}
+		$vista=$this->getVista();
+		return $vista->mostrarTema($_PETICION, $_TEMA_APP);
+	}
 	
 	
 		function buscarCategoria_de_pagina(){

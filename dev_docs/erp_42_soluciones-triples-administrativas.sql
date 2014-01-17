@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : LOCAL
 Source Server Version : 50611
 Source Host           : localhost:3306
-Source Database       : erp_conecarne
+Source Database       : erp_42_soluciones-triples-administrativas
 
 Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2014-01-16 18:16:53
+Date: 2014-01-16 18:17:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;

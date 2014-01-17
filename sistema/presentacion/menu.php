@@ -18,13 +18,22 @@ $params=array(
 	)
 );
 $apps=array('datos'=>array());
+
+$aplicaciones = sessionGet('aplicaciones');
+if ( empty($aplicaciones) ){
+	$aplicaciones=array();	
+}
+
+// print_r( $_SESSION ); 
+ // print_r( $aplicaciones ); 
 // $apps = $modApps->buscar( $params );
 // $appMod= new appModelo();
-
 // $menuMod= new menuModelo();
+
+
 ?>
-<ul class="nav nav-list">
-	<li>
+<ul class="nav nav-list" >
+	<li class="active open"> 
 		<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paginas/inicio" class="dropdown-toggle">
 			<i class="icon-dashboard"></i>
 			<span class="menu-text">General</span>
@@ -58,9 +67,10 @@ $apps=array('datos'=>array());
 		</ul>
 	</li>
 	<?php
-		foreach($apps['datos'] as $app){
-			$app = $appMod->obtener($app['fk_app']);
-			
+		// echo 'asd';
+		// print_r( $aplicaciones );
+		foreach($aplicaciones as $app){
+			// $app = $appMod->obtener($app['fk_app']);			
 			$filtros=array(
 				'filtros'=>array(
 					array(
@@ -70,18 +80,20 @@ $apps=array('datos'=>array());
 					)
 				)
 			);
-			$menus= $menuMod->buscar( $filtros );
+			
+			$menus= $app['menu'];
+			
 			
 			$menuStr = '';
 			$flechaSubmenus='';
 			$claseSubmenus='';
-			if ( !empty($menus['datos']) ){
+			if ( !empty($menus) ){
 				$menuStr = '<ul class="submenu">';
 				$flechaSubmenus='<b class="arrow icon-angle-down"></b>';
 				$claseSubmenus='dropdown-toggle';
 			}
 		    // print_r($menus);
-			foreach($menus['datos'] as $menu){
+			foreach($menus as $menu){
 				$menuStr.='<li>
 					<a href="'.$_PETICION->url_app.$menu['target'].'">
 						<i class="icon-double-angle-right"></i>
@@ -90,7 +102,7 @@ $apps=array('datos'=>array());
 				</li>';
 			}
 			
-			if ( !empty($menus['datos']) ){
+			if ( !empty($menus) ){
 				$menuStr .= '</ul>';
 			}
 			

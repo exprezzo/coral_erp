@@ -34,6 +34,11 @@ class UsuarioModelo extends Modelo{
 		}
 		
 		//SI LLEGAMOS AQUI SIGNIFICA QUE EL USUARIO SI TIENE ACCESO A ESA EMPRESA
+		$params=array(
+			'id'=>$fk_usuario,
+			'fk_ultima_empresa_logeada'=>$fk_empresa
+		);
+		$this->guardar( $params );
 		
 		//ESTABLECE LA CONEXION CON LA BASE DE DATOS DE LA EMPRESA, GUARDA ESA INFO EN LA SESSION
 		
@@ -58,15 +63,18 @@ class UsuarioModelo extends Modelo{
 			return $res;
 		}
 		
+		
+		sessionSet('empresa', $empresa);
 		//------------------------------------------------------------
-		$conexion = $empresa['conexionDeEmpresas'][0];
-		$DB_CONFIG=array(
-			'host'=>$conexion['host'],
-			'db_name'=>$conexion['db_name'],
-			'db_user'=>$conexion['user'],
-			'db_pass'=>$conexion['pass']
+		global $DB_CONFIG;
+		// $conexion = $empresa['conexionDeEmpresas'][0];
+		$conexion=array(
+			'host'=>$DB_CONFIG['host'],
+			'db_name'=>'erp_temp',
+			'db_user'=>$DB_CONFIG['user'],
+			'db_pass'=>$DB_CONFIG['pass']
 		);	
-		$DB_CONFIG=sessionAdd('DB_CONFIG', $DB_CONFIG);
+		sessionAdd('DB_CONFIG', $conexion);
 		//------------------------------------------------------------
 		//obtiene las aplicaciones y sus menus
 		$params=array('filtros'=>array(
@@ -81,18 +89,31 @@ class UsuarioModelo extends Modelo{
 		$resApps = $appMod->buscar( $params );
 		$aplicaciones = $resApps['datos'];
 		
-		$menuMod= new menuModelo();
-		
-		
-		
+		$menuMod= new menuModelo();		
+		$appMod=new AppModelo();
+		// print_r( $aplicaciones );
 		for($i=0; $i<sizeof($aplicaciones); $i++){
+			$params=array(
+				'filtros'=>array(
+					array(
+						'dataKey'=>'fk_app',
+						'filterOperator'=>'equals',
+						'filterValue'=>$aplicaciones[$i]['fk_app']
+					)
+				)
+			);
 			
-			$menus = $menuMod->buscar();
+			$app=$appMod->obtener( $aplicaciones[$i]['fk_app'] );
+			$aplicaciones[$i]=$app;
+			// print_r( $app );
+			$menus = $menuMod->buscar( $params );
+			$aplicaciones[$i]['menu'] = $menus['datos'];
 		}
 		//------------------------------------------------------------
 		$res=array(
 			'success'=>true,
 			'msg'=>'Logeado en empresa',	
+			'aplicaciones'=>$aplicaciones
 		);
 		return $res;
 

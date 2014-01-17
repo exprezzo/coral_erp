@@ -7,6 +7,8 @@ require_once $_PETICION->basePath.'/modelos/empresa.php';
 require_once $_PETICION->basePath.'/modelos/conexion.php';
 require_once $_PETICION->basePath.'/modelos/aplicacion_empresa.php';
 require_once $_PETICION->basePath.'/modelos/menu.php';
+require_once $_PETICION->basePath.'/modelos/app.php';
+require_once $_PETICION->basePath.'/modelos/acceso.php';
 
 class usuarios extends Controlador{
 	var $modelo="Usuario";	
@@ -24,6 +26,35 @@ class usuarios extends Controlador{
 			// Cuando el usuario ya seha logeado antes a una empresa, se logea automaticamente a esa empresa (se revisan permisos)
 			$mod=$this->getModelo();
 			$res = $mod->ingresarEnEmpresa($user['id'],$user['fk_ultima_empresa_logeada'] );
+			if ( $res['success'] ){
+				sessionSet('aplicaciones', $res['aplicaciones'] );
+			}
+		}else{
+			//Cuando el usuario ya tiene una empresa, se logea a esa empresa
+			//obtiene todas las empresas a las que el usuario tiene acceso, se logea a la primera
+			$accesoMod= new accesoModelo();
+			$params=array( 'filtros'=>array(
+				
+					array(
+						'dataKey'=>'fk_usuario',
+						'filterOperator'=>'equals',
+						'filterValue'=>$user['id']					
+					)
+				
+			) );
+			$accesos = $accesoMod->buscar( $params );
+			$mod=$this->getModelo();
+			if ( !empty($accesos['datos']) ){
+				$res = $mod->ingresarEnEmpresa($user['id'],$accesos['datos'][0]['fk_empresa'] );
+				if ( $res['success'] ){
+					sessionSet('aplicaciones', $res['aplicaciones'] );
+				}
+			}else{
+				// echo 'SADASSAD';
+				sessionSet('aplicaciones', array() );
+			}
+			
+			
 		}
 		
 		return $res;
@@ -128,15 +159,24 @@ class usuarios extends Controlador{
 			
 			
 			if ($res['success']){
-				
-				
-				
-				sessionAdd('isLoged', true);
-				
+				sessionAdd('isLoged', true);				
 				unset($res['usuario']['pass']);					
-				sessionAdd('user', $res['usuario']);
-				
-				$resProcesoLogin=$this->proceso_login();
+				sessionAdd('user', $res['usuario']);				
+				if ( intval($res['usuario']['fk_rol'])!==1 ){
+					$resProcesoLogin=$this->proceso_login();
+					if ( !$resProcesoLogin['success'] ){
+						//------------------------------------------------------------
+						// $conexion = $empresa['conexionDeEmpresas'][0];
+						$DB_CONFIG=array(
+							'host'=>$conexion['host'],
+							'db_name'=>$conexion['db_name'],
+							'db_user'=>$conexion['user'],
+							'db_pass'=>$conexion['pass']
+						);	
+						$DB_CONFIG=sessionAdd('DB_CONFIG', $DB_CONFIG);
+						//------------------------------------------------------------
+					}
+				}
 				
 				if ( isAjax() ){
 					$res = array(

@@ -2,8 +2,20 @@
 class empresaModelo extends Modelo{	
 	var $tabla='erp_empresa';
 	var $pk='id';
-	var $campos= array('id', 'nombre', 'telefonos', 'logo', 'sitio_web', 'actividad', 'RFC', 'fk_pais', 'nombre_pais', 'fk_estado', 'nombre_estado', 'fk_municipio', 'nombre_municipio', 'localidad', 'referencia', 'calle', 'numero_exterior', 'numero_interior', 'colonia', 'codigo_postal');
+	var $campos= array('id', 'nombre', 'telefonos', 'logo', 'sitio_web', 'actividad', 'RFC', 'fk_pais', 'nombre_pais', 'fk_estado', 'nombre_estado', 'fk_municipio', 'nombre_municipio', 'localidad', 'referencia', 'calle', 'numero_exterior', 'numero_interior', 'colonia', 'codigo_postal', 'icon');
 	
+	function string2url($cadena) {
+		$cadena = trim($cadena);
+		$cadena = strtr($cadena,
+	"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ",
+	"aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+		$cadena = strtr($cadena,"ABCDEFGHIJKLMNOPQRSTUVWXYZ","abcdefghijklmnopqrstuvwxyz");
+		$cadena = preg_replace('#([^.a-z0-9]+)#i', '-', $cadena);
+			$cadena = preg_replace('#-{2,}#','-',$cadena);
+			$cadena = preg_replace('#-$#','',$cadena);
+			$cadena = preg_replace('#^-#','',$cadena);
+		return $cadena;
+	}
 	function buscar($params){
 		
 		$pdo = $this->getConexion();
@@ -70,6 +82,9 @@ class empresaModelo extends Modelo{
 				} 
 				if ( $filtro['dataKey']=='codigo_postal' ) {
 					$filtros .= ' empresa.codigo_postal like :codigo_postal OR ';
+				} 
+				if ( $filtro['dataKey']=='icon' ) {
+					$filtros .= ' empresa.icon like :icon OR ';
 				}			
 			}
 			$filtros=substr( $filtros,0,  strlen($filtros)-3 );
@@ -148,6 +163,9 @@ class empresaModelo extends Modelo{
 			}
 			if ( $filtro['dataKey']=='codigo_postal' ) {
 				$sth->bindValue(':codigo_postal','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='icon' ) {
+				$sth->bindValue(':icon','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}		
 			}
 		}
@@ -168,9 +186,9 @@ class empresaModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal FROM '.$this->tabla.' empresa '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal, empresa.icon FROM '.$this->tabla.' empresa '.$joins.$filtros.' limit :start,:limit';
 		}else{
-			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal FROM '.$this->tabla.' empresa '.$joins.$filtros;
+			$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal, empresa.icon FROM '.$this->tabla.' empresa '.$joins.$filtros;
 		}
 				
 		$sth = $pdo->prepare($sql);
@@ -241,6 +259,9 @@ class empresaModelo extends Modelo{
 			}
 			if ( $filtro['dataKey']=='codigo_postal' ) {
 				$sth->bindValue(':codigo_postal','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+			if ( $filtro['dataKey']=='icon' ) {
+				$sth->bindValue(':icon','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}	
 			}
 		}
@@ -286,10 +307,11 @@ class empresaModelo extends Modelo{
 			$obj['codigo_postal']='';
 			$obj['conexionDeEmpresas']=array();
 			
+			$obj['icon']='';
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal
+		$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal, empresa.icon
  FROM erp_empresa AS empresa
  LEFT JOIN system_ubicacion_paises AS pais0 ON pais0.id = empresa.fk_pais
  LEFT JOIN system_ubicacion_estados AS estado1 ON estado1.id = empresa.fk_estado
@@ -387,6 +409,9 @@ class empresaModelo extends Modelo{
 		} 
 		if ( isset( $datos['codigo_postal'] ) ){
 			$strCampos .= ' codigo_postal=:codigo_postal, ';
+		} 
+		if ( isset( $datos['icon'] ) ){
+			$strCampos .= ' icon=:icon, ';
 		}		
 		//--------------------------------------------
 		
@@ -453,6 +478,9 @@ class empresaModelo extends Modelo{
 		}
 		if  ( isset( $datos['codigo_postal'] ) ){
 			$sth->bindValue(':codigo_postal', $datos['codigo_postal'] );
+		}
+		if  ( isset( $datos['icon'] ) ){
+			$sth->bindValue(':icon', $datos['icon'] );
 		}		
 		if ( !$esNuevo)	{
 			$sth->bindValue(':id', $datos['id'] );
@@ -469,35 +497,43 @@ class empresaModelo extends Modelo{
 		}else{
 			$idObj=$datos['id'];
 		}	
-		
-		
-		
-		
+
 		$conexionMod = new conexionModelo();
-		foreach( $datos['conexionDeEmpresas'] as $el ){
-			if ( !empty($el['eliminado']) ){
-				if ( !empty($el['id']) ){
-					$res = $conexionMod->eliminar( array('id'=>$el['id']) );
-					if ($res )$res =array('success'=>true);
-				}else{
-					$res=array('success'=>true);
-				}					
-			 }else{
-				unset( $el['eliminado'] );
-				$el['fk_empresa']=$idObj;
-				// if ( empty($concepto['nombre'])  )  continue;
-				$res = $conexionMod->guardar($el);
-			 }
-			
-			
-			//-----
-			//
-			//$res=$conexionMod->guardar($el);
-			//if ( !$res['success'] ){											
-			//	return $res;
-			//}
-			
+		
+		if ( $esNuevo ){
+			global $DB_CONFIG;
+			$conexion=array(
+				'db_name'=>$this->string2url('erp_id'.$idObj.'_'.$datos['nombre']),
+				'host'=>$DB_CONFIG['DB_SERVER'],
+				'user'=>$DB_CONFIG['DB_USER'],
+				'pass'=>$DB_CONFIG['DB_SERVER'],
+			);
+			$datos['conexionDeEmpresas']=array($conexion);
 		}
+			foreach( $datos['conexionDeEmpresas'] as $el ){
+				if ( !empty($el['eliminado']) ){
+					if ( !empty($el['id']) ){
+						$res = $conexionMod->eliminar( array('id'=>$el['id']) );
+						if ($res )$res =array('success'=>true);
+					}else{
+						$res=array('success'=>true);
+					}					
+				 }else{
+					unset( $el['eliminado'] );
+					$el['fk_empresa']=$idObj;
+					// if ( empty($concepto['nombre'])  )  continue;
+					$res = $conexionMod->guardar($el);
+				 }
+				//-----
+				//
+				//$res=$conexionMod->guardar($el);
+				//if ( !$res['success'] ){											
+				//	return $res;
+				//}
+				
+			}
+		
+		
 		$obj=$this->obtener( $idObj );
 		return array(
 			'success'=>true,

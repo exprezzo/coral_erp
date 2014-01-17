@@ -276,6 +276,12 @@
 					filterValue: value
 				});
 		
+				data.proxy.options.data.filtering.push({
+					dataKey: "icon",
+					filterOperator: "Contains",
+					filterValue: value
+				});
+		
 				
 				
             }
@@ -320,7 +326,8 @@
 { dataKey: "numero_exterior", visible:true, headerText: "Numero Exterior" },
 { dataKey: "numero_interior", visible:true, headerText: "Numero Interior" },
 { dataKey: "colonia", visible:true, headerText: "Colonia" },
-{ dataKey: "codigo_postal", visible:true, headerText: "Codigo Postal" },
+{ dataKey: "codigo_postal", visible:true, headerText: "Codigo Postal" },
+{ dataKey: "icon", visible:true, headerText: "Icono" },
 			]
 		});
 		

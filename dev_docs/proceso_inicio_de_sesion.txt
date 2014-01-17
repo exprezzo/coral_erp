@@ -1,11 +1,19 @@
 Cuando el usuario es nuevo, no tiene asignada ninguna empresa.
--Le aparecen las opciones generales
+-Le aparece el menu opciones generales
 -Le aparece una pagina donde se le invita a crear una empresa
 -Al crear la empresa esta se relaciona al usuario con el rol de administrador
 -Se Inicia sesion de manera automatica
 -Se le invita a instalar aplicaciones (este es otro proceso)
+-el login debe asegurarse en la base de datos base
+-revisar permiso a aplicaciones en cada recarga, cargar los menus en cada recarga
+-obtener los datos de la empresa en cada recarga
+-pasar los datos de la empresa a la base de datos de la empresa (ahorita solo estan en la general)
 
 Cuando el usuario ya tiene una empresa, se logea a esa empresa
 -Si no tiene aplicaciones instaladas se le invita a instalar aplicaciones
 
 -Si ya tiene aplicaciones instaladas, se muestra el menu de sus aplicaciones y en la pagina principal el dashboard (uno o mas elementos de cada aplicacion)
+
+Si el usuario tiene acceso a varias empresas, el sistema logea al usuario en la ultima empresa en la que fue logeado, si no se ha logeado en ninguna,
+lo logea en la primera que encuetre.
+
