@@ -5,6 +5,7 @@
 		header('Location: '.$url);
 		exit;
 	}
+	$url_web_presentacion = $_PETICION->url_app.'sistema/presentacion/web/';
 ?>
 <!DOCTYPE html>
 <html lang="en">

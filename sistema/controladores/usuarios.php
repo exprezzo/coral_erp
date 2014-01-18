@@ -151,7 +151,7 @@ class usuarios extends Controlador{
 		}
 		$vista= $this->getVista();
 		global $_TEMA_APP, $_PETICION;		
-		$layout='login';
+		$layout='../login';
 		if ( $_SERVER['REQUEST_METHOD']=='POST'  ){
 			//Login con ajax o el post del form 
 			$usrMod = $this->getModelo();
