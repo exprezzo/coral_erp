@@ -10,11 +10,21 @@ class paginas extends Controlador{
 	
 	function inicio(){
 		$aplicaciones=sessionGet('aplicaciones');
-		
-		global $_PETICION,  $_TEMA_APP;
-		if ( !empty($aplicaciones) ){
+		$user=sessionGet('user');
+		global $_PETICION,  $_TEMA_APP;		                  
+		if ( empty($user['fk_ultima_empresa_logeada']) ){
+			//SI NO TIENE EMPRESA, MUESTRA EL DE CREAR EMPRESA
+			
+		}else  if ( empty($aplicaciones) ){
+			//SI TIENE EMPRESA Y APLICACIONES MUESTRA EL DASHBOARD
+			$_PETICION->accion='configuracion';
+			$_PETICION->controlador='apps';
+		}else{
 			$_PETICION->accion='dashboard';
 		}
+		
+		//SI TIENE EMPRESA PERO NO APLICACIONES, MUESTRA EL DE APLICACIONES
+		
 		$vista=$this->getVista();
 		return $vista->mostrarTema($_PETICION, $_TEMA_APP);
 	}

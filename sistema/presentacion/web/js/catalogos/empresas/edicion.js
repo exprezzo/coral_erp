@@ -2,7 +2,7 @@
 	this.editado=false;
 	this.tituloNuevo='Nueva Empresa';
 	this.saveAndClose=false;
-	
+	var me=this;
 	this.configurarComboFk_pais=function(){
 		var me=this;
 		
@@ -337,13 +337,18 @@
 		//-----------------------------------
 		var datos=paramObj;
 		$(tabId+' .tabla_conexion').wijgrid('endEdit');
-				var conexion=$(tabId+' .tabla_conexion').wijgrid('data');
-				datos.conexionDeEmpresas = conexion;
-				
+		var conexion=$(tabId+' .tabla_conexion').wijgrid('data');
+		if (conexion.length > 0) datos.conexionDeEmpresas = conexion;
+		
+		console.log(datos);
 		//Envia los datos al servidor, el servidor responde success true o false.
 		$("#contenedorDatos2").block({ 
 			message: '<h1>Guardando</h1>'               
 		}); 
+		
+		console.log(kore);
+		console.log(this);
+		
 		$.ajax({
 			type: "POST",
 			url: kore.url_base+this.configuracion.modulo.nombre+'/'+this.controlador.nombre+'/guardar',

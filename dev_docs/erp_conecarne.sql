@@ -10,41 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2014-01-16 18:16:53
+Date: 2014-01-17 17:59:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for erp_empresa
--- ----------------------------
-DROP TABLE IF EXISTS `erp_empresa`;
-CREATE TABLE `erp_empresa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` char(255) NOT NULL,
-  `telefonos` char(255) NOT NULL,
-  `logo` char(255) NOT NULL,
-  `icon` char(255) DEFAULT NULL,
-  `sitio_web` char(255) NOT NULL,
-  `actividad` char(255) NOT NULL,
-  `RFC` char(1) NOT NULL,
-  `fk_pais` int(11) NOT NULL,
-  `fk_estado` int(11) NOT NULL,
-  `fk_municipio` int(11) NOT NULL,
-  `localidad` char(255) NOT NULL,
-  `referencia` char(255) NOT NULL,
-  `calle` char(255) NOT NULL,
-  `numero_exterior` char(50) NOT NULL,
-  `numero_interior` char(50) NOT NULL,
-  `colonia` char(255) NOT NULL,
-  `codigo_postal` char(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of erp_empresa
--- ----------------------------
-INSERT INTO `erp_empresa` VALUES ('43', 'Cone-Karne', '9 84 80 34', '', null, 'www.conecarne.com', 'Proveedor de Carne de Conejo', '', '1', '25', '2844', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for system_ubicacion_estados

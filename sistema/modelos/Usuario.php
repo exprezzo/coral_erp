@@ -30,6 +30,14 @@ class UsuarioModelo extends Modelo{
 		$datos = $sth->fetchAll(PDO::FETCH_ASSOC);
 		
 		if ( empty($datos) || empty($datos[0]['status'] ) ){
+			$params=array(
+				'id'=>$fk_usuario,
+				'fk_ultima_empresa_logeada'=>0
+			);
+			$res = $this->guardar( $params );
+			$user=sessionGet('user');
+			$user['fk_ultima_empresa_logeada']=0;
+			sessionSet('user', $user);
 			return array('success'=>false,'msg'=>'El usuario no tiene acceso a esta empresa');
 		}
 		
@@ -38,8 +46,15 @@ class UsuarioModelo extends Modelo{
 			'id'=>$fk_usuario,
 			'fk_ultima_empresa_logeada'=>$fk_empresa
 		);
-		$this->guardar( $params );
-		
+		$res = $this->guardar( $params );
+		if ( !$res['success'] ){
+			// print_r($res); exit;	
+			return $res;
+			// 
+		}
+		$user=sessionGet('user');
+		$user['fk_ultima_empresa_logeada']=$fk_empresa;
+		sessionSet('user', $user);
 		//ESTABLECE LA CONEXION CON LA BASE DE DATOS DE LA EMPRESA, GUARDA ESA INFO EN LA SESSION
 		
 		$empMod = new EmpresaModelo();		
@@ -66,15 +81,15 @@ class UsuarioModelo extends Modelo{
 		
 		sessionSet('empresa', $empresa);
 		//------------------------------------------------------------
-		global $DB_CONFIG;
-		// $conexion = $empresa['conexionDeEmpresas'][0];
-		$conexion=array(
-			'host'=>$DB_CONFIG['host'],
-			'db_name'=>'erp_temp',
-			'db_user'=>$DB_CONFIG['user'],
-			'db_pass'=>$DB_CONFIG['pass']
+		$conexion = $empresa['conexionDeEmpresas'][0];
+		$DB_CONFIG=array(
+			'DB_SERVER'=>$conexion['host'],
+			'DB_NAME'=>$conexion['db_name'],
+			'DB_USER'=>$conexion['user'],
+			'DB_PASS'=>$conexion['pass']
 		);	
-		sessionAdd('DB_CONFIG', $conexion);
+		
+		sessionAdd('DB_CONFIG', $DB_CONFIG);
 		//------------------------------------------------------------
 		//obtiene las aplicaciones y sus menus
 		$params=array('filtros'=>array(
@@ -183,9 +198,19 @@ class UsuarioModelo extends Modelo{
 		return $res;
 	}
 	function identificar($usuario, $contra){
-				
-		$sql = 'SELECT * FROM '.$this->tabla.' WHERE username=:usuario and pass=:pass';				
+		global $DB_CONFIG;		
 		$con = $this->getConexion();
+		
+		
+		$sql='USE '.$DB_CONFIG['DB_NAME'];				
+		$sth = $con->prepare($sql);	
+		$exito = $sth->execute();
+		if ( !$exito ){
+			$error = $this->getError($sth);			
+			return $error;
+		}
+		
+		$sql = 'SELECT * FROM '.$this->tabla.' WHERE username=:usuario and pass=:pass';						
 		$sth = $con->prepare($sql);		
 		$sth->bindValue(':usuario',$usuario);		
 		$sth->bindValue(':pass',md5($contra) );		
@@ -468,6 +493,12 @@ class UsuarioModelo extends Modelo{
 		if ( isset( $datos['ip'] ) ){
 			$strCampos .= ' ip=:ip, ';
 		}		
+		
+		if ( isset( $datos['fk_ultima_empresa_logeada'] ) ){
+			$strCampos .= ' fk_ultima_empresa_logeada=:fk_ultima_empresa_logeada, ';
+		}
+		
+		
 		//--------------------------------------------
 		
 		$strCampos=substr( $strCampos,0,  strlen($strCampos)-2 );
@@ -489,6 +520,11 @@ class UsuarioModelo extends Modelo{
 		if  ( isset( $datos['username'] ) ){
 			$sth->bindValue(':username', $datos['username'] );
 		}
+		
+		if  ( isset( $datos['fk_ultima_empresa_logeada'] ) ){
+			$sth->bindValue(':fk_ultima_empresa_logeada', $datos['fk_ultima_empresa_logeada'] );
+		}
+		
 		if  ( isset( $datos['pass'] ) ){
 			$sth->bindValue(':pass', $datos['pass'] );
 		}

@@ -29,6 +29,13 @@ if ( empty($aplicaciones) ){
 // $apps = $modApps->buscar( $params );
 // $appMod= new appModelo();
 // $menuMod= new menuModelo();
+// $user=sessionGet('user');print_r($user);
+if ( empty($user['fk_ultima_empresa_logeada']) ){	
+	$menuEmpresa= $_PETICION->url_app.$_PETICION->modulo.'/empresas/nueva';
+}else{
+	$menuEmpresa= $_PETICION->url_app.$_PETICION->modulo.'/empresas/editar/'.$user['fk_ultima_empresa_logeada'];
+}
+
 
 
 ?>
@@ -41,7 +48,7 @@ if ( empty($aplicaciones) ){
 		</a>
 		<ul class="submenu">		
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/empresas/buscar">
+				<a href="<?php echo $menuEmpresa; ?>" >
 					<i class="icon-double-angle-right"></i>
 					Empresa
 				</a>
@@ -53,7 +60,7 @@ if ( empty($aplicaciones) ){
 				</a>
 			</li>	
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/apps/buscar">
+				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/apps/configuracion">
 					<i class="icon-double-angle-right"></i>
 					Aplicaciones
 				</a>

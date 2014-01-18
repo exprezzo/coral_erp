@@ -156,8 +156,7 @@ class usuarios extends Controlador{
 			//Login con ajax o el post del form 
 			$usrMod = $this->getModelo();
 			$res = $usrMod->identificar($_POST['nick'], $_POST['pass']);			
-			
-			
+						
 			if ($res['success']){
 				sessionAdd('isLoged', true);				
 				unset($res['usuario']['pass']);					
@@ -166,22 +165,22 @@ class usuarios extends Controlador{
 					$resProcesoLogin=$this->proceso_login();
 					if ( !$resProcesoLogin['success'] ){
 						//------------------------------------------------------------
-						// $conexion = $empresa['conexionDeEmpresas'][0];
-						$DB_CONFIG=array(
-							'host'=>$conexion['host'],
-							'db_name'=>$conexion['db_name'],
-							'db_user'=>$conexion['user'],
-							'db_pass'=>$conexion['pass']
+						global $DB_CONFIG;						
+						$conexion=array(
+							'DB_SERVER'		=>$DB_CONFIG['DB_SERVER'],
+							'DB_NAME'	=>'erp_temp',
+							'DB_USER'	=>$DB_CONFIG['DB_USER'],
+							'DB_PASS'	=>$DB_CONFIG['DB_PASS']
 						);	
-						$DB_CONFIG=sessionAdd('DB_CONFIG', $DB_CONFIG);
-						//------------------------------------------------------------
+						sessionAdd('DB_CONFIG', $conexion);
+						//------------------------------------------------------------						
 					}
 				}
 				
 				if ( isAjax() ){
 					$res = array(
 						'success'=>true,
-						'msg'=>'Usuario identificado'
+						'msg'	 =>'Usuario identificado'
 					);
 					echo json_encode( $res );
 				}else{

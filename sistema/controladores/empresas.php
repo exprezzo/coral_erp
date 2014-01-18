@@ -1,5 +1,5 @@
 <?php
-
+require_once $_PETICION->basePath.'/modelos/acceso.php';
 require_once $_PETICION->basePath.'/modelos/empresa.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/empresas/empresa_pdf.php';
 
@@ -95,9 +95,25 @@ class empresas extends Controlador{
 			return $res;
 		}
 		
-		if ( $esNuevo ){					
+		if ( $esNuevo ){	
+			$id_empresa=$res['datos']['id'];
+			$user=sessionGet('user');
+			$user['fk_ultima_empresa_logeada'] = $id_empresa;
+			sessionSet('user', $user);			
 			$res['esNuevo']=true;				
-			sessionSet('res', $res);			
+			sessionSet('res', $res);	
+			
+			//RELACIONA AL USUARIO CON LA EMPRESA
+			$params=array(
+				'fk_usuario'=>$user['id'],
+				'fk_empresa'=>$id_empresa,
+				'status'=>1
+			);
+			
+			$modAcceso=new accesoModelo();
+			$modAcceso->guardar( $params );
+			
+			
 		}
 		echo json_encode($res);
 		return $res;

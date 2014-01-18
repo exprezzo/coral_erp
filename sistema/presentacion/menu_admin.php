@@ -57,14 +57,14 @@ $params=array(
 			<li>
 				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/aplicaciones_de_empresas/buscar">
 					<i class="icon-double-angle-right"></i>
-					Empresas y Aplicaciones
+					Modulos
 				</a>
 			</li>
 			
 			<li>
 				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/accesos/buscar">
 					<i class="icon-double-angle-right"></i>
-					Usuarios y Empresas
+					Accesos
 				</a>
 			</li>
 			<li>

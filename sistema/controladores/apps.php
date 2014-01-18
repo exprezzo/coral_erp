@@ -2,10 +2,85 @@
 
 require_once $_PETICION->basePath.'/modelos/app.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/apps/app_pdf.php';
-
+require_once $_PETICION->basePath.'/modelos/aplicacion_empresa.php';
+require_once $_PETICION->basePath.'/modelos/menu.php';
 class apps extends Controlador{
 	var $modelo="app";	
 	
+	
+	
+	function instalar(){
+		$res=array(
+			'success'=>false,
+			'msg'=>'Instalacion en construccion'
+		);
+		$user=sessionGet('user');
+		$empresaId = $user['fk_ultima_empresa_logeada'];
+		$appId=$_POST['appId'];
+		
+		$moduloMod=new aplicacion_empresaModelo();
+		
+		global $DB_CONFIG;
+		$sql='USE '.$DB_CONFIG['DB_NAME'];
+		$moduloMod->ejecutarSql( $sql );
+		
+		$params=array(
+			'fk_empresa'=>$empresaId,
+			'fk_app'=>$appId
+		);
+		
+		// print_r( $params ); 
+		$res = $moduloMod->guardar( $params );
+		if ( $res['success'] ){
+			// $apps=$this->getAplicaciones($empresaId);
+			// sessionSet('aplicaciones', $apps);
+			$res['msg']='Aplicacion Instalada';
+			sessionSet('res', $res);
+			
+		}
+		
+		echo json_encode( $res ); 
+	}
+	
+	function desinstalar(){
+		$res=array(
+			'success'=>false,
+			'msg'=>'Desinstalacion en construccion'
+		);
+		$user=sessionGet('user');
+		$empresaId = $user['fk_ultima_empresa_logeada'];
+		$appId=$_POST['appId'];
+		
+		$moduloMod=new aplicacion_empresaModelo();
+		
+		global $DB_CONFIG;
+		$sql='USE '.$DB_CONFIG['DB_NAME'];
+		$moduloMod->ejecutarSql( $sql );
+		
+		$sql='SELECT id FROM erp_empresa_app WHERE fk_empresa='.intval($empresaId).' AND fk_app='.$appId;
+		$res = $moduloMod->ejecutarSql( $sql );
+		 
+		if ( sizeof( $res['datos'] )!=1 ){
+			$res=array(
+				'success'=>false,
+				'msg'=>'Error desinstalando'
+			);
+			return $res;
+		}
+		$idModulo=$res['datos'][0]['id'];
+		
+		$exito = $moduloMod->eliminar(array('id'=>$idModulo)  );
+		if ( $exito ){
+			// $apps=$this->getAplicaciones($empresaId);
+			// sessionSet('aplicaciones', $apps);
+			$res['msg']='Aplicacion Desinstalada';
+			$res['success']=true;
+			sessionSet('res', $res);
+			
+		}
+		
+		echo json_encode( $res ); 
+	}
 	
 	
 	function bajarPdf(){

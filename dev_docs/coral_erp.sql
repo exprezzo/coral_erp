@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2014-01-16 18:17:09
+Date: 2014-01-17 17:58:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,14 +28,26 @@ CREATE TABLE `constructor_app` (
   `descripcion` char(255) DEFAULT NULL,
   `tags` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of constructor_app
 -- ----------------------------
-INSERT INTO `constructor_app` VALUES ('8', 'Ventas', '', '', 'ventas_ico.png', '', '');
-INSERT INTO `constructor_app` VALUES ('9', 'Nomina', '', '', 'nomina_ico.png', 'Nomina Timbrada según lo establecido por el SAT', '');
-INSERT INTO `constructor_app` VALUES ('10', 'Inventarios', '/inventarios', '', 'warehouse.png', '', '');
+INSERT INTO `constructor_app` VALUES ('8', 'Ventas', '', '', '/circular/shop.png', 'Punto de venta', '');
+INSERT INTO `constructor_app` VALUES ('9', 'Nomina', '', '', 'circular/profle.png', 'Nomina Timbrada según lo establecido por el SAT', '');
+INSERT INTO `constructor_app` VALUES ('10', 'Inventarios', '/inventarios', '', 'circular/dolly.png', 'Control de movimiento de mercancia', '');
+INSERT INTO `constructor_app` VALUES ('11', 'Fletes', '', '', '/circular/truck.png', 'Carta porte, para empresas de transporte de mercancías', '');
+INSERT INTO `constructor_app` VALUES ('12', 'Comercio Electronico', '', '', 'circular/cart.png', 'Pagos en linea', '');
+INSERT INTO `constructor_app` VALUES ('13', 'Facturacion Electrónica', '', '', 'circular/document.png', 'Cumpliendo los requisitos del SAT, sistema para crear factura electronica', '');
+INSERT INTO `constructor_app` VALUES ('14', 'Encuestas', '', '', 'circular/pie_chart.png', 'Encuestas en linea', '');
+INSERT INTO `constructor_app` VALUES ('15', 'Maquinitas', '', '', 'circular/gamecontroller.png', 'Gestion de cortes de las maquinas de videojuegos', '');
+INSERT INTO `constructor_app` VALUES ('16', 'Citas', '', '', 'circular/calendar.png', 'Control de citas', '');
+INSERT INTO `constructor_app` VALUES ('17', 'CxP y CxC', '', '', 'circular/money.png', 'Cuentas por Cobrar y Cuentas por Pagar', '');
+INSERT INTO `constructor_app` VALUES ('18', 'CRM', '', '', 'circular/contacts.png', 'Gestion de relación con los clientes', '');
+INSERT INTO `constructor_app` VALUES ('19', 'Contabilidad', '', '', 'circular/calculator.png', 'Balance general, estado de resultados...', '');
+INSERT INTO `constructor_app` VALUES ('20', 'Renta de Rockolas', '', '', 'circular/speaker.png', 'Sistema de renta de Rockolas, (rutas, citas, recoleccion, pagos)', '');
+INSERT INTO `constructor_app` VALUES ('21', 'Taller de Servicio', '', '', 'circular/tools.png', 'Sistema para talleres (recepcion, reparacion, mano de obra, materia prima)', '');
+INSERT INTO `constructor_app` VALUES ('22', 'Criadero', '', '', 'circular/rabbit.png', 'Desde el nacimiento de la camada, el sacrificio, y la caducidad de la carne', '');
 
 -- ----------------------------
 -- Table structure for constructor_elemento_catalogo
@@ -207,14 +219,17 @@ CREATE TABLE `erp_empresa` (
   `colonia` char(255) NOT NULL,
   `codigo_postal` char(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of erp_empresa
 -- ----------------------------
 INSERT INTO `erp_empresa` VALUES ('42', 'Soluciones Triples Administrativas', '9 13 12 81', '', '', 'www.solucionestriples.com', 'Soluciones Tecnológicas', '', '1', '25', '2844', '', '', '', '', '', '', '');
-INSERT INTO `erp_empresa` VALUES ('43', 'Cone-Karne', '9 84 80 34', '', null, 'www.conecarne.com', 'Proveedor de Carne de Conejo', '', '1', '25', '2844', '', '', '', '', '', '', '');
+INSERT INTO `erp_empresa` VALUES ('43', 'Cone-Karne2', '9 84 80 34', '', '', 'www.conecarne.com', 'Proveedor de Carne de Conejo', '', '1', '25', '2844', '', '', '', '', '', '', '');
 INSERT INTO `erp_empresa` VALUES ('44', 'Diversiones Boomerang', '9 13 12 81', '', null, 'www.diversionesboomerang.com', 'Renta de Rockolas, mesas, sillas y manteles', '', '1', '25', '2844', '', '', '', '', '', '', '');
+INSERT INTO `erp_empresa` VALUES ('60', 'FertiCon', '', '', '', '', '', '', '1', '1', '2489', '', '', '', '', '', '', '');
+INSERT INTO `erp_empresa` VALUES ('61', 'Empresa Demo', '', '', '', '', '', '', '1', '1', '2489', '', '', '', '', '', '', '');
+INSERT INTO `erp_empresa` VALUES ('62', 'Empresa Demo', '', '', '', '', '', '', '1', '1', '2489', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for erp_empresa_aplicacion_status
@@ -239,17 +254,18 @@ CREATE TABLE `erp_empresa_app` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fk_empresa` int(11) DEFAULT NULL,
   `fk_app` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `status` int(11) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fk_empresa, fk_app` (`fk_empresa`,`fk_app`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of erp_empresa_app
 -- ----------------------------
-INSERT INTO `erp_empresa_app` VALUES ('1', '43', '9', '1');
-INSERT INTO `erp_empresa_app` VALUES ('2', '43', '8', '1');
-INSERT INTO `erp_empresa_app` VALUES ('3', '42', '8', '1');
-INSERT INTO `erp_empresa_app` VALUES ('4', '43', '10', '1');
+INSERT INTO `erp_empresa_app` VALUES ('6', '42', '8', '0');
+INSERT INTO `erp_empresa_app` VALUES ('39', '60', '8', '1');
+INSERT INTO `erp_empresa_app` VALUES ('40', '62', '8', '1');
+INSERT INTO `erp_empresa_app` VALUES ('42', '62', '17', '1');
 
 -- ----------------------------
 -- Table structure for erp_empresa_database
@@ -265,7 +281,7 @@ CREATE TABLE `erp_empresa_database` (
   PRIMARY KEY (`id`),
   KEY `empresa` (`fk_empresa`),
   CONSTRAINT `empresa` FOREIGN KEY (`fk_empresa`) REFERENCES `erp_empresa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of erp_empresa_database
@@ -273,6 +289,9 @@ CREATE TABLE `erp_empresa_database` (
 INSERT INTO `erp_empresa_database` VALUES ('30', 'localhost', 'erp_42_soluciones-triples-administrativas', 'root', '', '42');
 INSERT INTO `erp_empresa_database` VALUES ('32', '', '', '', '', '44');
 INSERT INTO `erp_empresa_database` VALUES ('33', 'localhost', 'erp_conecarne', 'root', '', '43');
+INSERT INTO `erp_empresa_database` VALUES ('42', 'localhost', 'erp_id60_ferticon', 'root', '', '60');
+INSERT INTO `erp_empresa_database` VALUES ('43', 'localhost', 'erp_id61_empresa_demo', 'root', '', '61');
+INSERT INTO `erp_empresa_database` VALUES ('44', 'localhost', 'erp_id62_empresa_demo', 'root', '', '62');
 
 -- ----------------------------
 -- Table structure for erp_usuario_empresa
@@ -284,14 +303,19 @@ CREATE TABLE `erp_usuario_empresa` (
   `fk_empresa` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `acceso` (`fk_usuario`,`fk_empresa`) USING BTREE COMMENT 'Acceso Duplicado'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `acceso` (`fk_usuario`,`fk_empresa`) USING BTREE COMMENT 'Acceso Duplicado',
+  KEY `fk_empresa` (`fk_empresa`),
+  CONSTRAINT `fk_usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `system_usuarios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_empresa` FOREIGN KEY (`fk_empresa`) REFERENCES `erp_empresa` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of erp_usuario_empresa
 -- ----------------------------
 INSERT INTO `erp_usuario_empresa` VALUES ('2', '192', '43', '1');
 INSERT INTO `erp_usuario_empresa` VALUES ('3', '102', '42', '1');
+INSERT INTO `erp_usuario_empresa` VALUES ('9', '193', '60', '1');
+INSERT INTO `erp_usuario_empresa` VALUES ('16', '194', '62', '1');
 
 -- ----------------------------
 -- Table structure for system_acl
@@ -459,6 +483,7 @@ CREATE TABLE `system_modulos` (
 -- ----------------------------
 INSERT INTO `system_modulos` VALUES ('2', 'Constructor', 'http://png-1.findicons.com/files/icons/2003/business/64/shopping_full.png', 'constructor', '/', '0');
 INSERT INTO `system_modulos` VALUES ('8', 'ERP', '', 'sistema', '/', '0');
+INSERT INTO `system_modulos` VALUES ('9', 'ventas', '', 'ventas', '/', '0');
 
 -- ----------------------------
 -- Table structure for system_pagina
@@ -3104,13 +3129,33 @@ CREATE TABLE `system_usuarios` (
   PRIMARY KEY (`id`,`fk_rol`),
   UNIQUE KEY `username` (`username`) USING BTREE,
   UNIQUE KEY `usuario` (`username`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=194 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `email` (`email`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of system_usuarios
 -- ----------------------------
-INSERT INTO `system_usuarios` VALUES ('16', 'admin', '098f6bcd4621d373cade4e832627b4f6', 'email@webmaster.com', 'Administrador del sistema', null, '2014-01-16 18:07:42', '0000-00-00 00:00:00', '1', '', '0', '0', '', null);
-INSERT INTO `system_usuarios` VALUES ('102', 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', null, '2014-01-16 17:49:51', '0000-00-00 00:00:00', '2', '', '0', '0', '', null);
-INSERT INTO `system_usuarios` VALUES ('192', 'cesar', '81dc9bdb52d04dc20036dbd8313ed055', 'cbibriesca@hotmail.com', 'Cesar Octavio', null, '2014-01-16 18:12:20', null, '2', '', '0', '0', '', '43');
-INSERT INTO `system_usuarios` VALUES ('193', 'octavio', '81dc9bdb52d04dc20036dbd8313ed055', 'runtim3.error@gmail.com', 'Octavio', null, '2014-01-16 18:12:33', null, '2', '', '0', '0', '', null);
+INSERT INTO `system_usuarios` VALUES ('16', 'admin', '098f6bcd4621d373cade4e832627b4f6', 'email@webmaster.com', 'Administrador del sistema', null, '2014-01-17 10:14:04', '0000-00-00 00:00:00', '1', '', '0', '0', '', null);
+INSERT INTO `system_usuarios` VALUES ('102', 'demo', '098f6bcd4621d373cade4e832627b4f6', 'demo', 'Usuario Demo', null, '2014-01-17 17:39:27', '0000-00-00 00:00:00', '2', '', '0', '0', '', '42');
+INSERT INTO `system_usuarios` VALUES ('192', 'cesar', '81dc9bdb52d04dc20036dbd8313ed055', 'cbibriesca@hotmail.com', 'Cesar Octavio', null, '2014-01-17 17:25:54', null, '2', '', '0', '0', '', '43');
+INSERT INTO `system_usuarios` VALUES ('193', 'octavio', '81dc9bdb52d04dc20036dbd8313ed055', 'runtim3.error@gmail.com', 'Octavio', null, '2014-01-17 17:36:09', null, '2', '', '0', '0', '', '60');
+INSERT INTO `system_usuarios` VALUES ('194', 'omar', '81dc9bdb52d04dc20036dbd8313ed055', 'omar@emnail.com', 'omar', null, '2014-01-17 17:37:17', null, '2', '', '0', '0', '', '0');
+
+-- ----------------------------
+-- Table structure for ventas_um
+-- ----------------------------
+DROP TABLE IF EXISTS `ventas_um`;
+CREATE TABLE `ventas_um` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` char(255) DEFAULT NULL,
+  `abreviacion` char(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ventas_um
+-- ----------------------------
+INSERT INTO `ventas_um` VALUES ('1', 'Kilo', 'kg');
+INSERT INTO `ventas_um` VALUES ('2', 'Pieza', 'pza');
+INSERT INTO `ventas_um` VALUES ('3', 'No Aplica', 'NA');

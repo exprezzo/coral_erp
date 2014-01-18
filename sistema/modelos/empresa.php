@@ -10,8 +10,8 @@ class empresaModelo extends Modelo{
 	"ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ",
 	"aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
 		$cadena = strtr($cadena,"ABCDEFGHIJKLMNOPQRSTUVWXYZ","abcdefghijklmnopqrstuvwxyz");
-		$cadena = preg_replace('#([^.a-z0-9]+)#i', '-', $cadena);
-			$cadena = preg_replace('#-{2,}#','-',$cadena);
+		$cadena = preg_replace('#([^.a-z0-9]+)#i', '_', $cadena);
+			$cadena = preg_replace('#-{2,}#','_',$cadena);
 			$cadena = preg_replace('#-$#','',$cadena);
 			$cadena = preg_replace('#^-#','',$cadena);
 		return $cadena;
@@ -310,7 +310,20 @@ class empresaModelo extends Modelo{
 			$obj['icon']='';
 		return $obj;
 	}
-	function obtener( $llave ){		
+	function obtener( $llave ){	
+		global $DB_CONFIG;		
+		$con = $this->getConexion();
+		
+		
+		$sql='USE '.$DB_CONFIG['DB_NAME'];				
+		$sth = $con->prepare($sql);	
+		$exito = $sth->execute();
+		
+		if ( !$exito ){
+			$error = $this->getError($sth);		
+			return $error;
+		}
+		
 		$sql = 'SELECT empresa.id, empresa.nombre, empresa.telefonos, empresa.logo, empresa.sitio_web, empresa.actividad, empresa.RFC, empresa.fk_pais, pais0.nombre AS nombre_fk_pais, empresa.fk_estado, estado1.nombre AS nombre_fk_estado, empresa.fk_municipio, municipio2.nombre AS nombre_fk_municipio, empresa.localidad, empresa.referencia, empresa.calle, empresa.numero_exterior, empresa.numero_interior, empresa.colonia, empresa.codigo_postal, empresa.icon
  FROM erp_empresa AS empresa
  LEFT JOIN system_ubicacion_paises AS pais0 ON pais0.id = empresa.fk_pais
@@ -355,7 +368,20 @@ class empresaModelo extends Modelo{
 	}
 	
 	function guardar( $datos ){
-	
+		//SE GUARDA EN EL MASTER		
+		global $DB_CONFIG;		
+		$con = $this->getConexion();
+		
+		
+		$sql='USE '.$DB_CONFIG['DB_NAME'];				
+		$sth = $con->prepare($sql);	
+		$exito = $sth->execute();
+		if ( !$exito ){
+			$error = $this->getError($sth);			
+			return $error;
+		}
+		
+		
 		$esNuevo=( empty( $datos['id'] ) )? true : false;			
 		$strCampos='';
 		
@@ -502,13 +528,45 @@ class empresaModelo extends Modelo{
 		
 		if ( $esNuevo ){
 			global $DB_CONFIG;
+			$empDbName = $this->string2url('erp_id'.$idObj.'_'.$datos['nombre']);
+			
+			//----------------------------------
+			//		crear una base de datos para esta empresa			
+			//COMPROBAR QUE LA BASE DE DATOS NO EXISTE
+			$sql='SHOW DATABASES LIKE "'.$empDbName.'" ';
+			$resActual = $this->ejecutarSql( $sql );
+			
+			if ( !$resActual['success'] ){			
+				return $resActual;
+			}
+			if ( sizeof($resActual['datos'])>0 ){
+				return array(
+					'success'=>false,
+					'msg'=>'La BD de la empresa ya existe'
+				);
+			}
+			
+			
+			$sql='CREATE DATABASE '.$empDbName;
+			// echo $sql; exit;
+			$resActual = $this->ejecutarSql( $sql );
+			if ( !$resActual['success'] ){			
+				return $resActual;
+			}
+			
+			
+			//----------------------------------------
+			
 			$conexion=array(
-				'db_name'=>$this->string2url('erp_id'.$idObj.'_'.$datos['nombre']),
+				'db_name'=> $empDbName,
 				'host'=>$DB_CONFIG['DB_SERVER'],
 				'user'=>$DB_CONFIG['DB_USER'],
-				'pass'=>$DB_CONFIG['DB_SERVER'],
+				'pass'=>$DB_CONFIG['DB_PASS'],
 			);
 			$datos['conexionDeEmpresas']=array($conexion);
+			
+			
+			
 		}
 			foreach( $datos['conexionDeEmpresas'] as $el ){
 				if ( !empty($el['eliminado']) ){
@@ -523,6 +581,8 @@ class empresaModelo extends Modelo{
 					$el['fk_empresa']=$idObj;
 					// if ( empty($concepto['nombre'])  )  continue;
 					$res = $conexionMod->guardar($el);
+					
+					
 				 }
 				//-----
 				//
@@ -533,8 +593,11 @@ class empresaModelo extends Modelo{
 				
 			}
 		
-		
 		$obj=$this->obtener( $idObj );
+		if ( $esNuevo ){
+			sessionSet('empresa', $obj);
+		}
+		
 		return array(
 			'success'=>true,
 			'datos'=>$obj,

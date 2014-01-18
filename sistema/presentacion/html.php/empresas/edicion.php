@@ -34,6 +34,9 @@ if ( !empty( $this->datos['id'] ) ){
 			$this->fk_municipio_listado = $objs['datos'];
 		}
 ?>
+<style type="text/css">
+.oculto{display:none;}
+</style>
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/edicion.js"></script>
 
 <script src="<?php echo $_PETICION->url_web; ?>js/catalogos/<?php echo $_PETICION->controlador; ?>/conexion_de_empresas.js"></script>
@@ -202,9 +205,13 @@ if ( !empty( $this->datos['id'] ) ){
 				
 				<?php 
 					$user=sessionGet( 'user' );
-					if ( $user['fk_rol']==='1' ){
+					if ( intval($user['fk_rol'])===1 ){
+						$clase='';
+					}else{
+						$clase='oculto';
+					}
 				?>
-				<div class="tabla contenedor_tabla_conexion " style="position: relative; margin-top: 26px;"  >
+				<div class="tabla contenedor_tabla_conexion <?php echo $clase; ?>" style="position: relative; margin-top: 26px;"  >
 					
 					<h1 class="tituloTabla" >Conexion</h1>
 					<div class="toolbar_detalles" style="">
@@ -219,9 +226,7 @@ if ( !empty( $this->datos['id'] ) ){
 						<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>&iquest;Eliminar Conexion?</p>
 					</div> 
 				</div>				
-				<?php
-					}
-				?>
+				
 				
 				<div class="inputBox contenedor_icon" style=""  >
 					<label style="">Icono:</label>

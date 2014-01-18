@@ -1,7 +1,63 @@
 <!DOCTYPE html>
 <?php
+	require_once $_PETICION->basePath.'/modelos/aplicacion_empresa.php';
+	require_once $_PETICION->basePath.'/modelos/menu.php';
+	require_once $_PETICION->basePath.'/modelos/app.php';
 	$user=sessionGet('user');	
 	$empresa = sessionGet('empresa');
+	
+	if ( !empty( $user['fk_ultima_empresa_logeada']) ){
+		$apps = getAplicaciones( $user['fk_ultima_empresa_logeada'] );
+		sessionSet('aplicaciones', $apps);
+	}
+	function getAplicaciones($empresaId){
+		global $DB_CONFIG;	
+		$modelo=new Modelo();
+		$con = $modelo->getConexion();
+		
+		
+		$sql='USE '.$DB_CONFIG['DB_NAME'];				
+		$sth = $con->prepare($sql);	
+		$exito = $sth->execute();
+		if ( !$exito ){
+			$error = $modelo->getError($sth);			
+			return $error;
+		}
+		//------------------------------------------------------------
+		//obtiene las aplicaciones y sus menus
+		$params=array('filtros'=>array(
+			array(
+				'dataKey'=>'fk_empresa',
+				'filterValue'=>$empresaId,
+				'filterOperator'=>'equals'
+			)
+		));
+		$appMod=new aplicacion_empresaModelo();
+		$resApps = $appMod->buscar( $params );
+		$aplicaciones = $resApps['datos'];
+		
+		$menuMod= new menuModelo();		
+		$appMod=new AppModelo();
+		// print_r( $aplicaciones );
+		for($i=0; $i<sizeof($aplicaciones); $i++){
+			$params=array(
+				'filtros'=>array(
+					array(
+						'dataKey'=>'fk_app',
+						'filterOperator'=>'equals',
+						'filterValue'=>$aplicaciones[$i]['fk_app']
+					)
+				)
+			);
+			
+			$app=$appMod->obtener( $aplicaciones[$i]['fk_app'] );
+			$aplicaciones[$i]=$app;
+			// print_r( $app );
+			$menus = $menuMod->buscar( $params );
+			$aplicaciones[$i]['menu'] = $menus['datos'];
+		}
+		return $aplicaciones;
+	}
 ?>
 
 <html lang="en">
