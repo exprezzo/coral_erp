@@ -101,9 +101,9 @@ class menuModelo extends Modelo{
 		if ($paginar){
 			$limit=$params['limit'];
 			$start=$params['start'];
-			$sql = 'SELECT menu.id, menu.titulo, menu.target, menu.es_menu_externo, menu.icon, menu.fk_menu, menu0.titulo AS titulo_fk_menu, menu.fk_app, app1.nombre AS nombre_fk_app FROM '.$this->tabla.' menu '.$joins.$filtros.' limit :start,:limit';
+			$sql = 'SELECT menu.id, menu.titulo, menu.target, menu.es_menu_externo, menu.icon, menu.fk_menu, menu0.titulo AS titulo_fk_menu, menu.fk_app, app1.nombre AS nombre_fk_app FROM '.$this->tabla.' menu '.$joins.$filtros.' ORDER by menu.orden limit :start,:limit';
 		}else{
-			$sql = 'SELECT menu.id, menu.titulo, menu.target, menu.es_menu_externo, menu.icon, menu.fk_menu, menu0.titulo AS titulo_fk_menu, menu.fk_app, app1.nombre AS nombre_fk_app FROM '.$this->tabla.' menu '.$joins.$filtros;
+			$sql = 'SELECT menu.id, menu.titulo, menu.target, menu.es_menu_externo, menu.icon, menu.fk_menu, menu0.titulo AS titulo_fk_menu, menu.fk_app, app1.nombre AS nombre_fk_app FROM '.$this->tabla.' menu '.$joins.$filtros.' order by menu.orden';
 		}
 				
 		$sth = $pdo->prepare($sql);

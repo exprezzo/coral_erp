@@ -17,6 +17,11 @@ class appModelo extends Modelo{
 				if ( $filtro['dataKey']=='nombre' ) {
 					$filtros .= ' app.nombre like :nombre OR ';
 				} 
+				
+				if ( $filtro['dataKey']=='nombre_interno' ) {
+					$filtros .= ' app.nombre_interno like :nombre_interno OR ';
+				} 
+				
 				if ( $filtro['dataKey']=='ubicacion' ) {
 					$filtros .= ' app.ubicacion like :ubicacion OR ';
 				} 
@@ -50,6 +55,11 @@ class appModelo extends Modelo{
 			if ( $filtro['dataKey']=='id' ) {
 				$sth->bindValue(':id','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
+			
+			if ( $filtro['dataKey']=='nombre_interno' ) {
+				$sth->bindValue(':nombre_interno','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}			
+			
 			if ( $filtro['dataKey']=='nombre' ) {
 				$sth->bindValue(':nombre','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
@@ -107,6 +117,11 @@ class appModelo extends Modelo{
 			if ( $filtro['dataKey']=='nombre' ) {
 				$sth->bindValue(':nombre','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
+			
+			if ( $filtro['dataKey']=='nombre_interno' ) {
+				$sth->bindValue(':nombre_interno','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
+			}
+						
 			if ( $filtro['dataKey']=='ubicacion' ) {
 				$sth->bindValue(':ubicacion','%'.$filtro['filterValue'].'%', PDO::PARAM_STR );
 			}
@@ -147,6 +162,7 @@ class appModelo extends Modelo{
 			$obj['id']='';
 			$obj['nombre']='';
 			$obj['ubicacion']='';
+			$obj['nombre_interno']='';			
 			$obj['logo']='';
 			$obj['favicon']='';
 			$obj['descripcion']='';
@@ -154,7 +170,7 @@ class appModelo extends Modelo{
 		return $obj;
 	}
 	function obtener( $llave ){		
-		$sql = 'SELECT app.id, app.nombre, app.ubicacion, app.logo, app.favicon, app.descripcion, app.tags
+		$sql = 'SELECT app.id,app.nombre_interno, app.nombre, app.ubicacion, app.logo, app.favicon, app.descripcion, app.tags
  FROM constructor_app AS app
   WHERE app.id=:id';
 		$pdo = $this->getConexion();
@@ -193,6 +209,11 @@ class appModelo extends Modelo{
 		if ( isset( $datos['ubicacion'] ) ){
 			$strCampos .= ' ubicacion=:ubicacion, ';
 		} 
+		
+		if ( isset( $datos['nombre_interno'] ) ){
+			$strCampos .= ' nombre_interno=:nombre_interno, ';
+		} 
+		
 		if ( isset( $datos['logo'] ) ){
 			$strCampos .= ' logo=:logo, ';
 		} 
@@ -229,6 +250,11 @@ class appModelo extends Modelo{
 		if  ( isset( $datos['ubicacion'] ) ){
 			$sth->bindValue(':ubicacion', $datos['ubicacion'] );
 		}
+		
+		if  ( isset( $datos['nombre_interno'] ) ){
+			$sth->bindValue(':nombre_interno', $datos['nombre_interno'] );
+		}
+				
 		if  ( isset( $datos['logo'] ) ){
 			$sth->bindValue(':logo', $datos['logo'] );
 		}
@@ -261,6 +287,33 @@ class appModelo extends Modelo{
 		
 		
 		$obj=$this->obtener( $idObj );
+		// if ( $esNuevo ){
+			//crea una carpeta para la aplicacion
+			$directorio = $obj['ubicacion'];		
+			if ( !file_exists($directorio)) {
+				mkdir($directorio,'0777', true);
+			}
+			//crea un sql vacio
+			$filename = $directorio.'/'.$obj['nombre_interno'].'.sql';
+			$sqlStr='';
+			if ( !file_exists( $filename ) ){
+				$handle = fopen($filename, "w");
+				$sqlStr= fwrite($handle, $sqlStr, strlen($sqlStr));
+				fclose($handle);
+			}
+			//crea un php para la aplicacion
+			//crea un sql vacio
+			$filename = $directorio.'/'.$obj['nombre_interno'].'.php';
+			$claseStr='<?php
+	class '.$obj['nombre_interno'].'App extends App{}
+?>';
+			if ( !file_exists( $filename ) ){
+				$handle = fopen($filename, "w");
+				$claseStr= fwrite($handle, $claseStr, strlen($claseStr));
+				fclose($handle);
+			}
+		// }
+		
 		return array(
 			'success'=>true,
 			'datos'=>$obj,

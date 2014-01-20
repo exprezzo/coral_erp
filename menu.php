@@ -40,8 +40,8 @@ if ( empty($user['fk_ultima_empresa_logeada']) ){
 
 ?>
 <ul class="nav nav-list" >
-	<li class="active open"> 
-		<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/paginas/inicio" class="dropdown-toggle">
+	<li class="<?php echo ( $_PETICION->modulo==='sistema' )? 'active open' : ''  ;  ?>"> 
+		<a href="<?php echo $_PETICION->url_app; ?>/paginas/inicio" class="dropdown-toggle">
 			<i class="icon-dashboard"></i>
 			<span class="menu-text">General</span>
 			<b class="arrow icon-angle-down"></b>
@@ -54,19 +54,19 @@ if ( empty($user['fk_ultima_empresa_logeada']) ){
 				</a>
 			</li>		
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/sucursales/buscar">
+				<a href="<?php echo $_PETICION->url_app; ?>/sistema/sucursales/buscar">
 					<i class="icon-double-angle-right"></i>
 					Sucursales
 				</a>
 			</li>	
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/apps/configuracion">
+				<a href="<?php echo $_PETICION->url_app; ?>/sistema/apps/configuracion">
 					<i class="icon-double-angle-right"></i>
 					Aplicaciones
 				</a>
 			</li>						
 			<li>
-				<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/perfil">
+				<a href="<?php echo $_PETICION->url_app; ?>/sistema/usuarios/perfil">
 					<i class="icon-double-angle-right"></i>
 					Perfil
 				</a>
@@ -76,8 +76,16 @@ if ( empty($user['fk_ultima_empresa_logeada']) ){
 	<?php
 		// echo 'asd';
 		// print_r( $aplicaciones );
+		
+		// print_r($aplicaciones); exit;	
+		
 		foreach($aplicaciones as $app){
 			// $app = $appMod->obtener($app['fk_app']);			
+			if ( $app['nombre_interno'] ===$_PETICION->modulo ){
+				$clase='active open';
+			}else{
+				$clase='';
+			}
 			$filtros=array(
 				'filtros'=>array(
 					array(
@@ -101,7 +109,7 @@ if ( empty($user['fk_ultima_empresa_logeada']) ){
 			}
 		    // print_r($menus);
 			foreach($menus as $menu){
-				$menuStr.='<li>
+				$menuStr.='<li >
 					<a href="'.$_PETICION->url_app.$menu['target'].'">
 						<i class="icon-double-angle-right"></i>
 						'.$menu['titulo'].'
@@ -116,7 +124,7 @@ if ( empty($user['fk_ultima_empresa_logeada']) ){
 			
 			
 			echo '
-			<li>
+			<li class="'.$clase.'">
 				
 				<a href="gallery.html" class="'.$claseSubmenus.'">
 					<i class="icon-gen" style="background-image:url('.$url_web_presentacion.'apps/'.$app['favicon'].')" ></i>

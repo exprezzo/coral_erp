@@ -386,7 +386,7 @@
 								</li>
 
 								<li>
-									<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/perfil">
+									<a href="<?php echo $_PETICION->url_app; ?>sistema/usuarios/perfil">
 										<i class="icon-user"></i>
 										Perfil
 									</a>
@@ -395,7 +395,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo $_PETICION->url_app.$_PETICION->modulo; ?>/usuarios/logout">
+									<a href="<?php echo $_PETICION->url_app; ?>sistema/usuarios/logout">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -600,8 +600,9 @@
 <?php
 function getUrlTema($tema){
 	$_TEMAS=array();
-	global $url_web_presentacion;
 	global $_PETICION;
+	$url_web_presentacion = $_PETICION->url_app.'sistema/presentacion/web/';
+	
 	// print_r($_PETICION);
 	// $_TEMAS['artic']="http://cdn.wijmo.com/themes/arctic/jquery-wijmo.css";
 	$_TEMAS['artic']=$url_web_presentacion. "css/artic/jquery-wijmo.css";

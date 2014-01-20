@@ -4,6 +4,8 @@ require_once $_PETICION->basePath.'/modelos/app.php';
 require_once $_PETICION->basePath.'/presentacion/html.php/apps/app_pdf.php';
 require_once $_PETICION->basePath.'/modelos/aplicacion_empresa.php';
 require_once $_PETICION->basePath.'/modelos/menu.php';
+require_once $_PETICION->basePath.'/aplicacion.php';
+
 class apps extends Controlador{
 	var $modelo="app";	
 	
@@ -31,11 +33,26 @@ class apps extends Controlador{
 		
 		// print_r( $params ); 
 		$res = $moduloMod->guardar( $params );
+		
+		
+		
 		if ( $res['success'] ){
 			// $apps=$this->getAplicaciones($empresaId);
 			// sessionSet('aplicaciones', $apps);
 			$res['msg']='Aplicacion Instalada';
 			sessionSet('res', $res);
+			$mod= $this->getModelo();
+			$app=$mod->obtener($appId);
+			
+			$conexion = sessionGet('DB_CONFIG');
+			$sql='USE '.$conexion['DB_NAME'];		
+			$moduloMod->ejecutarSql( $sql );
+			$nombreInterno=$app['nombre_interno'];
+			$ubicacion = $app['ubicacion'];
+			require_once $ubicacion.'/'.$nombreInterno.'.php';
+			$nombreClase=$nombreInterno.'App';
+			$app = new $nombreClase();			
+			$app->instalar( $ubicacion, $nombreInterno );
 			
 		}
 		

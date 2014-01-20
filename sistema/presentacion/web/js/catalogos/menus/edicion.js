@@ -11,7 +11,7 @@
 			width:300,
 			minLength:1,
 			autoFilter:false,	
-			forceSelectionText:true,
+			forceSelectionText:false,
 			select : function (e, data) {						
 			},
 			search: function (e, obj) { 						

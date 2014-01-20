@@ -82,6 +82,10 @@
 					<label style="">Ubicacion:</label>
 					<input title="Ubicacion" type="text" name="ubicacion" class="entradaDatos" value="<?php echo $this->datos['ubicacion']; ?>" style="width:500px;" />
 				</div>
+				<div class="inputBox contenedor_ubicacion" style=""  >
+					<label style="">Nombre Interno:</label>
+					<input title="Nombre Interno" type="text" name="nombre_interno" class="entradaDatos" value="<?php echo $this->datos['nombre_interno']; ?>" style="width:500px;" />
+				</div>				
 				<div class="inputBox contenedor_logo" style=""  >
 					<label style="">Logo:</label>
 					<input title="Logo" type="text" name="logo" class="entradaDatos" value="<?php echo $this->datos['logo']; ?>" style="width:500px;" />

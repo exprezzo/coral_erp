@@ -565,7 +565,7 @@ class empresaModelo extends Modelo{
 			);
 			$datos['conexionDeEmpresas']=array($conexion);
 			
-			
+			sessionSet('DB_CONFIG', $conexion);
 			
 		}
 			foreach( $datos['conexionDeEmpresas'] as $el ){
